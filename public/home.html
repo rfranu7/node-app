@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSTS</title>
+    <link rel="stylesheet" href="stylesheets/main.css">
+</head>
+<body>
+    
+    <p class="title">TELL US ABOUT YOUR ITEM</p>
+    <form action="getRate" method="POST">
+        <label for="itemWeight">Weight</label>
+        <input type="number" name="itemWeight" id="itemWeight" required>
+
+        <label for="mailType">Type of Mail</label>
+        <select name="mailType" id="mailType" required>
+            <option value="" selected disabled>Select Type of Mail</option>
+            <option value="1">Letters (stamped)</option>
+            <option value="2">Letters (metered)</option>
+            <option value="3">Large Envelopes (Flats)</option>
+            <option value="4">First-Class Package Service Retail</option>
+        </select>
+
+        <label for="from">From (zip code)</label>
+        <input type="text" name="from" id="from">
+        
+        <label for="to">To (zip code)</label>
+        <input type="text" name="to" id="to">
+
+        <button class="btn">Get Rate</button>
+    </form>
+
+</body>
+</html>
