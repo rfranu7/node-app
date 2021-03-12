@@ -22,6 +22,7 @@
                 return response.json();
             }).then(function (data) {
                 console.log(data);
+                generateTable(data, parentElement);
             }).catch(function (err) {
                 console.warn('Something went wrong.', err);
             });

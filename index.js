@@ -3,19 +3,21 @@ const { Pool } = require('pg');
 
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
+const cors = require('cors');
 
 const express = require('express');
-const path = require('path')
-const PORT = process.env.PORT || 5000
+const path = require('path');
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
 app
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
+  .use(express.static(path.join(__dirname, 'public')));
+  .set('views', path.join(__dirname, 'views'));
   .set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
