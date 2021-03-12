@@ -9,28 +9,22 @@
 </head>
 <body>
     
-    <p class="title">TELL US ABOUT YOUR ITEM</p>
-    <form action="getRate" method="POST">
-        <label for="itemWeight">Weight</label>
-        <input type="number" name="itemWeight" id="itemWeight" required>
+    <button id="list-engagement" class="btn">Get Engagements</button>
+    <div class="display"></div>
 
-        <label for="mailType">Type of Mail</label>
-        <select name="mailType" id="mailType" required>
-            <option value="" selected disabled>Select Type of Mail</option>
-            <option value="1">Letters (stamped)</option>
-            <option value="2">Letters (metered)</option>
-            <option value="3">Large Envelopes (Flats)</option>
-            <option value="4">First-Class Package Service Retail</option>
-        </select>
-
-        <label for="from">From (zip code)</label>
-        <input type="text" name="from" id="from">
-        
-        <label for="to">To (zip code)</label>
-        <input type="text" name="to" id="to">
-
-        <button class="btn">Get Rate</button>
-    </form>
+    <script>
+        const BASE_URL = "https://afternoon-dawn-87591.herokuapp.com/";
+        const btn = document.getElementById("list-engagement");
+        btn.addEventListener("click", (e) => {
+            fetch(BASE_URL+"list-engagement").then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+            }).catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
+        });
+    </script>
 
 </body>
 </html>
