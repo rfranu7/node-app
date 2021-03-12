@@ -12,6 +12,11 @@ h1 {
   gap: 2rem;
 }
 
+.header-row {
+  text-align: center;
+}
+
+/* ENGAGEMENT TABLE STYLING */
 #engagement-display div {
   margin-top: 2rem;
 }
@@ -21,10 +26,23 @@ h1 {
   border: 1px solid #333;
   border-left: none;
 }
-.header-row {
-  text-align: center;
-}
 #engagement-display div section p {
+  margin: 0;
+  padding: .5rem;
+  border-left: 1px solid #333;
+}
+
+/* PLAN TABLE STYLING */
+#plan-display div {
+  margin-top: 2rem;
+}
+#plan-display div section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid #333;
+  border-left: none;
+}
+#plan-display div section p {
   margin: 0;
   padding: .5rem;
   border-left: 1px solid #333;

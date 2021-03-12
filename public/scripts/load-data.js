@@ -13,7 +13,7 @@ engagementListBtn.addEventListener("click", (e) => {
         return response.json();
     }).then(function (data) {
         console.log(data);
-        generateTable(data, engagementDisplay);
+        generateEngagementTable(data, engagementDisplay);
     }).catch(function (err) {
         console.warn('Something went wrong.', err);
     });
@@ -24,13 +24,13 @@ planListBtn.addEventListener("click", (e) => {
         return response.json();
     }).then(function (data) {
         console.log(data);
-        generateTable(data, planDisplay);
+        generatePlanTable(data, planDisplay);
     }).catch(function (err) {
         console.warn('Something went wrong.', err);
     });
 });
 
-function generateTable(data, parentElement) {
+function generateEngagementTable(data, parentElement) {
     // reset table content
     parentElement.innerHTML = '';
 
@@ -47,6 +47,24 @@ function generateTable(data, parentElement) {
         const row = document.createElement('section');
         row.classList.add('row');
         row.innerHTML = `<p>${element.engagement_name}</p><p>${element.duration}</p><p>${formatter.format(element.total_fee)}</p>`;
+        table.appendChild(row);
+    });
+
+    parentElement.appendChild(table);
+}
+
+function generatePlanTable(data, parentElement) {
+    // reset table content
+    parentElement.innerHTML = '';
+
+    // create a table
+    const table = document.createElement('div');
+    table.innerHTML = "<section class='row header-row'><p>Name</p><p>Terms (months)</p></section>";
+
+    data.forEach(element => {
+        const row = document.createElement('section');
+        row.classList.add('row');
+        row.innerHTML = `<p>${element.plan_name}</p><p>${element.plan_terms}</p>`;
         table.appendChild(row);
     });
 

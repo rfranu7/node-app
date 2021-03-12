@@ -25,14 +25,13 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false }
 });
 
-
+// START API ENDPOINTS HERE ------>
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname,'public/home.html')));
 
 app.get('/list-engagements', async (req, res) => {
 
   dbConnect("SELECT * FROM engagements", (response) => {
-    console.log("inside callback function");
     console.log(response);
 
     res.setHeader("Content-Type", "application/json");
@@ -43,7 +42,6 @@ app.get('/list-engagements', async (req, res) => {
 app.get('/list-plans', async (req, res) => {
 
   dbConnect("SELECT * FROM payment_plans", (response) => {
-    console.log("inside callback function");
     console.log(response);
 
     res.setHeader("Content-Type", "application/json");
@@ -63,8 +61,6 @@ async function dbConnect(sql, callback) {
       if (err) {
         console.log(err.stack)
       } else {
-        console.log("logging from callback")
-        console.log(response.rows)
         callback(response.rows);
       }
     })
