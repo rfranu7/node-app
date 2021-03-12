@@ -10,11 +10,13 @@
 <body>
     
     <button id="list-engagement" class="btn">Get Engagements</button>
-    <div class="display"></div>
+    <div id="display"></div>
 
     <script>
         const BASE_URL = "https://afternoon-dawn-87591.herokuapp.com/";
         const btn = document.getElementById("list-engagement");
+        const parentElement = document.getElementById("display");
+
         btn.addEventListener("click", (e) => {
             fetch(BASE_URL+"list-engagements").then(function (response) {
                 return response.json();
@@ -24,6 +26,19 @@
                 console.warn('Something went wrong.', err);
             });
         });
+
+        function generateTable(data, parentElement) {
+
+            // create a table
+            const table = document.createElement('div');
+            table.innerHTML = "<section class='row'><p>Name</p><p>Duration</p><p>Total Amount</p></section>";
+
+            data.forEach(element => {
+                const row = document.createElement('section');
+                row.classList.add('row');
+                row.innerHTML = `<p>${element.engagement_name}</p><p>${element.duration}</p><p>${parseFloat(element.total_fee)}</p>`
+            });
+        }
     </script>
 
 </body>
