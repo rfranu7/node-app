@@ -2,10 +2,35 @@
   box-sizing: border-box;
 }
 
-.title {
-  font-size: 1.5rem;
+h1 {
   text-align: center;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+#engagement-display div {
+  margin-top: 2rem;
+}
+#engagement-display div section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid #333;
+  border-left: none;
+}
+.header-row {
+  text-align: center;
+}
+#engagement-display div section p {
+  margin: 0;
+  padding: .5rem;
+  border-left: 1px solid #333;
+}
+
+/* FORM STYLING */
 
 form, .btn-container {
   max-width: 500px;

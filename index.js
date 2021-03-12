@@ -38,8 +38,17 @@ app.get('/list-engagements', async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(response)
   });
+});
 
-  
+app.get('/list-plans', async (req, res) => {
+
+  dbConnect("SELECT * FROM payment_plans", (response) => {
+    console.log("inside callback function");
+    console.log(response);
+
+    res.setHeader("Content-Type", "application/json");
+    res.send(response)
+  });
 });
 
 
