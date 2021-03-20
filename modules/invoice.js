@@ -52,7 +52,6 @@ export default class Invoice {
                const element = filteredFields[index];
                const key = Object.keys(element);
                const value = filteredFields[index][key[0]];
-               const value2 = filteredFields[index].key[0];
 
                console.log(element);
                console.log(key);
