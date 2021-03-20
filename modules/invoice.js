@@ -10,11 +10,23 @@ export default class Invoice {
         dbWrite(sql, callback);
     }
 
+    async addInvoiceItems(invoice_id, item_description, item_amount, callback) {
+        var sql = `INSERT INTO invoice_items (invoice_id, item_description, item_amount) VALUES ('${invoice_id}', '${item_description}', '${item_amount}')`;
+        console.log(sql);
+        dbWrite(sql, callback);
+    }
+
     // UPDATE
     async updateInvoice(invoice_id, invoice_number, customer_id, engagement_id, due_date, sub_total, price_adjustments, total_amount, notes, callback) {
         var sql = `UPDATE ${tableName} SET invoice_number = ${invoice_number}, customer_id = ${customer_id}, engagement_id = ${engagement_id}, due_date = ${due_date}, sub_total = ${sub_total}, price_adjustments = ${price_adjustments}, total_amount = ${total_amount}, notes = ${notes} WHERE invoice_id = ${invoice_id}`;
         console.log(sql);
         dbWrite(sql, callback);
+    }
+
+    async updateInvoiceStatus(invoice_id, invoice_status, callback) {
+        var sql = `UPDATE ${tableName} SET invoice_status = ${invoice_status} WHERE invoice_id = ${invoice_id}`;
+        console.log(sql);
+        dbRead(sql, callback);
     }
 
     // GET
@@ -88,6 +100,12 @@ export default class Invoice {
 
         console.log(sql);
 
-        // dbRead(sql, callback);
+        dbRead(sql, callback);
+    }
+
+    async getInvoice(invoice_id, callback) {
+        var sql = `SELECT * FROM ${tableName} i JOIN invoice_items it ON i.invoice_id = it.invoice_id WHERE i.invoice_id = ${invoice_id}`;
+        console.log(sql);
+        dbRead(sql, callback);
     }
 }

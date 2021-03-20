@@ -50,7 +50,6 @@ export default class Customer {
 
     async findCustomerByEmail(email_address, callback) {
         var sql = `SELECT customer_id, email_address, first_name, last_name, birthday, account_status, customer_password FROM ${tableName} WHERE email_address = '${email_address}'`;
-        console.log(sql);
         dbRead(sql, callback);
     }
 

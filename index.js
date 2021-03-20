@@ -4,7 +4,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import * as path from 'path';
-import { body, param, validationResult } from 'express-validator';
+import { body, validationResult } from 'express-validator';
+import session from 'express-session';
 import bcrypt from 'bcrypt';
 
 // IMPORT CUSTOM MODULES
@@ -25,6 +26,11 @@ app
   .set('view engine', 'ejs');
 
 app.use(bodyParser.json());
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
 app.use(cors());
 
 // INITIALIZE CLASSES
@@ -36,6 +42,7 @@ const plans = new PaymentPlan();
 // START API ENDPOINTS HERE ------>
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname,'public/home.html')));
+app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.html')));
 
 
 /*************************************************
@@ -251,6 +258,42 @@ app.get('/list-customers', async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(response)
   });
+});
+
+// LOGIN
+app.post('/auth',
+  body('email_address').isEmail(),
+  body('password').isLength({ min: 6 }),
+  async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors);
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const data = req.body;
+
+    if(data.email_address && data.password) {
+      customer.findCustomerByEmail(data.email_address, (response) => {
+        if(response.length >= 1) {
+
+          const verify = checkPassword(data.password, response.customer_password);
+          if(verify) {
+            delete response.customer_password;
+            console.log(response);
+
+            req.session.loggedin = true;
+            req.session.user = response;
+            res.redirect('/')
+            res.end();
+          } else {
+            return res.status(401).send({success: false, message: 'Email address and password provided is invalid'});
+          }
+        }
+      });
+    }
+
 });
 
 /*************************************************
