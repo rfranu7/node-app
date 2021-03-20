@@ -297,7 +297,7 @@ app.get('/list-invoices', async (req, res) => {
   const params = req.query;
   console.log(params);
 
-  filters = {};
+  const filters = {};
 
   if(params.start) {
     filters.start = params.start;
