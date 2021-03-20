@@ -49,6 +49,9 @@ app.post('/enroll-customer',
   }
 
   const email_exists = await customer.findCustomerByEmail(data.email_address)
+  console.log("checking email");
+  console.log(email_exists);
+
   if (email_exists) {
     return Promise.reject('E-mail already in use');
   }
@@ -59,7 +62,12 @@ app.post('/enroll-customer',
     console.log(response);
 
     res.setHeader("Content-Type", "application/json");
-    res.send(response)
+    if(response.rowCount >= 1) {
+      res.status(200).write({success: true});
+    } else {
+      res.status(500).write({success: false});
+    }
+
   });
 });
 

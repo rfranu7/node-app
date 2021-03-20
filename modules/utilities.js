@@ -29,7 +29,6 @@ export async function dbWrite(sql, callback) {
             if (err) {
                 console.log(err.stack)
             } else {
-                console.log(response)
                 callback(response);
             }
         })
