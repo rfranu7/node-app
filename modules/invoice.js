@@ -64,9 +64,9 @@ export default class Invoice {
                         sql += ` due_date <= '${value}'`;
                     } else if(key[0] == "status") {
                         sql += ` invoice_status = '${value}'`;
-                    } else if(key[0] == "end_date") {
+                    } else if(key[0] == "customer_id") {
                         sql += ` customer_id = ${value}`;
-                    } else if(key[0] == "end_date") {
+                    } else if(key[0] == "engagement_id") {
                         sql += ` engagement_id = ${value}`;
                     }
                 } else {
@@ -76,9 +76,9 @@ export default class Invoice {
                         sql += ` due_date <= '${value}'`;
                     } else if(key[0] == "status") {
                         sql += ` invoice_status = '${value}'`;
-                    } else if(key[0] == "end_date") {
+                    } else if(key[0] == "customer_id") {
                         sql += ` customer_id = ${value}`;
-                    } else if(key[0] == "end_date") {
+                    } else if(key[0] == "engagement_id") {
                         sql += ` engagement_id = ${value}`;
                     }
                     sql +=` AND`
