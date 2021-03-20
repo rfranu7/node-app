@@ -26,7 +26,7 @@ export default class Invoice {
         }
 
         if(start_date) {
-            sql += ` due_date >= ${start_date}`;
+            sql += ` due_date >= '${start_date}'`;
         }
 
         if(start_date && end_date) {
@@ -34,18 +34,18 @@ export default class Invoice {
         }
 
         if(end_date) {
-            sql += ` due_date <= ${end_date}`;
+            sql += ` due_date <= '${end_date}'`;
         }
 
-        if(end_date && status) {
+        if(start_date || end_date && status) {
             sql += ` AND`;
         }
         
         if(status) {
-            sql += ` invoice_status = ${status}`;
+            sql += ` invoice_status = '${status}'`;
         }
 
-        if(status && customer_id) {
+        if(start_date || end_date || status && customer_id) {
             sql += ` AND`;
         }
         
@@ -53,7 +53,7 @@ export default class Invoice {
             sql += ` customer_id = ${customer_id}`;
         }
 
-        if(customer_id && engagement_id) {
+        if(start_date || end_date || status || customer_id && engagement_id) {
             sql += ` AND`;
         }
 
