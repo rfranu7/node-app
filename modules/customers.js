@@ -48,7 +48,7 @@ export default class Customer {
     async checkDuplicateEmailOnUpdate(email_address, customer_id) {
         var sql = `SELECT email_address FROM ${tableName} WHERE email_address = '${email_address}' AND customer_id NOT IN(${customer_id})`;
         console.log(sql);
-        const res = await dbRead(sql);
+        const res = await dbReadAwait(sql);
         return res;
     }
 
