@@ -56,32 +56,31 @@ export default class Invoice {
                console.log(element);
                console.log(key);
                console.log(value);
-               console.log(value2);
 
                 if(index != filteredFields.length) {
                     if(key[0] == "start_date") {
-                        sql += ` due_date >= '${element.key[0]}'`;
+                        sql += ` due_date >= '${value}'`;
                     } else if(key[0] == "end_date") {
-                        sql += ` due_date <= '${element.key[0]}'`;
+                        sql += ` due_date <= '${value}'`;
                     } else if(key[0] == "status") {
-                        sql += ` invoice_status = '${element.key[0]}'`;
+                        sql += ` invoice_status = '${value}'`;
                     } else if(key[0] == "end_date") {
-                        sql += ` customer_id = ${element.key[0]}`;
+                        sql += ` customer_id = ${value}`;
                     } else if(key[0] == "end_date") {
-                        sql += ` engagement_id = ${element.key[0]}`;
+                        sql += ` engagement_id = ${value}`;
                     }
                     sql +=` AND`
                 } else {
                     if(key[0] == "start_date") {
-                        sql += ` due_date >= '${element.key[0]}'`;
+                        sql += ` due_date >= '${value}'`;
                     } else if(key[0] == "end_date") {
-                        sql += ` due_date <= '${element.key[0]}'`;
+                        sql += ` due_date <= '${value}'`;
                     } else if(key[0] == "status") {
-                        sql += ` invoice_status = '${element.key[0]}'`;
+                        sql += ` invoice_status = '${value}'`;
                     } else if(key[0] == "end_date") {
-                        sql += ` customer_id = ${element.key[0]}`;
+                        sql += ` customer_id = ${value}`;
                     } else if(key[0] == "end_date") {
-                        sql += ` engagement_id = ${element.key[0]}`;
+                        sql += ` engagement_id = ${value}`;
                     }
                 }
            }
