@@ -140,7 +140,9 @@ app.post('/update-customer',
   customer.findCustomerById(data.id, async (response) => {
     console.log(response);
     const customerData = response[0];
-    const updateData = {};
+    const updateData = {
+      id: data.id,
+    };
     
     if(data.email_address) {
       updateData.email_address = data.email_address;
@@ -175,13 +177,37 @@ app.post('/update-customer',
     console.log("udpated data");
     console.log(updateData);
 
-    customer.checkDuplicateEmailOnUpdate(data.email_address, data.id, (response) => {
-      console.log(response);
+    if(data.email_address) {
+      customer.checkDuplicateEmailOnUpdate(data.email_address, data.id, (response) => {
+        console.log(response);
 
-      if (!response == "undefined" && response.length >= 1) {
-        return res.status(409).send({success: false, message: 'email address already exists'});
-      }
-    });
+        if (!response == "undefined" && response.length >= 1) {
+          return res.status(409).send({success: false, message: 'email address already exists'});
+        }
+
+        customer.updateCustomer(updateData.id, updateData.first_name, updateData.last_name, updateData.email_address, updateData.birthday, updateData.account_status, (response) => {
+          console.log(response);
+  
+          res.setHeader("Content-Type", "application/json");
+          if(response.rowCount >= 1) {
+            return res.status(200).send({success: true, message: 'customer details successfully updated'});
+          } else {
+            return res.status(500).send({success: false, message: 'an error occured while updating the customer details'});
+          }
+        });
+      });
+    } else {
+      customer.updateCustomer(updateData.id, updateData.first_name, updateData.last_name, updateData.email_address, updateData.birthday, updateData.account_status, (response) => {
+        console.log(response);
+
+        res.setHeader("Content-Type", "application/json");
+        if(response.rowCount >= 1) {
+          return res.status(200).send({success: true, message: 'customer details successfully updated'});
+        } else {
+          return res.status(500).send({success: false, message: 'an error occured while updating the customer details'});
+        }
+      });
+    }
   });
 });
 
