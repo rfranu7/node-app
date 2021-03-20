@@ -38,34 +38,30 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname,'public/home.html'))
 app.post('/enroll-customer',
   body('first_name').not().isEmpty().trim().escape(),
   body('last_name').not().isEmpty().trim().escape(),
-  body('email_address').custom(value => {
-    return customer.findCustomerByEmail(value).then(customer => {
-      if (customer) {
-        return Promise.reject('E-mail already in use');
-      }
-    });
-  }), 
+  body('email_address').isEmail(), 
   async (req, res) => {
-  const data = req.body
 
-  console.log("data");
-  console.log(data);
+  const data = req.body
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const account_status = 'Inactive';
+  const email_exists = await customer.findCustomerByEmail(data.email_address)
+  if (email_exists) {
+    return Promise.reject('E-mail already in use');
+  }
 
+  const account_status = 'Inactive';
   const obj = {
     "first_name": data.first_name,
     "last_name": data.last_name,
     "email_address": data.email_address,
     "account_status": account_status,
+    "email_exists": email_exists,
   };
 
-  console.log(obj);
   res.setHeader("Content-Type", "application/json");
   res.send(obj);
 
