@@ -334,7 +334,7 @@ app.get('/list-invoices', async (req, res) => {
 
     res.setHeader("Content-Type", "application/json");
     res.send(response)
-  },params.start, params.end, params.status, params.customer, params.engagement);
+  }, filters.start, filters.end, filters.status, filters.customer, filters.engagement);
 });
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
