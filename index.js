@@ -54,18 +54,8 @@ app.post('/enroll-customer',
   }
 
   const account_status = 'Inactive';
-  const obj = {
-    "first_name": data.first_name,
-    "last_name": data.last_name,
-    "email_address": data.email_address,
-    "account_status": account_status,
-    "email_exists": email_exists,
-  };
 
-  res.setHeader("Content-Type", "application/json");
-  res.send(obj);
-
-  customer.enrollCustomer(req.first_name, req.last_name, req.email_address, account_status, (response) => {
+  customer.enrollCustomer(data.first_name, data.last_name, data.email_address, account_status, (response) => {
     console.log(response);
 
     res.setHeader("Content-Type", "application/json");
