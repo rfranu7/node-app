@@ -21,20 +21,6 @@ export async function dbRead(sql, callback) {
     })
 }
 
-export async function dbReadAwait(sql) {
-    pool.connect((err, client, done) => {
-        if (err) throw err
-        client.query(sql, (err, response) => {
-            done()
-            if (err) {
-                console.log(err.stack)
-            } else {
-                return response.rows;
-            }
-        })
-    })
-}
-
 export async function dbWrite(sql, callback) {
     pool.connect((err, client, done) => {
         if (err) throw err

@@ -11,7 +11,6 @@ import bcrypt from 'bcrypt';
 import Customer from './modules/customers.js';
 import Engagement from './modules/engagements.js';
 import PaymentPlan from './modules/payment-plans.js';
-import { callbackify } from 'util';
 
 dotenv.config();
 const saltRounds = 10;
@@ -57,7 +56,7 @@ app.post('/enroll-customer',
     console.log(response.length);
 
     if (response.length >= 1) {
-      res.status(409).send({success: false, message: 'email address already exists'});
+      return res.status(409).send({success: false, message: 'email address already exists'});
     }
 
     const account_status = 'Inactive';
@@ -67,10 +66,9 @@ app.post('/enroll-customer',
 
       res.setHeader("Content-Type", "application/json");
       if(response.rowCount >= 1) {
-        res.status(200).send({success: true, message: 'customer successfully created'});
-        res.end();
+        return res.status(200).send({success: true, message: 'customer successfully created'});
       } else {
-        res.status(500).send({success: false, message: 'an error occured while creating the customer'});
+        return res.status(500).send({success: false, message: 'an error occured while creating the customer'});
       }
     });
   });
@@ -109,14 +107,14 @@ app.post('/set-customer-password',
   
         res.setHeader("Content-Type", "application/json");
         if(response.rowCount >= 1) {
-          res.status(200).send({success: true, message: 'password successfully updated'});
+          return res.status(200).send({success: true, message: 'password successfully updated'});
         } else {
-          res.status(500).send({success: false, message: 'an error occured while updating the password'});
+          return res.status(500).send({success: false, message: 'an error occured while updating the password'});
         }
       });
 
     } else {
-      res.status(403).send({success: false, message: 'password was already updated'});
+      return res.status(403).send({success: false, message: 'password was already updated'});
     }
   });
 });
@@ -142,13 +140,48 @@ app.post('/update-customer',
   customer.findCustomerById(data.id, async (response) => {
     console.log(response);
     const customerData = response[0];
-
-    const duplicate = await customer.checkDuplicateEmailOnUpdate(data.email_address, data.id);
-    console.log(duplicate);
-
-    if (!duplicate == "undefined" && duplicate.length >= 1) {
-      res.status(409).send({success: false, message: 'email address already exists'});
+    const updateData = {};
+    
+    if(data.email_address) {
+      updateData.email_address = data.email_address;
+    } else {
+      updateData.email_address = customerData.email_address;
     }
+
+    if(data.first_name) {
+      updateData.first_name = data.first_name;
+    } else {
+      updateData.first_name = customerData.first_name;
+    }
+
+    if(data.last_name) {
+      updateData.last_name = data.last_name;
+    } else {
+      updateData.last_name = customerData.last_name;
+    }
+
+    if(data.birthday) {
+      updateData.birthday = data.birthday;
+    } else {
+      updateData.birthday = customerData.birthday;
+    }
+
+    if(data.account_status) {
+      updateData.account_status = data.account_status;
+    } else {
+      updateData.account_status = customerData.account_status;
+    }
+
+    console.log("udpated data");
+    console.log(updateData);
+
+    customer.checkDuplicateEmailOnUpdate(data.email_address, data.id, (response) => {
+      console.log(response);
+
+      if (!response == "undefined" && response.length >= 1) {
+        return res.status(409).send({success: false, message: 'email address already exists'});
+      }
+    });
   });
 });
 

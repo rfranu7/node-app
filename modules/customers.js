@@ -1,4 +1,4 @@
-import { dbRead, dbWrite, dbReadAwait } from "./utilities.js";
+import { dbRead, dbWrite } from "./utilities.js";
 const tableName = 'customers';
 
 export default class Customer {
@@ -15,20 +15,9 @@ export default class Customer {
         dbWrite(sql, callback);
     }
 
-    async updateCustomer(customer_id, array, callback) {
+    async updateCustomer(customer_id, first_name, last_name, email_address, birthday, account_status, callback) {
 
-        var queryString = '';
-        for (let index = 0; index < array.length; index++) {
-            const element = array[index];
-            if(index == array.length) {
-                const key = Object.keys(element);
-                queryString += `${key[0]} = ${element[key]}`;
-            } else {
-                queryString += `${key[0]} = ${element[key]},`;
-            }
-        }
-
-        var sql = `UPDATE ${tableName} SET ${queryString} WHERE customer_id = ${customer_id}`;
+        var sql = `UPDATE ${tableName} SET first_name = ${first_name}, last_name = ${last_name}, email_address = ${email_address}, birthday = ${birthday}, account_status = ${account_status} WHERE customer_id = ${customer_id}`;
         console.log(sql);
         dbWrite(sql, callback);
     }
@@ -45,11 +34,10 @@ export default class Customer {
         dbRead(sql, callback);
     }
 
-    async checkDuplicateEmailOnUpdate(email_address, customer_id) {
+    async checkDuplicateEmailOnUpdate(email_address, customer_id, callback) {
         var sql = `SELECT email_address FROM ${tableName} WHERE email_address = '${email_address}' AND customer_id NOT IN(${customer_id})`;
         console.log(sql);
-        const res = await dbReadAwait(sql);
-        return res;
+        dbRead(sql, callback);
     }
 
     async findCustomerByEmail(email_address, callback) {
