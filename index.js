@@ -165,7 +165,8 @@ app.post('/update-customer',
     if(data.birthday) {
       updateData.birthday = data.birthday;
     } else {
-      updateData.birthday = customerData.birthday;
+      const date = new Date(customerData.birthday)
+      updateData.birthday = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
     }
 
     if(data.account_status) {
