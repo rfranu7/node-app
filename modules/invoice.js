@@ -57,7 +57,7 @@ export default class Invoice {
                console.log(key);
                console.log(value);
 
-                if(index != filteredFields.length) {
+                if(index == (filteredFields.length-1)) {
                     if(key[0] == "start_date") {
                         sql += ` due_date >= '${value}'`;
                     } else if(key[0] == "end_date") {
@@ -69,7 +69,6 @@ export default class Invoice {
                     } else if(key[0] == "end_date") {
                         sql += ` engagement_id = ${value}`;
                     }
-                    sql +=` AND`
                 } else {
                     if(key[0] == "start_date") {
                         sql += ` due_date >= '${value}'`;
@@ -82,6 +81,7 @@ export default class Invoice {
                     } else if(key[0] == "end_date") {
                         sql += ` engagement_id = ${value}`;
                     }
+                    sql +=` AND`
                 }
            }
         }
