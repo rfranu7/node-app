@@ -101,7 +101,37 @@ update_customer.addEventListener("click", (e) => {
     });
 });
 
-document.addEventListener("load", (e) => {
+add_engagement.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const add_engagement_form = document.getElementById("add_engagement_form");
+    const formData = new FormData(add_engagement_form);
+
+    const data = JSON.stringify({
+        "customer_id": formData.get("customer_id"),
+        "engagement_id": formData.get("engagement_id")
+    });
+
+    fetch(BASE_URL + "add-engagement", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: data,
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log(data);
+        generateSuccessMessage(data, add_engagement_message);
+    }).catch(function (err) {
+        console.warn('Something went wrong.', err);
+    });
+});
+
+window.addEventListener("load", (e) => {
+
+    console.log(e);
+
     const customer_id_select = document.getElementById('customer_id_select');
     const engagement_id_select = document.getElementById('engagement_id_select');
 
@@ -136,17 +166,19 @@ function generateSuccessMessage(data, parentElement) {
 }
 
 function fillCustomerOptions(data, parentElement){
-    parentElement.innerHTML = '';
+    parentElement.innerHTML = '<option value="" selected disabled>Select Customer</option>';
 
     data.forEach(element => {
+        console.log(element);
         parentElement.innerHTML += `<option value="${element.customer_id}">${element.first_name} ${element.last_name}`;
     });
 }
 
 function fillEngagementOptions(data, parentElement){
-    parentElement.innerHTML = '';
+    parentElement.innerHTML = '<option value="" selected disabled>Select Engagement</option>';
 
     data.forEach(element => {
+        console.log(element);
         parentElement.innerHTML += `<option value="${element.engagement_id}">${element.engagement_name}`;
     });
 }
