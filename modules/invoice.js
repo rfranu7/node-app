@@ -1,7 +1,7 @@
 import { dbRead, dbWrite } from "./utilities.js";
 const tableName = 'invoices';
 
-export default class PaymentPlan {
+export default class Invoice {
 
     // INSERT
     async addInvoice(invoice_number, customer_id, engagement_id, due_date, sub_total, price_adjustments, total_amount, notes, callback) {

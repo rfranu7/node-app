@@ -11,6 +11,7 @@ import bcrypt from 'bcrypt';
 import Customer from './modules/customers.js';
 import Engagement from './modules/engagements.js';
 import PaymentPlan from './modules/payment-plans.js';
+import Invoice from './modules/invoice.js';
 
 dotenv.config();
 const saltRounds = 10;
@@ -27,16 +28,19 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // INITIALIZE CLASSES
-const engagement = new Engagement();
-const plans = new PaymentPlan();
 const customer = new Customer();
+const engagement = new Engagement();
+const invoice = new Invoice();
+const plans = new PaymentPlan();
 
 // START API ENDPOINTS HERE ------>
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname,'public/home.html')));
 
 
-// CUSTOMERS API
+/*************************************************
+* CUSTOMERS API 
+*************************************************/
 app.post('/enroll-customer',
   body('first_name').not().isEmpty().trim().escape(),
   body('last_name').not().isEmpty().trim().escape(),
@@ -58,7 +62,7 @@ app.post('/enroll-customer',
     if (response.length >= 1) {
       return res.status(409).send({success: false, message: 'email address already exists'});
     }
-
+    
     const account_status = 'Inactive';
 
     customer.enrollCustomer(data.first_name, data.last_name, data.email_address, account_status, (response) => {
@@ -249,7 +253,9 @@ app.get('/list-customers', async (req, res) => {
   });
 });
 
-// ENGAGEMENTS API
+/*************************************************
+* ENGAGEMENTS API 
+*************************************************/
 app.get('/add-engagement', async (req, res) => {
 
   engagement.addEngagement((response) => {
@@ -260,7 +266,7 @@ app.get('/add-engagement', async (req, res) => {
   });
 });
 
-app.get('/list-engagements?:start&:end&:status&:customer&:engagement', async (req, res) => {
+app.get('/list-engagements', async (req, res) => {
 
   console.log(req.params);
 
@@ -272,10 +278,25 @@ app.get('/list-engagements?:start&:end&:status&:customer&:engagement', async (re
   });
 });
 
-// PAYMENT PLANS API
+/*************************************************
+* PAYMENT PLANS API 
+*************************************************/
 app.get('/list-plans', async (req, res) => {
 
   plans.listPlans((response) => {
+    console.log(response);
+
+    res.setHeader("Content-Type", "application/json");
+    res.send(response)
+  });
+});
+
+/*************************************************
+* INVOICES API 
+*************************************************/
+app.get('/list-invoices?:start&:end&:status&:customer&:engagement', async (req, res) => {
+
+  invoice.listInvoices((response) => {
     console.log(response);
 
     res.setHeader("Content-Type", "application/json");
