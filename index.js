@@ -122,11 +122,12 @@ app.post('/set-customer-password',
 });
 
 app.post('/update-customer',
-  body('email_address').isEmail(),
+  body('email_address').isEmail().isEmpty(),
   body('first_name').escape(),
   body('last_name').escape(),
   body('birthday').isDate(),
-  body('account_staus').escape(),
+  body('account_status').escape(),
+  body('id').isInt(),
   async (req, res) => {
 
   const data = req.body
@@ -144,7 +145,7 @@ app.post('/update-customer',
 
     const duplicate = await customer.checkDuplicateEmailOnUpdate(data.email_address, data.id);
 
-    if (duplicate.length >= 1) {
+    if (!duplicate == "undefined" && duplicate.length >= 1) {
       res.status(409).send({success: false, message: 'email address already exists'});
     }
   });

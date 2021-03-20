@@ -7,8 +7,8 @@ const update_password = document.getElementById("update_password");
 const update_password_message = document.getElementById("update-password-message");
 
 // UPDATE CUSTOMER
-const update_customer = document.getElementById("update_password");
-const update_customer_message = document.getElementById("update-password-message");
+const update_customer = document.getElementById("update_customer");
+const update_customer_message = document.getElementById("update_customer_message");
 
 enroll_customer.addEventListener("click", (e) => {
     e.preventDefault();
@@ -69,8 +69,8 @@ update_password.addEventListener("click", (e) => {
 update_customer.addEventListener("click", (e) => {
     e.preventDefault();
 
-    const update_password_form = document.getElementById("update_password_form");
-    const formData = new FormData(update_password_form);
+    const update_customer_form = document.getElementById("update_customer_form");
+    const formData = new FormData(update_customer_form);
 
     const data = JSON.stringify({
         "email_address": formData.get("email_address"),
