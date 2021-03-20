@@ -39,15 +39,22 @@
             e.preventDefault();
 
             const enroll_customer_form = document.getElementById('enroll_customer_form');
-            const formData = new FormData(enroll_customer_form);            
+            const formData = new FormData(enroll_customer_form);
 
-            fetch(BASE_URL + "enroll-customer", {
+            const data = JSON.stringify({
+                "first_name": formData.get("first_name"),
+                "last_name": formData.get("last_name"),
+                "email_address": formData.get("email_address"),
+            });
+
+            const url = 'http://localhost:5000/'; 
+
+            fetch(url + "enroll-customer", {
                 method: 'POST',
-                mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: data,
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {

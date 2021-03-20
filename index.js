@@ -21,7 +21,7 @@ app
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(cors());
 
 // INITIALIZE CLASSES
@@ -44,9 +44,12 @@ app.post('/enroll-customer',
         return Promise.reject('E-mail already in use');
       }
     });
-  }),
+  }), 
   async (req, res) => {
-  const data = req.body;
+  const data = req.body
+
+  console.log("data");
+  console.log(data);
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -56,9 +59,9 @@ app.post('/enroll-customer',
   const account_status = 'Inactive';
 
   const obj = {
-    "first_name": req.first_name,
-    "last_name": req.last_name,
-    "email_address": req.email_address,
+    "first_name": data.first_name,
+    "last_name": data.last_name,
+    "email_address": data.email_address,
     "account_status": account_status,
   };
 
