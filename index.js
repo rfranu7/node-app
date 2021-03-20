@@ -65,12 +65,12 @@ app.post('/enroll-customer',
   res.setHeader("Content-Type", "application/json");
   res.send(obj);
 
-  // customer.enrollCustomer(req.first_name, req.last_name, req.email_address, account_status, (response) => {
-  //   console.log(response);
+  customer.enrollCustomer(req.first_name, req.last_name, req.email_address, account_status, (response) => {
+    console.log(response);
 
-  //   res.setHeader("Content-Type", "application/json");
-  //   res.send(response)
-  // });
+    res.setHeader("Content-Type", "application/json");
+    res.send(response)
+  });
 });
 
 // ENGAGEMENTS API
