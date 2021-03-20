@@ -117,9 +117,9 @@ app.post('/set-customer-password',
         } else {
           res.status(500).send({success: false, message: 'an error occured while updating the password'});
         }
+        
+        console.log("skipped password update");
       });
-
-      console.log("skipped password update");
 
     } else {
       res.status(403).send({success: false, message: 'password was already updated'});
