@@ -122,11 +122,11 @@ app.post('/set-customer-password',
 });
 
 app.post('/update-customer',
-  body('email_address').isEmail().isEmpty(),
-  body('first_name').escape(),
-  body('last_name').escape(),
-  body('birthday').isDate(),
-  body('account_status').escape(),
+  body('email_address').isEmail().optional(),
+  body('first_name').escape().optional(),
+  body('last_name').escape().optional(),
+  body('birthday').isDate().optional(),
+  body('account_status').escape().optional(),
   body('id').isInt(),
   async (req, res) => {
 
