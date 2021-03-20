@@ -281,11 +281,11 @@ app.post('/auth',
 
           const verify = checkPassword(data.password, response[0].customer_password);
           if(verify) {
-            delete response.customer_password;
+            delete response[0].customer_password;
             console.log(response);
 
             req.session.loggedin = true;
-            req.session.user = response;
+            req.session.user = response[0];
             res.redirect('/')
             res.end();
           } else {
