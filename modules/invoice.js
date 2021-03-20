@@ -57,28 +57,28 @@ export default class Invoice {
 
                 if(index != filteredFields.length) {
                     if(key == "start_date") {
-                        sql += ` due_date >= '${filteredFields[element.key]}'`;
+                        sql += ` due_date >= '${element.key}'`;
                     } else if(key == "end_date") {
-                        sql += ` due_date <= '${filteredFields[element.key]}'`;
+                        sql += ` due_date <= '${element.key}'`;
                     } else if(key == "status") {
-                        sql += ` invoice_status = '${filteredFields[element.key]}'`;
+                        sql += ` invoice_status = '${element.key}'`;
                     } else if(key == "end_date") {
-                        sql += ` customer_id = ${filteredFields[element.key]}`;
+                        sql += ` customer_id = ${element.key}`;
                     } else if(key == "end_date") {
-                        sql += ` engagement_id = ${filteredFields[element.key]}`;
+                        sql += ` engagement_id = ${element.key}`;
                     }
                     sql +=` AND`
                 } else {
                     if(key == "start_date") {
-                        sql += ` due_date >= '${filteredFields[element.key]}'`;
+                        sql += ` due_date >= '${element.key}'`;
                     } else if(key == "end_date") {
-                        sql += ` due_date <= '${filteredFields[element.key]}'`;
+                        sql += ` due_date <= '${element.key}'`;
                     } else if(key == "status") {
-                        sql += ` invoice_status = '${filteredFields[element.key]}'`;
+                        sql += ` invoice_status = '${element.key}'`;
                     } else if(key == "end_date") {
-                        sql += ` customer_id = ${filteredFields[element.key]}`;
+                        sql += ` customer_id = ${element.key}`;
                     } else if(key == "end_date") {
-                        sql += ` engagement_id = ${filteredFields[element.key]}`;
+                        sql += ` engagement_id = ${element.key}`;
                     }
                 }
            }
