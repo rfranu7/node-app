@@ -33,14 +33,33 @@ export default class Customer {
         dbWrite(sql, callback);
     }
 
+    // READ
+    async listCustomers(callback) {
+        var sql = `SELECT * FROM ${tableName}`;
+        dbRead(sql, callback);
+    }
+
     async checkDuplicateEmail(email_address, callback) {
         var sql = `SELECT email_address FROM ${tableName} WHERE email_address = '${email_address}'`;
         console.log(sql);
         dbRead(sql, callback);
     }
 
+    async checkDuplicateEmailOnUpdate(email_address, customer_id) {
+        var sql = `SELECT email_address FROM ${tableName} WHERE email_address = '${email_address}' AND customer_id NOT IN(${customer_id})`;
+        console.log(sql);
+        const res = await dbRead(sql);
+        return res;
+    }
+
     async findCustomerByEmail(email_address, callback) {
         var sql = `SELECT customer_id, email_address, first_name, last_name, birthday, account_status, customer_password FROM ${tableName} WHERE email_address = '${email_address}'`;
+        console.log(sql);
+        dbRead(sql, callback);
+    }
+
+    async findCustomerById(customer_id, callback) {
+        var sql = `SELECT customer_id, email_address, first_name, last_name, birthday, account_status, customer_password FROM ${tableName} WHERE customer_id = '${customer_id}'`;
         console.log(sql);
         dbRead(sql, callback);
     }

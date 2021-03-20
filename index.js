@@ -88,7 +88,6 @@ app.post('/set-customer-password',
   async (req, res) => {
 
   const data = req.body
-  console.log(data);
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -98,7 +97,6 @@ app.post('/set-customer-password',
 
   customer.findCustomerByEmail(data.email_address, (response) => {
     console.log("checking email");
-    console.log(response);
     const customerData = response[0];
 
     if(customerData.account_status == "Inactive") {
@@ -106,8 +104,6 @@ app.post('/set-customer-password',
 
       // HASH PASSWORD
       const hash = hashpassword(data.password, saltRounds);
-      console.log(hash);
-
       customer.updateCustomerPassword(customerData.customer_id, hash, (response) => {
         console.log(response);
   
@@ -117,13 +113,50 @@ app.post('/set-customer-password',
         } else {
           res.status(500).send({success: false, message: 'an error occured while updating the password'});
         }
-        
-        console.log("skipped password update");
       });
 
     } else {
       res.status(403).send({success: false, message: 'password was already updated'});
     }
+  });
+});
+
+app.post('/update-customer',
+  body('email_address').isEmail(),
+  body('first_name').escape(),
+  body('last_name').escape(),
+  body('birthday').isDate(),
+  body('account_staus').escape(),
+  async (req, res) => {
+
+  const data = req.body
+  console.log(data);
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  customer.findCustomerById(data.id, async (response) => {
+    console.log(response);
+    const customerData = response[0];
+
+    const duplicate = await customer.checkDuplicateEmailOnUpdate(data.email_address, data.id);
+
+    if (duplicate.length >= 1) {
+      res.status(409).send({success: false, message: 'email address already exists'});
+    }
+  });
+});
+
+app.get('/list-customers', async (req, res) => {
+
+  customer.listCustomers((response) => {
+    console.log(response);
+
+    res.setHeader("Content-Type", "application/json");
+    res.send(response)
   });
 });
 
