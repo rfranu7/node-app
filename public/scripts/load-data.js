@@ -59,7 +59,7 @@ invoiceListBtn.addEventListener("click", (e) => {
         query += `end=${formData.get("end_date")}`;
     }
 
-    if(formData.get("end_date") && formData.get("status")) {
+    if(formData.get("start_date") || formData.get("end_date") && formData.get("status")) {
         query += `&`;
     }
     
@@ -67,7 +67,7 @@ invoiceListBtn.addEventListener("click", (e) => {
         query += `status=${formData.get("status")}`;
     }
 
-    if(formData.get("status") && formData.get("customer_id")) {
+    if(formData.get("start_date") || formData.get("end_date") || formData.get("status") && formData.get("customer_id")) {
         query += `&`;
     }
     
@@ -75,7 +75,7 @@ invoiceListBtn.addEventListener("click", (e) => {
         query += `customer=${formData.get("customer_id")}`;
     }
 
-    if(formData.get("customer_id") && formData.get("engagement_id")) {
+    if(formData.get("start_date") || formData.get("end_date") || formData.get("status") || formData.get("customer_id") && formData.get("engagement_id")) {
         query += `&`;
     }
     

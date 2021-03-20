@@ -20,45 +20,63 @@ export default class Invoice {
     // GET
     async listInvoices(callback, start_date = null, end_date = null, status = null, customer_id = null, engagement_id = null) {
         var sql = `SELECT * FROM ${tableName}`;
-
-        if(start_date || end_date || status || customer_id || engagement_id) {
-            sql += ` WHERE`;
-        }
-
-        if(start_date) {
-            sql += ` due_date >= '${start_date}'`;
-        }
-
-        if(start_date && end_date) {
-            sql += ` AND`;
-        }
-
-        if(end_date) {
-            sql += ` due_date <= '${end_date}'`;
-        }
-
-        if(start_date || end_date && status) {
-            sql += ` AND`;
+        
+        var filteredFields = [];
+        
+        if(!start_date == null) {
+            filteredFields.append({"start_date": start_date});
         }
         
-        if(status) {
-            sql += ` invoice_status = '${status}'`;
+        if(!end_date == null) {
+            filteredFields.append({"end_date": end_date});
         }
 
-        if(start_date || end_date || status && customer_id) {
-            sql += ` AND`;
-        }
-        
-        if(customer_id) {
-            sql += ` customer_id = ${customer_id}`;
+        if(!status == null) {
+            filteredFields.append({"status": status});
         }
 
-        if(start_date || end_date || status || customer_id && engagement_id) {
-            sql += ` AND`;
+        if(!customer_id == null) {
+            filteredFields.append({"customer_id": customer_id});
         }
 
-        if(engagement_id) {
-            sql += ` engagement_id = ${engagement_id}`;
+        if(!engagement_id == null) {
+            filteredFields.append({"engagement_id": engagement_id});
+        }
+
+        if(filteredFields.length >= 1) {
+           sql += `WHERE`;
+           
+           for (let index = 0; index < filteredFields.length; index++) {
+               const element = filteredFields[index];
+               const key = Object.keys(element);
+
+                if(index != filteredFields.length) {
+                    if(key == "start_date") {
+                        sql += ` due_date >= '${filteredFields.element}'`;
+                    } else if(key == "end_date") {
+                        sql += ` due_date <= '${filteredFields.element}'`;
+                    } else if(key == "status") {
+                        sql += ` invoice_status = '${filteredFields.element}'`;
+                    } else if(key == "end_date") {
+                        sql += ` customer_id = ${filteredFields.element}`;
+                    } else if(key == "end_date") {
+                        sql += ` engagement_id = ${filteredFields.element}`;
+                    }
+                    sql +=` AND`
+                } else {
+                    if(key == "start_date") {
+                        sql += ` due_date >= '${filteredFields.element}'`;
+                    } else if(key == "end_date") {
+                        sql += ` due_date <= '${filteredFields.element}'`;
+                    } else if(key == "status") {
+                        sql += ` invoice_status = '${filteredFields.element}'`;
+                    } else if(key == "end_date") {
+                        sql += ` customer_id = ${filteredFields.element}`;
+                    } else if(key == "end_date") {
+                        sql += ` engagement_id = ${filteredFields.element}`;
+                    }
+                }
+           }
         }
 
         console.log(sql);
