@@ -51,9 +51,8 @@ app.post('/enroll-customer',
   customer.findCustomerByEmail(data.email_address, (response) => {
     console.log("checking email");
     console.log(response);
-    const email_exists = response[0];
 
-    if (email_exists) {
+    if (response.length >= 1) {
       res.status(409).send({success: false, message: 'email address already exists'});
     }
 
