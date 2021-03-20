@@ -9,12 +9,9 @@ export default class Customer {
         dbWrite(sql, callback);
     }
 
-    async findCustomerByEmail(email_address) {
+    async findCustomerByEmail(email_address, callback) {
         var sql = `SELECT email_address FROM ${tableName} WHERE email_address = '${email_address}'`;
         console.log(sql);
-        dbRead(sql, (response) => {
-            console.log(response);
-            return response;
-        });
+        dbRead(sql, callback);
     }
 }
