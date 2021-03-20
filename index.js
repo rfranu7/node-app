@@ -105,7 +105,8 @@ app.post('/set-customer-password',
       console.log("update password");
 
       // HASH PASSWORD
-      hash = hashpassword(data.password, salt);
+      const hash = hashpassword(data.password, salt);
+      console.log(hash);
 
       customer.updateCustomerPassword(customerData.customer_id, hash, (response) => {
         console.log(response);
@@ -117,6 +118,8 @@ app.post('/set-customer-password',
           res.status(500).send({success: false, message: 'an error occured while updating the password'});
         }
       });
+
+      console.log("skipped password update");
 
     } else {
       res.status(403).send({success: false, message: 'password was already updated'});

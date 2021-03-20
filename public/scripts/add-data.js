@@ -56,7 +56,7 @@ update_password.addEventListener("click", (e) => {
         return response.json();
     }).then(function (data) {
         console.log(data);
-        generateSuccessMessage(data, enroll_message);
+        generateSuccessMessage(data, update_password_message);
     }).catch(function (err) {
         console.warn('Something went wrong.', err);
     });
