@@ -74,7 +74,7 @@ app.post('/enroll-customer',
   });
 });
 
-app.post('/add-engagement',
+app.post('/add-customer-engagement',
   body('customer_id').isInt(),
   body('engagement_id').isInt(),
   async (req, res) => {
@@ -99,6 +99,7 @@ app.post('/add-engagement',
 
 });
 
+// UPDATE
 app.post('/set-customer-password',
   body('email_address').isEmail(),
   body('password').isLength({ min: 6 }),
@@ -237,6 +238,7 @@ app.post('/update-customer',
   });
 });
 
+// GET
 app.get('/list-customers', async (req, res) => {
 
   customer.listCustomers((response) => {
@@ -248,7 +250,19 @@ app.get('/list-customers', async (req, res) => {
 });
 
 // ENGAGEMENTS API
-app.get('/list-engagements', async (req, res) => {
+app.get('/add-engagement', async (req, res) => {
+
+  engagement.addEngagement((response) => {
+    console.log(response);
+
+    res.setHeader("Content-Type", "application/json");
+    res.send(response)
+  });
+});
+
+app.get('/list-engagements?:start&:end&:status&:customer&:engagement', async (req, res) => {
+
+  console.log(req.params);
 
   engagement.listEngagements((response) => {
     console.log(response);

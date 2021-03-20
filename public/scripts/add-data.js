@@ -112,7 +112,7 @@ add_engagement.addEventListener("click", (e) => {
         "engagement_id": formData.get("engagement_id")
     });
 
-    fetch(BASE_URL + "add-engagement", {
+    fetch(BASE_URL + "add-customer-engagement", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
