@@ -17,7 +17,7 @@ export default class Customer {
 
     async updateCustomer(customer_id, first_name, last_name, email_address, birthday, account_status, callback) {
 
-        var sql = `UPDATE ${tableName} SET first_name = ${first_name}, last_name = ${last_name}, email_address = ${email_address}, birthday = ${birthday}, account_status = ${account_status} WHERE customer_id = ${customer_id}`;
+        var sql = `UPDATE ${tableName} SET first_name = '${first_name}', last_name = '${last_name}', email_address = '${email_address}', birthday = '${birthday}', account_status = '${account_status}' WHERE customer_id = ${customer_id}`;
         console.log(sql);
         dbWrite(sql, callback);
     }

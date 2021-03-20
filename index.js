@@ -120,10 +120,10 @@ app.post('/set-customer-password',
 });
 
 app.post('/update-customer',
-  body('email_address').isEmail().optional(),
+  body('email_address').optional(),
   body('first_name').escape().optional(),
   body('last_name').escape().optional(),
-  body('birthday').isDate().optional(),
+  body('birthday').optional(),
   body('account_status').escape().optional(),
   body('id').isInt(),
   async (req, res) => {
