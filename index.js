@@ -55,12 +55,23 @@ app.post('/enroll-customer',
 
   const account_status = 'Inactive';
 
-  customer.enrollCustomer(req.first_name, req.last_name, req.email_address, account_status, (response) => {
-    console.log(response);
+  const obj = {
+    "first_name": req.first_name,
+    "last_name": req.last_name,
+    "email_address": req.email_address,
+    "account_status": account_status,
+  };
 
-    res.setHeader("Content-Type", "application/json");
-    res.send(response)
-  });
+  console.log(obj);
+  res.setHeader("Content-Type", "application/json");
+  res.send(obj);
+
+  // customer.enrollCustomer(req.first_name, req.last_name, req.email_address, account_status, (response) => {
+  //   console.log(response);
+
+  //   res.setHeader("Content-Type", "application/json");
+  //   res.send(response)
+  // });
 });
 
 // ENGAGEMENTS API
