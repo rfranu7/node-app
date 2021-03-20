@@ -34,7 +34,7 @@ enroll_customer.addEventListener("click", (e) => {
     });
 });
 
-enroll_customer.addEventListener("click", (e) => {
+update_password.addEventListener("click", (e) => {
     e.preventDefault();
 
     const update_password_form = document.getElementById("update_password_form");

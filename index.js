@@ -97,7 +97,7 @@ app.post('/set-customer-password',
     console.log(response);
     const customerData = response[0];
 
-    if(customerData.account_status == "Inactive") {
+    if(customerData.account_status == "Inactive" && customerData.password == NULL) {
       console.log("update password");
     } else {
       console.log("do not update password");
