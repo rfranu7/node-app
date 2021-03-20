@@ -273,10 +273,15 @@ app.post('/auth',
     }
 
     const data = req.body;
+    console.log(data);
 
     if(data.email_address && data.password) {
       customer.findCustomerByEmail(data.email_address, (response) => {
+        console.log(response);
         if(response.length >= 1) {
+
+          console.log(data.password);
+          console.log(response.customer_password);
 
           const verify = checkPassword(data.password, response.customer_password);
           if(verify) {
