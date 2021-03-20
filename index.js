@@ -294,7 +294,40 @@ app.get('/list-plans', async (req, res) => {
 *************************************************/
 app.get('/list-invoices', async (req, res) => {
   
-  const params = console.log(req.query);
+  const params = req.query;
+  console.log(params);
+
+  filters = {};
+
+  if(params.start) {
+    filters.start = params.start;
+  } else {
+    filters.start = null;
+  }
+
+  if(params.end) {
+    filters.end = params.end;
+  } else {
+    filters.end = null;
+  }
+
+  if(params.status) {
+    filters.status = params.status;
+  } else {
+    filters.status = null;
+  }
+
+  if(params.customer) {
+    filters.customer = params.customer;
+  } else {
+    filters.customer = null;
+  }
+
+  if(params.engagement) {
+    filters.engagement = params.engagement;
+  } else {
+    filters.engagement = null;
+  }
 
   invoice.listInvoices((response) => {
     console.log(response);
