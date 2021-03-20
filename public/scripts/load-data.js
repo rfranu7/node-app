@@ -1,5 +1,3 @@
-const BASE_URL = "https://afternoon-dawn-87591.herokuapp.com/";
-
 // Engagement Elements
 const engagementListBtn = document.getElementById("list-engagement");
 const engagementDisplay = document.getElementById("engagement-display");

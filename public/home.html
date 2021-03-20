@@ -20,16 +20,28 @@
 
     <div class="grid">
         <form id="enroll_customer_form" method="POST">
+            <div id="enroll-message"></div>
             <input type="text" id="first_name" name="first_name">
             <input type="text" id="last_name" name="last_name">
             <input type="email" id="email_address" name="email_address">
             <button id="enroll_customer" class="btn">SUBMIT</button>
         </form>
-        <div id="enroll-message"></div>
+    </div>
+
+    <div class="grid">
+        <form id="update_password_form" method="POST">
+            <div id="update-password-message"></div>
+            <input type="text" id="first_name" name="first_name">
+            <input type="text" id="last_name" name="last_name">
+            <input type="email" id="email_address" name="email_address">
+            <button id="update_password" class="btn">SUBMIT</button>
+        </form>
     </div>
 
 
+    <script src="scripts/config.js"></script>
     <script src="scripts/load-data.js"></script>
+    <script src="scripts/add-data.js"></script>
 
 </body>
 </html>
