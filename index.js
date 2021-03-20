@@ -105,7 +105,7 @@ app.post('/set-customer-password',
       console.log("update password");
 
       // HASH PASSWORD
-      const hash = hashpassword(data.password, salt);
+      const hash = hashpassword(data.password, saltRounds);
       console.log(hash);
 
       customer.updateCustomerPassword(customerData.customer_id, hash, (response) => {
