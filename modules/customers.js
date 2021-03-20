@@ -1,4 +1,4 @@
-import { dbRead, dbWrite } from "./utilities.js";
+import { dbRead, dbWrite, dbReadAwait } from "./utilities.js";
 const tableName = 'customers';
 
 export default class Customer {
