@@ -54,7 +54,7 @@ app.post('/enroll-customer',
     const email_exists = response[0];
 
     if (email_exists) {
-      return Promise.reject('E-mail already in use');
+      res.status(409).write({success: false, message: 'email address already exists'});
     }
 
     const account_status = 'Inactive';
@@ -64,9 +64,9 @@ app.post('/enroll-customer',
 
       res.setHeader("Content-Type", "application/json");
       if(response.rowCount >= 1) {
-        res.status(200).write({success: true});
+        res.status(200).write({success: true, message: 'customer successfully created'});
       } else {
-        res.status(500).write({success: false});
+        res.status(500).write({success: false, message: 'an error occured while creating the customer'});
       }
     });
   });
