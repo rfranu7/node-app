@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+        }
+
+        #movieList li div{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    </style>
+</head>
+<body>
+    
+    <input type="text" id="search">
+    <button id="searchMovie" onclick="searchMovie()">Search</button>
+
+    <div class="container">
+        <div id="data">
+            <ul id="movieList"></ul>
+        </div>
+
+        <div>
+            <ul id="details"></ul>
+        </div>
+    </div>
+
+    <script>
+        async function searchMovie() {
+            const API_KEY = "c2620189";
+            const input = encodeURI(document.getElementById('search').value);
+
+            const url = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${input}`;
+            console.log(input);
+
+            const res = await fetch(url);
+            const data = await res.json();
+
+            console.log(data);
+            generateList(data.Search);
+            
+        }
+
+        function generateList(data) {
+            const list = document.getElementById('movieList');
+            list.innerHTML = '';
+
+            data.forEach(element => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<div><p>${element.Title}</p><button class='view' data-id='${element.imdbID}'>View Details</button></div>`;
+                list.appendChild(listItem);
+            });
+
+            const viewBtn = document.querySelectorAll('.view');
+            viewBtn.forEach(element => {
+                element.addEventListener('click', (e) => {
+                    const id = e.target.dataset.id;
+                    console.log(id);
+                    getMovie(id);
+                });
+            });
+        }
+
+        async function getMovie(id){
+            const API_KEY = "c2620189";
+
+            const url = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`;
+
+            const res = await fetch(url);
+            const data = await res.json();
+
+            console.log(data);
+            generateDetail(data);
+        }
+
+        function generateDetail(data) {
+            const div = document.getElementById('details');
+            div.innerHTML = '';
+
+            const picture = document.createElement('img');
+            picture.src = data.Poster;
+            div.appendChild(picture);
+
+            Object.keys(data).forEach(key => {
+                if(key != 'Ratings') {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<p>${key}: ${data[key]}</p>`; 
+                    div.appendChild(listItem);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
