@@ -51,34 +51,38 @@ export default class Invoice {
            for (let index = 0; index < filteredFields.length; index++) {
                const element = filteredFields[index];
                const key = Object.keys(element);
+               const value = filteredFields[index][key[0]];
+               const value2 = filteredFields[index].key[0];
 
                console.log(element);
                console.log(key);
+               console.log(value);
+               console.log(value2);
 
                 if(index != filteredFields.length) {
-                    if(key == "start_date") {
-                        sql += ` due_date >= '${element.key}'`;
-                    } else if(key == "end_date") {
-                        sql += ` due_date <= '${element.key}'`;
-                    } else if(key == "status") {
-                        sql += ` invoice_status = '${element.key}'`;
-                    } else if(key == "end_date") {
-                        sql += ` customer_id = ${element.key}`;
-                    } else if(key == "end_date") {
-                        sql += ` engagement_id = ${element.key}`;
+                    if(key[0] == "start_date") {
+                        sql += ` due_date >= '${element.key[0]}'`;
+                    } else if(key[0] == "end_date") {
+                        sql += ` due_date <= '${element.key[0]}'`;
+                    } else if(key[0] == "status") {
+                        sql += ` invoice_status = '${element.key[0]}'`;
+                    } else if(key[0] == "end_date") {
+                        sql += ` customer_id = ${element.key[0]}`;
+                    } else if(key[0] == "end_date") {
+                        sql += ` engagement_id = ${element.key[0]}`;
                     }
                     sql +=` AND`
                 } else {
-                    if(key == "start_date") {
-                        sql += ` due_date >= '${element.key}'`;
-                    } else if(key == "end_date") {
-                        sql += ` due_date <= '${element.key}'`;
-                    } else if(key == "status") {
-                        sql += ` invoice_status = '${element.key}'`;
-                    } else if(key == "end_date") {
-                        sql += ` customer_id = ${element.key}`;
-                    } else if(key == "end_date") {
-                        sql += ` engagement_id = ${element.key}`;
+                    if(key[0] == "start_date") {
+                        sql += ` due_date >= '${element.key[0]}'`;
+                    } else if(key[0] == "end_date") {
+                        sql += ` due_date <= '${element.key[0]}'`;
+                    } else if(key[0] == "status") {
+                        sql += ` invoice_status = '${element.key[0]}'`;
+                    } else if(key[0] == "end_date") {
+                        sql += ` customer_id = ${element.key[0]}`;
+                    } else if(key[0] == "end_date") {
+                        sql += ` engagement_id = ${element.key[0]}`;
                     }
                 }
            }
