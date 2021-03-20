@@ -13,6 +13,7 @@ export default class Customer {
         var sql = `SELECT email_address FROM ${tableName} WHERE email_address = '${email_address}'`;
         console.log(sql);
         dbRead(sql, (response) => {
+            console.log(response);
             return response;
         });
     }
