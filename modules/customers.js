@@ -9,6 +9,12 @@ export default class Customer {
         dbWrite(sql, callback);
     }
 
+    async updateCustomerPassword(customer_id, customer_password, callback) {
+        var sql = `UPDATE ${tableName} SET customer_password = ${customer_password} WHERE customer_id = ${customer_id}`;
+        console.log(sql);
+        dbWrite(sql, callback);
+    }
+
     async updateCustomer(customer_id, array, callback) {
 
         var queryString = '';

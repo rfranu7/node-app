@@ -5,13 +5,16 @@ import cors from 'cors';
 import express from 'express';
 import * as path from 'path';
 import { body, validationResult } from 'express-validator';
+import bcrypt from 'bcrypt';
 
 // IMPORT CUSTOM MODULES
 import Customer from './modules/customers.js';
 import Engagement from './modules/engagements.js';
 import PaymentPlan from './modules/payment-plans.js';
+import { callbackify } from 'util';
 
 dotenv.config();
+const saltRounds = 10;
 const PORT = process.env.PORT || 5000;
 const __dirname = process.cwd();
 const app = express();
@@ -89,6 +92,7 @@ app.post('/set-customer-password',
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log(errors);
     return res.status(400).json({ errors: errors.array() });
   }
 
@@ -99,24 +103,24 @@ app.post('/set-customer-password',
 
     if(customerData.account_status == "Inactive" && customerData.password == NULL) {
       console.log("update password");
+
+      // HASH PASSWORD
+      hash = hashpassword(data.password, salt);
+
+      customer.updateCustomerPassword(customerData.customer_id, hash, (response) => {
+        console.log(response);
+  
+        res.setHeader("Content-Type", "application/json");
+        if(response.rowCount >= 1) {
+          res.status(200).send({success: true, message: 'password successfully updated'});
+        } else {
+          res.status(500).send({success: false, message: 'an error occured while updating the password'});
+        }
+      });
+
     } else {
-      console.log("do not update password");
+      res.status(403).send({success: false, message: 'password was already updated'});
     }
-    res.end();
-
-    // const account_status = 'Inactive';
-
-    // customer.enrollCustomer(data.first_name, data.last_name, data.email_address, account_status, (response) => {
-    //   console.log(response);
-
-    //   res.setHeader("Content-Type", "application/json");
-    //   if(response.rowCount >= 1) {
-    //     res.status(200).send({success: true, message: 'customer successfully created'});
-    //     res.end();
-    //   } else {
-    //     res.status(500).send({success: false, message: 'an error occured while creating the customer'});
-    //   }
-    // });
   });
 });
 
@@ -143,3 +147,11 @@ app.get('/list-plans', async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+function hashpassword(password, salt){
+  return bcrypt.hashSync(password, salt);
+}
+
+function checkPassword(password, hash){
+  return bcrypt.compareSync(password, hash);
+}
