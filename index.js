@@ -144,6 +144,7 @@ app.post('/update-customer',
     const customerData = response[0];
 
     const duplicate = await customer.checkDuplicateEmailOnUpdate(data.email_address, data.id);
+    console.log(duplicate);
 
     if (!duplicate == "undefined" && duplicate.length >= 1) {
       res.status(409).send({success: false, message: 'email address already exists'});
