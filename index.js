@@ -268,8 +268,6 @@ app.get('/add-engagement', async (req, res) => {
 
 app.get('/list-engagements', async (req, res) => {
 
-  console.log(req.params);
-
   engagement.listEngagements((response) => {
     console.log(response);
 
@@ -295,6 +293,8 @@ app.get('/list-plans', async (req, res) => {
 * INVOICES API 
 *************************************************/
 app.get('/list-invoices?:start&:end&:status&:customer&:engagement', async (req, res) => {
+  
+  console.log(req.params);
 
   invoice.listInvoices((response) => {
     console.log(response);
