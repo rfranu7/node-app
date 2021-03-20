@@ -74,6 +74,31 @@ app.post('/enroll-customer',
   });
 });
 
+app.post('/add-engagement',
+  body('customer_id').isInt(),
+  body('engagement_id').isInt(),
+  async (req, res) => {
+
+  const data = req.body
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  customer.addEngagement(data.customer_id, data.engagement_id, (response) => {
+    console.log(response);
+
+      res.setHeader("Content-Type", "application/json");
+      if(response.rowCount >= 1) {
+        return res.status(200).send({success: true, message: 'engagement successfully added to customer'});
+      } else {
+        return res.status(500).send({success: false, message: 'an error occured while adding the engagement to the customer'});
+      }
+  });
+
+});
+
 app.post('/set-customer-password',
   body('email_address').isEmail(),
   body('password').isLength({ min: 6 }),

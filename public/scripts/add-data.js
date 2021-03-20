@@ -10,6 +10,10 @@ const update_password_message = document.getElementById("update-password-message
 const update_customer = document.getElementById("update_customer");
 const update_customer_message = document.getElementById("update_customer_message");
 
+// ADD ENGAGEMENT
+const add_engagement = document.getElementById("add_engagement");
+const add_engagement_message = document.getElementById("add_engagement_message");
+
 enroll_customer.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -97,6 +101,29 @@ update_customer.addEventListener("click", (e) => {
     });
 });
 
+document.addEventListener("load", (e) => {
+    const customer_id_select = document.getElementById('customer_id_select');
+    const engagement_id_select = document.getElementById('engagement_id_select');
+
+    fetch(BASE_URL + "list-engagements").then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log(data);
+        fillEngagementOptions(data, engagement_id_select);
+    }).catch(function (err) {
+        console.warn('Something went wrong.', err);
+    });
+
+    fetch(BASE_URL + "list-customers").then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log(data);
+        fillCustomerOptions(data, customer_id_select);
+    }).catch(function (err) {
+        console.warn('Something went wrong.', err);
+    });
+})
+
 function generateSuccessMessage(data, parentElement) {
     var status = '';
     if (data.success) {
@@ -106,4 +133,20 @@ function generateSuccessMessage(data, parentElement) {
     }
 
     parentElement.innerHTML = "<p class='" + status + "'>" + data.message + "</p>";
+}
+
+function fillCustomerOptions(data, parentElement){
+    parentElement.innerHTML = '';
+
+    data.forEach(element => {
+        parentElement.innerHTML += `<option value="${element.customer_id}">${element.first_name} ${element.last_name}`;
+    });
+}
+
+function fillEngagementOptions(data, parentElement){
+    parentElement.innerHTML = '';
+
+    data.forEach(element => {
+        parentElement.innerHTML += `<option value="${element.engagement_id}">${element.engagement_name}`;
+    });
 }

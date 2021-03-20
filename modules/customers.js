@@ -3,12 +3,20 @@ const tableName = 'customers';
 
 export default class Customer {
 
+    // INSERT
     async enrollCustomer(first_name, last_name, email_address, account_status, callback) {
         var sql = `INSERT INTO ${tableName} (first_name, last_name, email_address, account_status) VALUES ('${first_name}', '${last_name}', '${email_address}', '${account_status}')`;
         console.log(sql);
         dbWrite(sql, callback);
     }
 
+    async addEngagement(customer_id, engagement_id, callback) {
+        var sql = `INSERT INTO customer_engagement (customer_id, engagement_id) VALUES ('${customer_id}', '${engagement_id}')`;
+        console.log(sql);
+        dbWrite(sql, callback);
+    }
+
+    // UPDATE
     async updateCustomerPassword(customer_id, customer_password, callback) {
         var sql = `UPDATE ${tableName} SET customer_password = '${customer_password}', account_status = 'Active' WHERE customer_id = ${customer_id}`;
         console.log(sql);
@@ -24,7 +32,7 @@ export default class Customer {
 
     // READ
     async listCustomers(callback) {
-        var sql = `SELECT * FROM ${tableName}`;
+        var sql = `SELECT customer_id, email_address, first_name, last_name, birthday, account_status FROM ${tableName}`;
         dbRead(sql, callback);
     }
 
