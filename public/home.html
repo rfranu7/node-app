@@ -19,6 +19,50 @@
     </div>
 
     <div class="grid">
+        <form id="invoice_form" action="GET">
+            <div class="group">
+                <label for="start_date">Start Date</label>
+                <input type="date" id="start_date" name="start_date">
+            </div>
+            
+            <div class="group">
+                <label for="end_date">End Date</label>
+                <input type="date" id="end_date" name="end_date">
+            </div>
+
+            <div class="group">
+                <label for="status">Status</label>
+                <select name="status" id="status">
+                    <option value="">Select Status</option>
+                    <option value="Draft">Draft</option>
+                    <option value="Open">Open</option>
+                    <option value="Finalized">Finalized</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Closed">Closed</option>
+                    <option value="Void">Void</option>
+                </select>
+            </div>
+
+            <div class="group">
+                <label for="customer_id">Customer</label>
+                <select name="customer_id" class="customer_id_select">
+                    <option value="">Select Customer</option>
+                </select>
+            </div>
+
+            <div class="group">
+                <label for="engagement_id">Engagements</label>
+                <select name="engagement_id" class="engagement_id_select">
+                    <option value="">Select Engagement</option>
+                </select>
+            </div>
+
+            <button id="list-invoice" class="btn">Get Invoices</button>
+        </form>
+        <div id="invoice-display"></div>
+    </div>
+
+    <div class="grid">
         <form id="enroll_customer_form" method="POST">
             <h1>ENROLL CUSTOMER</h1>
             <div id="enroll-message"></div>
@@ -107,14 +151,14 @@
             
             <div class="group">
                 <label for="customer_id">Customer</label>
-                <select name="customer_id" id="customer_id_select">
+                <select name="customer_id" class="customer_id_select">
                     <option value="">Select Customer</option>
                 </select>
             </div>
 
             <div class="group">
                 <label for="engagement_id">Engagements</label>
-                <select name="engagement_id" id="engagement_id_select">
+                <select name="engagement_id" class="engagement_id_select">
                     <option value="">Select Engagement</option>
                 </select>
             </div>

@@ -132,8 +132,8 @@ window.addEventListener("load", (e) => {
 
     console.log(e);
 
-    const customer_id_select = document.getElementById('customer_id_select');
-    const engagement_id_select = document.getElementById('engagement_id_select');
+    const customer_id_select = document.querySelectorAll('.customer_id_select');
+    const engagement_id_select = document.querySelectorAll('.engagement_id_select');
 
     fetch(BASE_URL + "list-engagements").then(function (response) {
         return response.json();
@@ -166,19 +166,23 @@ function generateSuccessMessage(data, parentElement) {
 }
 
 function fillCustomerOptions(data, parentElement){
-    parentElement.innerHTML = '<option value="" selected disabled>Select Customer</option>';
+    parentElement.forEach(parent => {
+        parent.innerHTML = '<option value="" selected disabled>Select Customer</option>';
 
-    data.forEach(element => {
-        console.log(element);
-        parentElement.innerHTML += `<option value="${element.customer_id}">${element.first_name} ${element.last_name}`;
+        data.forEach(element => {
+            console.log(element);
+            parent.innerHTML += `<option value="${element.customer_id}">${element.first_name} ${element.last_name}`;
+        });
     });
 }
 
 function fillEngagementOptions(data, parentElement){
-    parentElement.innerHTML = '<option value="" selected disabled>Select Engagement</option>';
+    parentElement.forEach(parent => {
+        parent.innerHTML = '<option value="" selected disabled>Select Engagement</option>';
 
-    data.forEach(element => {
-        console.log(element);
-        parentElement.innerHTML += `<option value="${element.engagement_id}">${element.engagement_name}`;
+        data.forEach(element => {
+            console.log(element);
+            parent.innerHTML += `<option value="${element.engagement_id}">${element.engagement_name}`;
+        });
     });
 }

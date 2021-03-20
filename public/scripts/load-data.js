@@ -6,6 +6,12 @@ const engagementDisplay = document.getElementById("engagement-display");
 const planListBtn = document.getElementById("list-plan");
 const planDisplay = document.getElementById("plan-display");
 
+
+// INVoice Elements
+const invoiceListBtn = document.getElementById("list-invoice");
+const invoiceDisplay = document.getElementById("invoice-display");
+
+
 engagementListBtn.addEventListener("click", (e) => {
     fetch(BASE_URL + "list-engagements").then(function (response) {
         return response.json();
@@ -27,6 +33,46 @@ planListBtn.addEventListener("click", (e) => {
         console.warn('Something went wrong.', err);
     });
 });
+
+invoiceListBtn.addEventListener("click", (e) => {
+    var query = 'list-invoices';
+
+
+    const invoice_form = document.getElementById('invoice_form');
+    const formData = new FormData(invoice_form);
+
+    if(formData.get("start_date")) {
+        query += `${formData.get("start_date")}`;
+    }
+    
+    if(formData.get("end_date")) {
+        query += `${formData.get("end_date")}`;
+    }
+    
+    if(formData.get("status")) {
+        query += `${formData.get("status")}`;
+    }
+    
+    if(formData.get("customer_id")) {
+        query += `${formData.get("customer_id")}`;
+    }
+    
+    if(formData.get("engagement_id")) {
+        query += `${formData.get("engagement_id")}`;
+    }
+
+    console.log(query);
+
+    fetch(BASE_URL + query).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log(data);
+        // generateEngagementTable(data, invoiceDisplay);
+    }).catch(function (err) {
+        console.warn('Something went wrong.', err);
+    });
+});
+
 
 function generateEngagementTable(data, parentElement) {
     // reset table content

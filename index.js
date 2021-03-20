@@ -292,9 +292,9 @@ app.get('/list-plans', async (req, res) => {
 /*************************************************
 * INVOICES API 
 *************************************************/
-app.get('/list-invoices?:start&:end&:status&:customer&:engagement', async (req, res) => {
+app.get('/list-invoices/', async (req, res) => {
   
-  console.log(req.params);
+  console.log(req.query);
 
   invoice.listInvoices((response) => {
     console.log(response);
