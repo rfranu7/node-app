@@ -20,9 +20,9 @@
 
     <div class="grid">
         <form id="enroll_customer_form" method="POST">
-            <input type="text" id="first_name">
-            <input type="text" id="last_name">
-            <input type="email" id="email_address">
+            <input type="text" id="first_name" name="first_name">
+            <input type="text" id="last_name" name="last_name">
+            <input type="email" id="email_address" name="email_address">
             <button id="enroll_customer" class="btn">SUBMIT</button>
         </form>
         <div id="enroll-message"></div>
@@ -30,6 +30,38 @@
 
 
     <script src="scripts/load-data.js"></script>
+    
+    <script>
+        const enroll_customer = document.getElementById("enroll_customer");
+        const enroll_message = document.getElementById("enroll-message");
+
+        enroll_customer.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            const enroll_customer_form = document.getElementById('enroll_customer_form');
+            const formData = new FormData(enroll_customer_form);            
+
+            fetch(BASE_URL + "enroll-customer", {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                // generateSuccessMessage(data, enroll_message);
+            }).catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
+        });
+
+        function generateSuccessMessage(data, parentElement) {
+
+        }
+    </script>
 
 </body>
 </html>
