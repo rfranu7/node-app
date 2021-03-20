@@ -26,6 +26,8 @@ app
   .set('view engine', 'ejs');
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+
 app.use(session({
 	secret: 'secret',
 	resave: true,
@@ -51,7 +53,8 @@ app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.h
 app.post('/enroll-customer',
   body('first_name').not().isEmpty().trim().escape(),
   body('last_name').not().isEmpty().trim().escape(),
-  body('email_address').isEmail(), 
+  body('email_address').isEmail(),
+  jsonParser,
   async (req, res) => {
 
   const data = req.body
@@ -88,6 +91,7 @@ app.post('/enroll-customer',
 app.post('/add-customer-engagement',
   body('customer_id').isInt(),
   body('engagement_id').isInt(),
+  jsonParser,
   async (req, res) => {
 
   const data = req.body
@@ -120,6 +124,7 @@ app.post('/set-customer-password',
     }
     return true;
   }),
+  jsonParser,
   async (req, res) => {
 
   const data = req.body
@@ -163,6 +168,7 @@ app.post('/update-customer',
   body('birthday').optional(),
   body('account_status').escape().optional(),
   body('id').isInt(),
+  jsonParser,
   async (req, res) => {
 
   const data = req.body
@@ -264,6 +270,7 @@ app.get('/list-customers', async (req, res) => {
 app.post('/auth',
   body('email_address').isEmail(),
   body('password').isLength({ min: 6 }),
+  urlencodedParser,
   async (req, res) => {
 
     const errors = validationResult(req);
@@ -300,7 +307,9 @@ app.post('/auth',
 /*************************************************
 * ENGAGEMENTS API 
 *************************************************/
-app.get('/add-engagement', async (req, res) => {
+app.get('/add-engagement', 
+  jsonParser,
+  async (req, res) => {
 
   engagement.addEngagement((response) => {
     console.log(response);
@@ -310,7 +319,9 @@ app.get('/add-engagement', async (req, res) => {
   });
 });
 
-app.get('/list-engagements', async (req, res) => {
+app.get('/list-engagements',
+  jsonParser,
+  async (req, res) => {
 
   engagement.listEngagements((response) => {
     console.log(response);
@@ -323,7 +334,9 @@ app.get('/list-engagements', async (req, res) => {
 /*************************************************
 * PAYMENT PLANS API 
 *************************************************/
-app.get('/list-plans', async (req, res) => {
+app.get('/list-plans', 
+  jsonParser,
+  async (req, res) => {
 
   plans.listPlans((response) => {
     console.log(response);
@@ -336,7 +349,9 @@ app.get('/list-plans', async (req, res) => {
 /*************************************************
 * INVOICES API 
 *************************************************/
-app.get('/list-invoices', async (req, res) => {
+app.get('/list-invoices', 
+  jsonParser,
+  async (req, res) => {
   
   const params = req.query;
   console.log(params);
