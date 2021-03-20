@@ -48,26 +48,27 @@ app.post('/enroll-customer',
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const email_exists = await customer.findCustomerByEmail(data.email_address)
-  console.log("checking email");
-  console.log(email_exists);
-
-  if (email_exists) {
-    return Promise.reject('E-mail already in use');
-  }
-
-  const account_status = 'Inactive';
-
-  customer.enrollCustomer(data.first_name, data.last_name, data.email_address, account_status, (response) => {
+  customer.findCustomerByEmail(data.email_address, (response) => {
+    console.log("checking email");
     console.log(response);
+    const email_exists = response[0];
 
-    res.setHeader("Content-Type", "application/json");
-    if(response.rowCount >= 1) {
-      res.status(200).write({success: true});
-    } else {
-      res.status(500).write({success: false});
+    if (email_exists) {
+      return Promise.reject('E-mail already in use');
     }
 
+    const account_status = 'Inactive';
+
+    customer.enrollCustomer(data.first_name, data.last_name, data.email_address, account_status, (response) => {
+      console.log(response);
+
+      res.setHeader("Content-Type", "application/json");
+      if(response.rowCount >= 1) {
+        res.status(200).write({success: true});
+      } else {
+        res.status(500).write({success: false});
+      }
+    });
   });
 });
 
