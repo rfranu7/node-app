@@ -24,23 +24,23 @@ export default class Invoice {
         var filteredFields = [];
         
         if(start_date != null) {
-            filteredFields.append({"start_date": start_date});
+            filteredFields.push({"start_date": start_date});
         }
         
         if(end_date != null) {
-            filteredFields.append({"end_date": end_date});
+            filteredFields.push({"end_date": end_date});
         }
 
         if(status != null) {
-            filteredFields.append({"status": status});
+            filteredFields.push({"status": status});
         }
 
         if(customer_id != null) {
-            filteredFields.append({"customer_id": customer_id});
+            filteredFields.push({"customer_id": customer_id});
         }
 
         if(engagement_id != null) {
-            filteredFields.append({"engagement_id": engagement_id});
+            filteredFields.push({"engagement_id": engagement_id});
         }
 
         console.log(filteredFields);
