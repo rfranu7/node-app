@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import * as path from 'path';
-import { body, validationResult } from 'express-validator';
+import { body, param, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 
 // IMPORT CUSTOM MODULES
@@ -292,16 +292,16 @@ app.get('/list-plans', async (req, res) => {
 /*************************************************
 * INVOICES API 
 *************************************************/
-app.get('/list-invoices/', async (req, res) => {
+app.get('/list-invoices', async (req, res) => {
   
-  console.log(req.query);
+  const params = console.log(req.query);
 
   invoice.listInvoices((response) => {
     console.log(response);
 
     res.setHeader("Content-Type", "application/json");
     res.send(response)
-  });
+  },params.start, params.end, params.status, params.customer, params.engagement);
 });
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));

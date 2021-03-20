@@ -35,30 +35,52 @@ planListBtn.addEventListener("click", (e) => {
 });
 
 invoiceListBtn.addEventListener("click", (e) => {
-    var query = 'list-invoices';
 
+    e.preventDefault();
+    console.log("invoice");
+    var query = 'list-invoices';
 
     const invoice_form = document.getElementById('invoice_form');
     const formData = new FormData(invoice_form);
 
+    if(formData.get("start_date") || formData.get("end_date") || formData.get("status") || formData.get("customer_id") || formData.get("engagement_id")) {
+        query += '?';
+    }
+
     if(formData.get("start_date")) {
-        query += `${formData.get("start_date")}`;
+        query += `start=${formData.get("start_date")}`;
+    }
+
+    if(formData.get("start_date") && formData.get("end_date")) {
+        query += `&`;
     }
     
     if(formData.get("end_date")) {
-        query += `${formData.get("end_date")}`;
+        query += `end=${formData.get("end_date")}`;
+    }
+
+    if(formData.get("end_date") && formData.get("status")) {
+        query += `&`;
     }
     
     if(formData.get("status")) {
-        query += `${formData.get("status")}`;
+        query += `status=${formData.get("status")}`;
+    }
+
+    if(formData.get("status") && formData.get("customer_id")) {
+        query += `&`;
     }
     
     if(formData.get("customer_id")) {
-        query += `${formData.get("customer_id")}`;
+        query += `customer=${formData.get("customer_id")}`;
+    }
+
+    if(formData.get("customer_id") && formData.get("engagement_id")) {
+        query += `&`;
     }
     
     if(formData.get("engagement_id")) {
-        query += `${formData.get("engagement_id")}`;
+        query += `engagement=${formData.get("engagement_id")}`;
     }
 
     console.log(query);
