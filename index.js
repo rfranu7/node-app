@@ -105,10 +105,10 @@ app.post('/set-customer-password',
       console.log("update password");
 
       // HASH PASSWORD
-      const hash = hashpassword(data.password, salt);
-      console.log(hash);
+      // const hash = hashpassword(data.password, salt);
+      // console.log(hash);
 
-      customer.updateCustomerPassword(customerData.customer_id, hash, (response) => {
+      customer.updateCustomerPassword(customerData.customer_id, data.password, (response) => {
         console.log(response);
   
         res.setHeader("Content-Type", "application/json");
