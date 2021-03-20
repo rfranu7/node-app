@@ -101,14 +101,14 @@ app.post('/set-customer-password',
     console.log(response);
     const customerData = response[0];
 
-    if(customerData.account_status == "Inactive" && customerData.password == NULL) {
+    if(customerData.account_status == "Inactive" && customerData.password == "null") {
       console.log("update password");
 
       // HASH PASSWORD
-      // const hash = hashpassword(data.password, salt);
-      // console.log(hash);
+      const hash = hashpassword(data.password, salt);
+      console.log(hash);
 
-      customer.updateCustomerPassword(customerData.customer_id, data.password, (response) => {
+      customer.updateCustomerPassword(customerData.customer_id, hash, (response) => {
         console.log(response);
   
         res.setHeader("Content-Type", "application/json");
