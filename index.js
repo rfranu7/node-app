@@ -13,7 +13,7 @@ import PaymentPlan from './modules/payment-plans.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
-const __dirname = process.env.DIR_NAME;
+const __dirname = process.cwd();
 const app = express();
 
 app
