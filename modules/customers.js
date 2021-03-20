@@ -9,9 +9,11 @@ export default class Customer {
         dbConnect(sql, callback);
     }
 
-    async findCustomerByEmail(email_address, callback) {
+    async findCustomerByEmail(email_address) {
         var sql = `SELECT email_address FROM ${tableName} WHERE email_address = '${email_address}'`;
         console.log(sql);
-        dbConnect(sql, callback);
+        dbConnect(sql, (response) => {
+            return response;
+        });
     }
 }

@@ -47,9 +47,9 @@
                 "email_address": formData.get("email_address"),
             });
 
-            const url = 'http://localhost:5000/'; 
+            // const url = 'http://localhost:5000/';
 
-            fetch(url + "enroll-customer", {
+            fetch(BASE_URL + "enroll-customer", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
