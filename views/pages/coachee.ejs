@@ -191,6 +191,8 @@
                 lastNameField.value = data.customer.last_name;
                 birthdayField.value = data.customer.birthday;
                 $("#account_status_edit option").each(function() {
+                    console.log(data.customer.account_status);
+                    console.log(this);
                     if(this.value == data.customer.account_status) {
                         this.setAttribute("selected", "true");
                     }
