@@ -190,7 +190,11 @@
                 firstNameField.value = data.customer.first_name;
                 lastNameField.value = data.customer.last_name;
                 birthdayField.value = data.customer.birthday;
-                accountStatusField.value = data.customer.account_status;
+                $("#account_status_edit option").each(function() {
+                    if(this.value == data.customer.account_status) {
+                        this.setAttribute("selected", "true");
+                    }
+                });
                 hiddenIdField.value = data.customer.customer_id;
             });
         });
