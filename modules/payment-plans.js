@@ -4,8 +4,8 @@ const tableName = 'payment_plans';
 export default class PaymentPlan {
 
     // INSERT
-    async addPlan(plan_id, plan_name, plan_terms, callback) {
-        var sql = `INSERT INTO ${tableName} (plan_id, plan_name, plan_terms) VALUES ('${plan_id}', '${plan_name}', '${plan_terms}')`;
+    async addPlan(plan_name, plan_terms, callback) {
+        var sql = `INSERT INTO ${tableName} (plan_name, plan_terms) VALUES (${plan_name}', '${plan_terms}')`;
         console.log(sql);
         dbWrite(sql, callback);
     }
@@ -20,6 +20,11 @@ export default class PaymentPlan {
     // GET
     async listPlans(callback) {
         var sql = `SELECT * FROM ${tableName}`;
+        dbRead(sql, callback);
+    }
+
+    async getPlan(plan_id, callback) {
+        var sql = `SELECT * FROM ${tableName} WHERE plan_id = ${plan_id}`;
         dbRead(sql, callback);
     }
 }

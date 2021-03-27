@@ -4,8 +4,8 @@ const tableName = 'invoices';
 export default class Invoice {
 
     // INSERT
-    async addInvoice(invoice_number, customer_id, engagement_id, due_date, sub_total, price_adjustments, total_amount, notes, callback) {
-        var sql = `INSERT INTO ${tableName} (invoice_number, customer_id, engagement_id, due_date, sub_total, price_adjustments, total_amount, notes) VALUES ('${invoice_number}', '${customer_id}', '${engagement_id}', '${due_date}', '${sub_total}', '${price_adjustments}', '${total_amount}', '${notes}')`;
+    async addInvoice(invoice_number, customer_id, engagement_id, due_date, notes, callback) {
+        var sql = `INSERT INTO ${tableName} (invoice_number, customer_id, engagement_id, due_date, notes) VALUES ('${invoice_number}', '${customer_id}', '${engagement_id}', '${due_date}', '${notes}')`;
         console.log(sql);
         dbWrite(sql, callback);
     }
@@ -17,8 +17,8 @@ export default class Invoice {
     }
 
     // UPDATE
-    async updateInvoice(invoice_id, invoice_number, customer_id, engagement_id, due_date, sub_total, price_adjustments, total_amount, notes, callback) {
-        var sql = `UPDATE ${tableName} SET invoice_number = ${invoice_number}, customer_id = ${customer_id}, engagement_id = ${engagement_id}, due_date = ${due_date}, sub_total = ${sub_total}, price_adjustments = ${price_adjustments}, total_amount = ${total_amount}, notes = ${notes} WHERE invoice_id = ${invoice_id}`;
+    async updateInvoice(invoice_id, customer_id, engagement_id, due_date, sub_total, price_adjustments, total_amount, invoice_status, notes, callback) {
+        var sql = `UPDATE ${tableName} SET customer_id = ${customer_id}, engagement_id = ${engagement_id}, due_date = ${due_date}, sub_total = ${sub_total}, price_adjustments = ${price_adjustments}, total_amount = ${total_amount}, invoice_status = ${invoice_status}, notes = ${notes} WHERE invoice_id = ${invoice_id}`;
         console.log(sql);
         dbWrite(sql, callback);
     }
