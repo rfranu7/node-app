@@ -110,14 +110,14 @@
                 <div class="group">
                     <label for="engagement_id">Name</label>
                     <select name="engagement_id" id="engagement_id_add_plan">
-                        <option value="">Select Customer</option>
+                        <option value="">Select Engagement</option>
                     </select>
                 </div>
 
                 <div class="group">
                     <label for="plan_id">Payment Terms</label>
                     <select name="plan_id" id="plan_id_add_plan">
-                        <option value="">Select Engagement</option>
+                        <option value="">Select Payment Plan</option>
                     </select>
                 </div>
 
@@ -158,9 +158,9 @@
 
         // GET AND APPEND DATA
         $(document).ready(()=> {
-            getEngagementList((data) => {
+            getPlanList((data) => {
                 const plan_id_add_plan = document.getElementById('plan_id_add_plan');
-                plan_id_add_plan.innerHTML = '<option value="" selected disabled>Select Plan</option>';
+                plan_id_add_plan.innerHTML = '<option value="" selected disabled>Select Payment Plan</option>';
 
                 data.forEach(element => {
                     console.log(element);
@@ -190,7 +190,7 @@
             e.preventDefault();
             const id = e.target.dataset.id;
 
-            getCustomerData(id, (data) => {
+            getEngagementData(id, (data) => {
                 const engagement_id_add_plan = document.getElementById('engagement_id_add_plan');
                 engagement_id_add_plan.innerHTML = `<option value="${data.engagement.engagement_id}">${data.engagement.engagement_name}`;
             });
