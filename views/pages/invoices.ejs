@@ -11,132 +11,89 @@
         <h1>Invoices</h1>
 
         <div class="cta-section">
-            <button class="btn btn-primary" data-izimodal-open="#addModal" data-izimodal-transitionin="fadeInDown">ADD
-                NEW COACHEE</button>
+            <button class="btn btn-primary" data-izimodal-open="#addModal" data-izimodal-transitionin="fadeInDown">CREATE
+                NEW INVOICE</button>
         </div>
 
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email Address</th>
-                        <th>Birthday</th>
-                        <th>Account Status</th>
+                        <th>Invoice Number</th>
+                        <th>Customer Name</th>
+                        <th>Engagement Name</th>
+                        <th>Due Date</th>
+                        <th>Subtotal</th>
+                        <th>Price Adjustments</th>
+                        <th>Total Amount</th>
+                        <th>Invoice Status</th>
+                        <th>Notes</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <% for(var i=0; i<invoices.length; i++){ %>
                     <tr>
-                        <td>Randeep Singh Ranu</td>
-                        <td>rfranu7@gmail.com</td>
-                        <td>Birthday</td>
-                        <td>Active</td>
+                        <td><%= invoices[i].invoice_number %></td>
+                        <td><%= invoice.first_name %> <%= invoice.last_name %></td>
+                        <td><%= invoices[i].engagement_name %></td>
+                        <td><%= invoices[i].due_date %></td>
+                        <td><%= invoices[i].sub_total %></td>
+                        <td><%= invoices[i].price_adjustments %></td>
+                        <td><%= invoices[i].total_amount %></td>
                         <td>
-                            <button class="btn btn-dark" data-izimodal-open="#editModal"
-                                data-izimodal-transitionin="fadeInDown">EDIT</button>
-                            <button class="btn btn-success" data-izimodal-open="#addEngagementModal"
-                                data-izimodal-transitionin="fadeInDown">ADD PROGRAM</button>
+                          <select name="" id="" data-id="<%= invoices[i].invoice_id %>">
+                            <%
+                              var options = [ "", "Draft", "Open", "Finalized", "Paid", "Closed", "Void" ];
+                              for ( var j = 0; j < options.length; j++ )
+                              {
+                                  var selected = ( invoices[i].invoice_status == j ) ? "selected" : "";
+                                  %><option value="<%=options[ i ] %>" <%=selected %>><%=i %></option><%
+                              }
+                            %>
+                          </select>
+                        </td>
+                        <td><%= invoices[i].notes %></td>
+                        <td>
+                            <a href="/invoices/<%= invoices[i].invoice_id %>" class="btn btn-dark">VIEW</a>
                         </td>
                     </tr>
+                        <% } %>
                 </tbody>
             </table>
         </div>
-
-        <!-- <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
-          <tr class="top">
-            <td colspan="2">
-              <table>
-                <tr>
-                  <td class="title">
-                    <img
-                      src="http://nextstepwebs.com/images/logo.png"
-                      style="width: 100%; max-width: 300px"
-                    />
-                  </td>
-                  <td>
-                    Invoice #: 123<br />
-                    Created: January 1, 2015<br />
-                    Due: February 1, 2015
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr class="information">
-            <td colspan="2">
-              <table>
-                <tr>
-                  <td>
-                    Next Step Webs, Inc.<br />
-                    12345 Sunny Road<br />
-                    Sunnyville, TX 12345
-                  </td>
-                  <td>
-                    Acme Corp.<br />
-                    John Doe<br />
-                    john@example.com
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr class="heading">
-            <td>Payment Method</td>
-            <td>Check #</td>
-          </tr>
-          <tr class="details">
-            <td>Check</td>
-            <td>1000</td>
-          </tr>
-          <tr class="heading">
-            <td>Item</td>
-            <td>Price</td>
-          </tr>
-          <tr class="item">
-            <td>Website design</td>
-            <td>300</td>
-          </tr>
-          <tr class="item">
-            <td>Hosting (3 months)</td>
-            <td>75</td>
-          </tr>
-          <tr class="item last">
-            <td>Domain name (1 year)</td>
-            <td>10</td>
-          </tr>
-          <tr class="total">
-            <td></td>
-            <td>Total: $385.00</td>
-          </tr>
-        </table>
-      </div> -->
-
     </div>
 
     <!-- MODALS -->
     <div id="addModal" aria-hidden="false" aria-labelledby="modal-custom" role="dialog" class="iziModal modals">
 
         <div class="iziModal-content">
-            <form id="enroll_customer_form" method="POST">
-                <h1>ENROLL CUSTOMER</h1>
-                <div id="enroll-message"></div>
+            <form id="add_invoice_form" method="POST">
+                <h1>CREATE NEW INVOICE</h1>
                 <div class="group">
-                    <label for="first_name">First Name</label>
-                    <input type="text" id="first_name" name="first_name">
+                  <label for="customer_id">Customer Name</label>
+                  <select name="customer_id" id="customer_id">
+                      <option value="">Select Customer</option>
+                  </select>
                 </div>
 
                 <div class="group">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" id="last_name" name="last_name">
+                  <label for="engagement_id">Program Name</label>
+                  <select name="engagement_id" id="engagement_id">
+                      <option value="">Select Program</option>
+                  </select>
                 </div>
-
+                
                 <div class="group">
-                    <label for="email_address">Email Address</label>
-                    <input type="email" id="email_address" name="email_address">
+                    <label for="due_date">Due Date</label>
+                    <input type="date" id="due_date" name="due_date">
                 </div>
-                <button id="enroll_customer" class="btn">SUBMIT</button>
+                
+                <div class="group">
+                    <label for="total_fee">Total Amount</label>
+                    <textarea name="notes" id="notes" cols="30" rows="10"></textarea>
+                </div>
+                <button id="add_invoice" class="btn">SUBMIT</button>
             </form>
         </div>
 
@@ -145,83 +102,46 @@
     <div id="editModal" aria-hidden="false" aria-labelledby="modal-custom" role="dialog" class="iziModal modals">
 
         <div class="iziModal-content">
-            <form id="update_customer_form" method="POST">
-                <h1>UPDATE CUSTOMER INFORMATION</h1>
-                <div id="update_customer_message"></div>
-                <div class="group">
-                    <label for="email_address">Email Address</label>
-                    <input type="email" id="email_address" name="email_address">
-                </div>
+          <form id="edit_invoice_form" method="POST">
+            <h1>CREATE NEW INVOICE</h1>
+            <div id="edit_invoice_message"></div>
+            <div class="group">
+              <label for="customer_id_edit">Customer Name</label>
+              <select name="customer_id" id="customer_id_edit">
+                  <option value="">Select Customer</option>
+              </select>
+            </div>
 
-                <div class="group">
-                    <label for="first_name">First Name</label>
-                    <input type="text" id="first_name" name="first_name">
-                </div>
-
-                <div class="group">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" id="last_name" name="last_name">
-                </div>
-
-                <div class="group">
-                    <label for="birthday">Birthday</label>
-                    <input type="date" id="birthday" name="birthday">
-                </div>
-
-                <div class="group">
-                    <label for="account_status">Account Status</label>
-                    <select name="account_status" id="account_status">
-                        <option value="">Select Status</option>
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
-                        <option value="Deactivated">Deactivated</option>
-                    </select>
-                </div>
-
-                <div class="group">
-                    <label for="id">Id</label>
-                    <input type="text" id="id" name="id">
-                </div>
-                <button id="update_customer" class="btn">SUBMIT</button>
-            </form>
+            <div class="group">
+              <label for="engagement_id_edit">Program Name</label>
+              <select name="engagement_id" id="engagement_id_edit">
+                  <option value="">Select Program</option>
+              </select>
+            </div>
+            
+            <div class="group">
+                <label for="due_date_edit">Due Date</label>
+                <input type="date" id="due_date_edit" name="due_date">
+            </div>
+            
+            <div class="group">
+                <label for="notes_edit">Notes</label>
+                <textarea name="notes" id="notes_edit" cols="30" rows="10"></textarea>
+            </div>
+            <input type="hidden" name="id" id="invoice_id_edit">
+            <button id="update_invoice" class="btn">SUBMIT</button>
+        </form>
         </div>
 
     </div>
-
-    <div id="addEngagementModal" aria-hidden="false" aria-labelledby="modal-custom" role="dialog"
-        class="iziModal modals">
-
-        <div class="iziModal-content">
-            <form id="add_engagement_form" method="POST">
-                <h1>ADD ENGAGEMENT</h1>
-                <div id="add_engagement_message"></div>
-
-                <div class="group">
-                    <label for="customer_id">Customer</label>
-                    <select name="customer_id" class="customer_id_select">
-                        <option value="">Select Customer</option>
-                    </select>
-                </div>
-
-                <div class="group">
-                    <label for="engagement_id">Engagements</label>
-                    <select name="engagement_id" class="engagement_id_select">
-                        <option value="">Select Engagement</option>
-                    </select>
-                </div>
-
-                <button id="add_engagement" class="btn btn-primary">SUBMIT</button>
-            </form>
-        </div>
-
-    </div>
-
 
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/popper.min.js"></script>
     <script src="scripts/iziModal.min.js"></script>
 
     <script>
+        const BASE_URL = "https://afternoon-dawn-87591.herokuapp.com";
+        
         $("#addModal").iziModal({
             overlayClose: true,
             width: 600,
@@ -236,12 +156,196 @@
             overlayColor: 'rgba(0, 0, 0, 0.6)',
         });
 
-        $("#addEngagementModal").iziModal({
-            overlayClose: true,
-            width: 600,
-            autoOpen: false,
-            overlayColor: 'rgba(0, 0, 0, 0.6)',
+        // GET AND APPEND DATA
+        $(document).ready(()=> {
+            getCustomerList((data) => {
+              const customer_id = document.getElementById('customer_id');
+              const customer_id_edit = document.getElementById('customer_id_edit');
+              customer_id.innerHTML = '<option value="" selected disabled>Select Payment Plan</option>';
+              customer_id_edit.innerHTML = '<option value="" selected disabled>Select Payment Plan</option>';
+
+              data.forEach(element => {
+                  console.log(element);
+                  customer_id.innerHTML += `<option value="${element.customer_id}">${element.first_name} ${element.last_name}`;
+                    customer_id_edit.innerHTML += `<option value="${element.customer_id}">${element.first_name} ${element.last_name}`;
+              });
+            });
+
+            getEngagementList((data) => {
+              const engagement_id = document.getElementById('engagement_id');
+              const engagement_id_edit = document.getElementById('engagement_id_edit');
+              engagement_id.innerHTML = '<option value="" selected disabled>Select Payment Plan</option>';
+              engagement_id_edit.innerHTML = '<option value="" selected disabled>Select Payment Plan</option>';
+
+              data.forEach(element => {
+                  console.log(element);
+                  engagement_id.innerHTML += `<option value="${element.engagement_id}">${element.engagement_name}`;
+                  engagement_id_edit.innerHTML += `<option value="${element.engagement_id}">${element.engagement_name}`;
+              });
+            });
         });
+
+        $(".editBtn").click((e) => {
+            e.preventDefault();
+            const id = e.target.dataset.id;
+
+            getInvoiceData(id, (data) => {
+                const customer_id_edit = document.getElementById('customer_id_edit');
+                const engagement_id_edit = document.getElementById('engagement_id_edit');
+                const due_date_edit = document.getElementById('due_date_edit');
+                const notes_edit = document.getElementById('notes_edit');
+                const invoice_id_edit = document.getElementById('invoice_id_edit');
+
+                for (var option of customer_id_edit.options) {
+                    console.log(option);
+                    console.log(data.invoice.customer_id);
+
+                    if(option.value == data.invoice.customer_id) {
+                        console.log("selected");
+                        option.setAttribute("selected", "true");
+                    }
+                }
+
+                for (var option of engagement_id_edit.options) {
+                    console.log(option);
+                    console.log(data.invoice.engagement_id);
+
+                    if(option.value == data.invoice.engagement_id) {
+                        console.log("selected");
+                        option.setAttribute("selected", "true");
+                    }
+                }
+
+                if(data.invoice.due_date) {
+                    const due_date = new Date(data.customer.due_date);
+                    const month = due_date.getMonth()+1;
+                    const year = due_date.getFullYear();
+                    const day = due_date.getDate();
+
+                    var monthString;
+                    var dateString;
+                    if(month <= 9) {
+                        monthString = '0'+month;
+                    } else {
+                        monthString = month;
+                    }
+
+                    if(day <= 9) {
+                        dateString = '0'+day;
+                    } else {
+                        dateString = day;
+                    }
+
+                    const format = `${year}-${monthString}-${dateString}`;
+                    birthdayField.value = format;
+                }
+
+                notes_edit.value = data.invoice.notes;
+                invoice_id_edit.value = data.invoice.invoice_id;
+            });
+        });
+
+        // SEND DATA
+        $("#add_invoice").click((e) => {
+            e.preventDefault();
+
+            const add_invoice_form = document.getElementById('add_invoice_form');
+            const formData = new FormData(add_invoice_form);
+
+            const data = JSON.stringify({
+                "customer_id": formData.get("customer_id"),
+                "engagement_id": formData.get("engagement_id"),
+                "due_date": formData.get("due_date"),
+                "notes": formData.get("notes"),
+            });
+
+            fetch(BASE_URL + "/add-invoice", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data,
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                if(data.success && data.invoice_id) {
+                  window.location.replace(`${BASE_URL}/invoice/${data.invoice_id}`);
+                }
+            }).catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
+        });
+
+        $("#update_invoice").click((e) => {
+            e.preventDefault();
+
+            const edit_invoice_form = document.getElementById("edit_invoice_form");
+            const edit_invoice_message = document.getElementById('edit_invoice_message');
+            const formData = new FormData(edit_invoice_form);
+
+            const data = JSON.stringify({
+                "customer_id": formData.get("customer_id"),
+                "engagement_id": formData.get("engagement_id"),
+                "due_date": formData.get("due_date"),
+                "notes": formData.get("notes"),
+                "id": formData.get("id"),
+            });
+
+            fetch(BASE_URL + "/update-invoice", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data,
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                generateSuccessMessage(data, edit_invoice_message);
+            }).catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
+        });
+
+        // HELPERS
+        function getInvoiceData(id, callback){
+            $.ajax({url: `${BASE_URL}/get-invoice?id=${id}`, 
+                success: function(result){
+                    const response = JSON.parse(JSON.stringify(result));
+                    console.log(response);
+                    callback(response);
+            }});
+        }
+
+        function getCustomerList(callback){
+            $.ajax({url: `${BASE_URL}/list-customers`, 
+                success: function(result){
+                    const response = JSON.parse(JSON.stringify(result));
+                    console.log(response);
+                    callback(response);
+            }});
+        }
+
+        function getEngagementList(callback){
+            $.ajax({url: `${BASE_URL}/list-engagements`, 
+                success: function(result){
+                    const response = JSON.parse(JSON.stringify(result));
+                    console.log(response);
+                    callback(response);
+            }});
+        }
+
+        function generateSuccessMessage(data, parentElement) {
+            var status = '';
+            if (data.success) {
+                status = 'success';
+            } else {
+                status = 'error';
+            }
+
+            parentElement.innerHTML = "<p class='" + status + "'>" + data.message + "</p>";
+        }
     </script>
 
 </body>

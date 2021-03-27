@@ -1,0 +1,87 @@
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header><%- include('../partials/header'); %></header>
+
+    <div class="main-content">
+
+        <div class="invoice-box">
+            <table cellpadding="0" cellspacing="0">
+                <tr class="top">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td class="title">
+                                    <img src="http://nextstepwebs.com/images/logo.png"
+                                        style="width: 100%; max-width: 300px" />
+                                </td>
+                                <td>
+                                    Invoice #: <%= invoice.invoice_number %><br />
+                                    Created: <%= invoice.bill_date %><br />
+                                    Due: <%= invoice.due_date %>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="information">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td>
+                                    Harry R Singh<br />
+                                    Schilling St. North Fairview, Quezon City, 1121<br />
+                                    hardeepsingh.work@gmail.com | 
+                                </td>
+                                <td>
+                                    <%= invoice.first_name %> <%= invoice.last_name %><br />
+                                    <%= invoice.email_address %>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="heading">
+                    <td>Payment Method</td>
+                    <td>Check #</td>
+                </tr>
+                <tr class="details">
+                    <td>Check</td>
+                    <td>1000</td>
+                </tr>
+                <tr class="heading">
+                    <td>Item</td>
+                    <td>Price</td>
+                </tr>
+                <tr class="item">
+                    <td>Website design</td>
+                    <td>300</td>
+                </tr>
+                <tr class="item">
+                    <td>Hosting (3 months)</td>
+                    <td>75</td>
+                </tr>
+                <tr class="item last">
+                    <td>Domain name (1 year)</td>
+                    <td>10</td>
+                </tr>
+                <tr class="total">
+                    <td></td>
+                    <td>Total: $385.00</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/popper.min.js"></script>
+    <script src="scripts/iziModal.min.js"></script>
+
+</body>
+
+</html>

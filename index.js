@@ -75,11 +75,29 @@ app.get('/programs', verifyLogin, (req, res) => {
   });
 });
 
+app.get('/program/:id', verifyLogin, (req, res) => {
+  const data = req.params;
+  engagement.getEngagement(data.id, (response) => {
+    console.log(response[0]);
+
+    res.render('pages/program', {program: response[0]});
+  });
+});
+
 app.get('/invoices', verifyLogin, (req, res) => {
   invoice.listInvoices((response) => {
     console.log(response);
 
     res.render('pages/invoices', {invoices: response});
+  });
+});
+
+app.get('/invoice/:id', verifyLogin, (req, res) => {
+  const data = req.params;
+  invoice.getInvoice(data.id, (response) => {
+    console.log(response[0]);
+
+    res.render('pages/invoice', {invoice: response[0]});
   });
 });
 
@@ -635,7 +653,7 @@ app.post('/add-invoice',
 
     res.setHeader("Content-Type", "application/json");
     if(response.rowCount >= 1) {
-      return res.status(200).send({success: true, message: 'Invoice successfully created', invoice_id: response.row.invoice_id, invoice_number: response.rows[0].invoice_number});
+      return res.status(200).send({success: true, message: 'Invoice successfully created', invoice_id: response.rows[0].invoice_id, invoice_number: response.rows[0].invoice_number});
     } else {
       return res.status(500).send({success: false, message: 'an error occured while creating the invoice'});
     }
@@ -841,7 +859,7 @@ app.get('/get-invoice', verifyLogin, async (req, res) => {
     console.log(response[0]);
 
     res.setHeader("Content-Type", "application/json");
-    return res.status(200).send({success: true, engagement: response[0]});
+    return res.status(200).send({success: true, invoice: response[0]});
   });
 })
 
