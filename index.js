@@ -25,9 +25,10 @@ app
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs');
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 app.use(session({
-	secret: 'secret',
+	secret: 'secret-keyboard',
 	resave: true,
 	saveUninitialized: true
 }));
@@ -41,7 +42,16 @@ const plans = new PaymentPlan();
 
 // START API ENDPOINTS HERE ------>
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname,'public/home.html')));
+app.get('/', (req, res) => { 
+  
+  if (request.session.loggedin) {
+		response.send('Welcome back, ' + request.session.username + '!');
+	} else {
+		response.send('Please login to view this page!');
+	}
+	response.end()
+
+  res.sendFile(path.join(__dirname,'public/home.html')) });
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.html')));
 
 
@@ -51,7 +61,8 @@ app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.h
 app.post('/enroll-customer',
   body('first_name').not().isEmpty().trim().escape(),
   body('last_name').not().isEmpty().trim().escape(),
-  body('email_address').isEmail(), 
+  body('email_address').isEmail(),
+  verifyLogin,
   async (req, res) => {
 
   const data = req.body
@@ -88,6 +99,7 @@ app.post('/enroll-customer',
 app.post('/add-customer-engagement',
   body('customer_id').isInt(),
   body('engagement_id').isInt(),
+  verifyLogin,
   async (req, res) => {
 
   const data = req.body
@@ -163,6 +175,7 @@ app.post('/update-customer',
   body('birthday').optional(),
   body('account_status').escape().optional(),
   body('id').isInt(),
+  verifyLogin,
   async (req, res) => {
 
   const data = req.body
@@ -250,7 +263,7 @@ app.post('/update-customer',
 });
 
 // GET
-app.get('/list-customers', async (req, res) => {
+app.get('/list-customers', verifyLogin, async (req, res) => {
 
   customer.listCustomers((response) => {
     console.log(response);
@@ -286,8 +299,7 @@ app.post('/auth',
 
             req.session.loggedin = true;
             req.session.user = response[0];
-            res.redirect('/')
-            res.end();
+            return res.status(200).send({success: true, message: 'Signed in successfully'});
           } else {
             return res.status(401).send({success: false, message: 'Email address and password provided is invalid'});
           }
@@ -300,7 +312,7 @@ app.post('/auth',
 /*************************************************
 * ENGAGEMENTS API 
 *************************************************/
-app.get('/add-engagement', async (req, res) => {
+app.get('/add-engagement', verifyLogin, async (req, res) => {
 
   engagement.addEngagement((response) => {
     console.log(response);
@@ -310,7 +322,7 @@ app.get('/add-engagement', async (req, res) => {
   });
 });
 
-app.get('/list-engagements', async (req, res) => {
+app.get('/list-engagements', verifyLogin, async (req, res) => {
 
   engagement.listEngagements((response) => {
     console.log(response);
@@ -323,7 +335,7 @@ app.get('/list-engagements', async (req, res) => {
 /*************************************************
 * PAYMENT PLANS API 
 *************************************************/
-app.get('/list-plans', async (req, res) => {
+app.get('/list-plans', verifyLogin,  async (req, res) => {
 
   plans.listPlans((response) => {
     console.log(response);
@@ -336,7 +348,7 @@ app.get('/list-plans', async (req, res) => {
 /*************************************************
 * INVOICES API 
 *************************************************/
-app.get('/list-invoices', async (req, res) => {
+app.get('/list-invoices', verifyLogin,  async (req, res) => {
   
   const params = req.query;
   console.log(params);
@@ -383,10 +395,24 @@ app.get('/list-invoices', async (req, res) => {
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
+
+/*************************************************
+* HELPER FUNCTIONS API 
+*************************************************/
+
 function hashpassword(password, salt){
   return bcrypt.hashSync(password, salt);
 }
 
 function checkPassword(password, hash){
   return bcrypt.compareSync(password, hash);
+}
+
+function verifyLogin(request, response, next) {
+	if (request.session.user) {
+		next();
+	} else {
+		var result = {success:false, message: "Access Denied"};
+		response.status(401).json(result);
+	}
 }

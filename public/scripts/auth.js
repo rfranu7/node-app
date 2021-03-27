@@ -24,7 +24,11 @@ signIn.addEventListener("click", (e) => {
         return response.json();
     }).then(function (data) {
         console.log(data);
-        generateSuccessMessage(data, message);
+        if(data.success) {
+            window.location.href=BASE_URL;
+        } else {
+            generateSuccessMessage(data, message);
+        }
     }).catch(function (err) {
         console.warn('Something went wrong.', err);
     });
