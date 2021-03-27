@@ -286,6 +286,34 @@
             });
         });
 
+        $("#add_engagement").click((e) => {
+            e.preventDefault();
+
+            const add_engagement_form = document.getElementById("add_engagement_form");
+            const add_engagement_message = document.getElementById("add_engagement_message");
+            const formData = new FormData(add_engagement_form);
+
+            const data = JSON.stringify({
+                "customer_id": formData.get("customer_id"),
+                "engagement_id": formData.get("engagement_id")
+            });
+
+            fetch(BASE_URL + "/add-customer-engagement", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data,
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                generateSuccessMessage(data, add_engagement_message);
+            }).catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
+        });
+
         function getCustomerData(id, callback){
             $.ajax({url: `${BASE_URL}/get-customer?id=${id}`, 
                 success: function(result){
@@ -302,6 +330,17 @@
                     console.log(response);
                     callback(response);
             }});
+        }
+
+        function generateSuccessMessage(data, parentElement) {
+            var status = '';
+            if (data.success) {
+                status = 'success';
+            } else {
+                status = 'error';
+            }
+
+            parentElement.innerHTML = "<p class='" + status + "'>" + data.message + "</p>";
         }
     </script>
 
