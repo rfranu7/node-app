@@ -373,7 +373,7 @@ app.post('/auth',
             req.session.user = response[0];
             res.redirect('/');
           } else {
-            return res.status(401).send({success: false, message: 'Email address and password provided is invalid'});
+            res.render('pages/login', {message: 'Email address and password provided is invalid'});
           }
         }
       });

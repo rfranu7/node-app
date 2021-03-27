@@ -8,7 +8,7 @@
 </head>
 <body>
     <form action="auth" method="post">
-        <div id="message"></div>
+        <div id="message"><% if(!message == null) { %> <%=message%> <% } %></div>W
         <div class="group">
             <label for="email_address">Email Address</label>
             <input type="email" name="email_address" id="email_address">
