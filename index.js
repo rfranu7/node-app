@@ -71,7 +71,6 @@ app.get('/programs', verifyLogin, (req, res) => {
   engagement.listEngagements((response) => {
     console.log(response);
 
-    res.setHeader("Content-Type", "application/json");
     res.render('pages/programs', {programs: response});
   });
 });
