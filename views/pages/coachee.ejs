@@ -189,7 +189,31 @@
                 emailField.value = data.customer.email_address;
                 firstNameField.value = data.customer.first_name;
                 lastNameField.value = data.customer.last_name;
-                birthdayField.value = data.customer.birthday;
+
+                if(data.customer.birthday) {
+                    const birthday = new Date(data.customer.birthday);
+                    const month = birthday.getMonth()+1;
+                    const year = birthday.getFullYear();
+                    const day = birthday.getDate();
+
+                    var monthString;
+                    var dateString;
+                    if(month <= 9) {
+                        monthString = '0'+month;
+                    } else {
+                        monthString = month;
+                    }
+
+                    if(day <= 9) {
+                        dateString = '0'+day;
+                    } else {
+                        dateString = day;
+                    }
+
+                    const format = `${monthString}-${dateString}-${year}`;
+                    birthdayField.value = format;
+                }
+
                 
                 for (var option of accountStatusField.options) {
                     console.log(option);
