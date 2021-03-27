@@ -92,7 +92,7 @@ app.get('/invoices', verifyLogin, (req, res) => {
   });
 });
 
-app.get('/invoice/:id', verifyLogin, (req, res) => {
+app.get('/invoices/:id', verifyLogin, (req, res) => {
   const data = req.params;
   invoice.getInvoice(data.id, (response) => {
     console.log(response[0]);

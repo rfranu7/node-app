@@ -35,7 +35,7 @@
                     <% for(var i=0; i<invoices.length; i++){ %>
                     <tr>
                         <td><%= invoices[i].invoice_number %></td>
-                        <td><%= invoices.first_name +' '+ invoices.last_name %></td>
+                        <td><%= `${invoices.first_name} ${invoices.last_name}` %></td>
                         <td><%= invoices[i].engagement_name %></td>
                         <td><%= invoices[i].due_date %></td>
                         <td><%= invoices[i].sub_total %></td>
@@ -48,7 +48,7 @@
                               for ( var j = 0; j < options.length; j++ )
                               {
                                   var selected = ( invoices[i].invoice_status == j ) ? "selected" : "";
-                                  %><option value="<%=options[ i ] %>" <%=selected %>><%=i %></option><%
+                                  %><option value="<%=options[ j ] %>" <%=selected %>><%=j %></option><%
                               }
                             %>
                           </select>
