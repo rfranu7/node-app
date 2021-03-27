@@ -306,16 +306,12 @@ app.get('/get-customer', verifyLogin, async (req, res) => {
 
   console.log(data);
 
-  if(typeof(data.id) === 'int') {
-    customer.findCustomerById(data.id, (response) => {
-      console.log(response[0]);
+  customer.findCustomerById(data.id, (response) => {
+    console.log(response[0]);
 
-      res.setHeader("Content-Type", "application/json");
-      return res.status(200).send({success: true, customer: response[0]});
-    });
-  } else {
-    return res.status(500).send({success: false, message: 'Invalid id provided'});
-  }
+    res.setHeader("Content-Type", "application/json");
+    return res.status(200).send({success: true, customer: response[0]});
+  });
 })
 
 // LOGIN
