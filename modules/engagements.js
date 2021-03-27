@@ -10,7 +10,7 @@ export default class Engagement {
         dbWrite(sql, callback);
     }
 
-    async addPaymentTerms(engagement_id, plan_id) {
+    async addPaymentTerms(engagement_id, plan_id, callback) {
         var sql = `INSERT INTO engagement_terms (engagement_id, plan_id) VALUES ('${engagement_id}', '${plan_id}')`;
         console.log(sql);
         dbWrite(sql, callback);
