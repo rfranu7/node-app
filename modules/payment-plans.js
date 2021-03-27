@@ -5,7 +5,7 @@ export default class PaymentPlan {
 
     // INSERT
     async addPlan(plan_name, plan_terms, callback) {
-        var sql = `INSERT INTO ${tableName} (plan_name, plan_terms) VALUES (${plan_name}', '${plan_terms}')`;
+        var sql = `INSERT INTO ${tableName} (plan_name, plan_terms) VALUES ('${plan_name}', '${plan_terms}')`;
         console.log(sql);
         dbWrite(sql, callback);
     }
