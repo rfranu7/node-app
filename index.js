@@ -301,8 +301,8 @@ app.get('/list-customers', verifyLogin, async (req, res) => {
   });
 });
 
-app.get('/get-customer?:id', verifyLogin, async (req, res) => {
-  const data = req.params;
+app.get('/get-customer', verifyLogin, async (req, res) => {
+  const data = req.query;
 
   console.log(data);
 
