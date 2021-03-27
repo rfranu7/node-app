@@ -57,7 +57,9 @@ app.get('/', (req, res) => {
 	res.end();
 });
 
-app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.html')));
+app.get('/login', (req, res) => {
+  res.render('pages/login', {message: null});
+});
 
 app.get('/coachees', verifyLogin, (req, res) => {
   customer.listCustomers((response) => {
