@@ -12,7 +12,7 @@ export default class PaymentPlan {
 
     // UPDATE
     async updatePlan(plan_id, plan_name, plan_terms, callback) {
-        var sql = `UPDATE ${tableName} SET plan_name = '${plan_name}', plan_terms = '${plan_terms}') WHERE plan_id = ${plan_id}`;
+        var sql = `UPDATE ${tableName} SET plan_name = '${plan_name}', plan_terms = '${plan_terms}' WHERE plan_id = ${plan_id}`;
         console.log(sql);
         dbWrite(sql, callback);
     }
