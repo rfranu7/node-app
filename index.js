@@ -156,7 +156,7 @@ app.post('/set-customer-password',
   
         res.setHeader("Content-Type", "application/json");
         if(response.rowCount >= 1) {
-          res.redirect('/');
+          return res.status(200).send({success: true, message: 'password successfully updated'});
         } else {
           return res.status(500).send({success: false, message: 'an error occured while updating the password'});
         }
@@ -299,7 +299,7 @@ app.post('/auth',
 
             req.session.loggedin = true;
             req.session.user = response[0];
-            return res.status(200).send({success: true, message: 'Signed in successfully'});
+            res.redirect('/');
           } else {
             return res.status(401).send({success: false, message: 'Email address and password provided is invalid'});
           }
