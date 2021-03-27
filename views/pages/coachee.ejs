@@ -249,12 +249,12 @@
 
             getCustomerData(id, (data) => {
                 const customer_id_add_engagement = document.getElementById('customer_id_add_engagement');
-                customer_id_add_engagement.innerHTML = `<option value="${data.customer.engagement_id}">${data.customer.engagement_name}`;
+                customer_id_add_engagement.innerHTML = `<option value="${data.customer.customer_id}">${data.customer.first_name} ${data.customer.last_name}`;
             });
         });
 
         // SEND DATA
-        $(".update_customer").click((e) => {
+        $("update_customer").click((e) => {
             e.preventDefault();
 
             const update_customer_form = document.getElementById("update_customer_form");
