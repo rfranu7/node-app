@@ -50,7 +50,7 @@ const plans = new PaymentPlan();
 app.get('/', (req, res) => { 
   
   if (req.session.loggedin) {
-		res.render('pages/index', {user: req.session.user});
+    res.redirect('/coachees');
 	} else {
     res.redirect('/login');
 	}
