@@ -200,7 +200,7 @@
                 success: function(result){
                     const response = JSON.parse(JSON.stringify(result));
                     console.log(response);
-                    return response;
+                    callback(data);
             }});
         }
     </script>

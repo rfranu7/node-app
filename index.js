@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
 
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.html')));
 
-app.get('/coachees', (req, res) => {
+app.get('/coachees', verifyLogin, (req, res) => {
   customer.listCustomers((response) => {
     console.log(response);
 
@@ -68,15 +68,15 @@ app.get('/coachees', (req, res) => {
   
 });
 
-app.get('/programs', (req, res) => {
+app.get('/programs', verifyLogin, (req, res) => {
   res.render('pages/programs');
 });
 
-app.get('/invoices', (req, res) => {
+app.get('/invoices', verifyLogin, (req, res) => {
   res.render('pages/invoices');
 });
 
-app.get('/payment-plans', (req, res) => {
+app.get('/payment-plans', verifyLogin, (req, res) => {
   res.render('pages/plans');
 });
 
