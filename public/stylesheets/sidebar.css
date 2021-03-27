@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
 html,
 body {
   margin: 0;
@@ -6,6 +7,7 @@ body {
   overflow-x: hidden;
   font-family: Roboto;
   height: 100%;
+  background-color: #F9FBFD;
 }
 
 .hide {
@@ -20,7 +22,7 @@ body {
   background-color: #1a1a1a;
 }
 
-.head-nav li:hover svg {
+.head-nav li:hover i {
   background: #1a1a1a;
   fill: #ED1C5B;
 }
@@ -82,7 +84,7 @@ body {
   transition: text-indent 400ms ease-in-out;
 }
 
-.head-nav svg {
+.head-nav i {
   position: relative;
   max-width: 80px;
   max-height: 30px;
@@ -90,13 +92,17 @@ body {
   fill: #fefefe;
   background: #ED1C5B;
   transition: 400ms;
+  text-align: center;
+  width: 80px;
+  height: 30px;
 }
 
 @media screen and (max: 768px) {
   .head-nav ul {
     margin-top: 0.23125rem;
   }
-  .head-nav svg {
+
+  .head-nav i {
     max-width: 20px;
   }
 }
@@ -112,11 +118,11 @@ body {
 }
 
 .main-head:hover {
-  width: 436px;
+  width: 300px;
   z-index: 99;
 }
 
-.main-head:hover + .wrap-all-the-things {
+.main-head:hover+.wrap-all-the-things {
   transform: translateX(336px);
   max-width: 100%;
   opacity: 0.4;
@@ -138,111 +144,297 @@ body {
   transition-delay: 400ms;
 }
 
+.main-head:hover .head-nav li:nth-of-type(5) span {
+  transition-delay: 500ms;
+}
+
 .main-head:hover .head-nav span {
   text-indent: 0;
 }
 
-@media screen and (max: 768px) {
+.main-content {
+  padding: 0 83px 0 140px;
+  margin-top: 2rem;
+  transition: transform 400ms, opacity 400ms;
+}
+
+.cta-section {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #7c8798;
+  clear: both;
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+  max-width: none !important;
+  border-collapse: separate !important;
+  border-spacing: 0;
+  border: 1px solid #e8eef3;
+  background-color: white;
+}
+
+table th,
+table td {
+  padding: 1rem;
+  border: 1px solid #e8eef3;
+}
+
+table th {
+  font-weight: bold;
+}
+
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: background-color .25s ease-out;
+}
+
+.btn:hover {
+  transition: background-color .25s ease-out;
+}
+
+*.btn-primary {
+  background-color: #5F76E8;
+  color: white;
+  text-decoration: none;
+}
+
+*.btn-primary:hover {
+  background-color: #4e67e6;
+}
+
+*.btn-dark {
+  background-color: #6C757D;
+  color: white;
+  text-decoration: none;
+}
+
+*.btn-dark:hover {
+  background-color: #636b72;
+}
+
+*.btn-success {
+  background-color: #22ca80;
+  color: white;
+  text-decoration: none;
+}
+
+*.btn-success:hover {
+  background-color: #1fb975;
+}
+
+label {
+  display: block;
+  margin-bottom: .5rem;
+}
+
+input,
+textarea,
+select {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  margin-bottom: 1rem;
+}
+
+input[type=checkbox] {
+  height: 20px;
+  display: inline;
+  width: unset;
+  margin: 0;
+}
+
+input[type=checkbox]+label {
+  display: inline;
+  margin: 0;
+}
+
+input:disabled,
+.select-2:disabled {
+  cursor: not-allowed;
+  background-color: rgba(200, 200, 200, 0.3);
+}
+
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+textarea {
+  height: auto;
+}
+
+select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+}
+
+select:focus {
+  background-image:
+    linear-gradient(45deg, green 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, green 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+  border-color: green;
+  outline: 0;
+}
+
+.modals {
+  display: none;
+}
+
+.iziModal-content form {
+  padding: 1rem;
+}
+
+.invoice-box {
+  max-width: 800px;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #eee;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+  font-size: 16px;
+  line-height: 24px;
+  font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+  color: #555;
+}
+
+.invoice-box table {
+  width: 100%;
+  line-height: inherit;
+  text-align: left;
+}
+
+.invoice-box table td {
+  padding: 5px;
+  vertical-align: top;
+}
+
+.invoice-box table tr td:nth-child(2) {
+  text-align: right;
+}
+
+.invoice-box table tr.top table td {
+  padding-bottom: 20px;
+}
+
+.invoice-box table tr.top table td.title {
+  font-size: 45px;
+  line-height: 45px;
+  color: #333;
+}
+
+.invoice-box table tr.information table td {
+  padding-bottom: 40px;
+}
+
+.invoice-box table tr.heading td {
+  background: #eee;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+}
+
+.invoice-box table tr.details td {
+  padding-bottom: 20px;
+}
+
+.invoice-box table tr.item td {
+  border-bottom: 1px solid #eee;
+}
+
+.invoice-box table tr.item.last td {
+  border-bottom: none;
+}
+
+.invoice-box table tr.total td:nth-child(2) {
+  border-top: 2px solid #eee;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+  .invoice-box table tr.top table td {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  .invoice-box table tr.information table td {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
   .main-head {
     width: 70px;
-    padding: 0 0.925rem;
   }
+
   .main-head .head-nav {
     padding-left: 7px;
   }
+
   .main-head:hover .head-nav span {
     text-indent: 1em;
   }
 }
 
-@media screen and (max: 480px) {
-  .wrap-all-the-things {
-    padding-left: 70px;
+@media screen and (max-width: 480px) {
+  .main-content {
+    padding: 0 13px 0 83px;
   }
-}
-
-.main-content {
-    padding-left: 140px;
-    margin-top: 0;
-    transition: transform 400ms, opacity 400ms;
-}
-
-
-
-.invoice-box{
-    max-width:800px;
-    margin:auto;
-    padding:30px;
-    border:1px solid #eee;
-    box-shadow:0 0 10px rgba(0, 0, 0, .15);
-    font-size:16px;
-    line-height:24px;
-    font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-    color:#555;
-}
-
-.invoice-box table{
-    width:100%;
-    line-height:inherit;
-    text-align:left;
-}
-
-.invoice-box table td{
-    padding:5px;
-    vertical-align:top;
-}
-
-.invoice-box table tr td:nth-child(2){
-    text-align:right;
-}
-
-.invoice-box table tr.top table td{
-    padding-bottom:20px;
-}
-
-.invoice-box table tr.top table td.title{
-    font-size:45px;
-    line-height:45px;
-    color:#333;
-}
-
-.invoice-box table tr.information table td{
-    padding-bottom:40px;
-}
-
-.invoice-box table tr.heading td{
-    background:#eee;
-    border-bottom:1px solid #ddd;
-    font-weight:bold;
-}
-
-.invoice-box table tr.details td{
-    padding-bottom:20px;
-}
-
-.invoice-box table tr.item td{
-    border-bottom:1px solid #eee;
-}
-
-.invoice-box table tr.item.last td{
-    border-bottom:none;
-}
-
-.invoice-box table tr.total td:nth-child(2){
-    border-top:2px solid #eee;
-    font-weight:bold;
-}
-
-@media only screen and (max-width: 600px) {
-    .invoice-box table tr.top table td{
-        width:100%;
-        display:block;
-        text-align:center;
-    }
-    
-    .invoice-box table tr.information table td{
-        width:100%;
-        display:block;
-        text-align:center;
-    }
 }

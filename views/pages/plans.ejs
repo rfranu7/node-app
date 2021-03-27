@@ -1,0 +1,249 @@
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <header><%- include('../partials/header'); %></header>
+
+    <div class="main-content">
+        <h1>Plans</h1>
+
+        <div class="cta-section">
+            <button class="btn btn-primary" data-izimodal-open="#addModal" data-izimodal-transitionin="fadeInDown">ADD
+                NEW COACHEE</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email Address</th>
+                        <th>Birthday</th>
+                        <th>Account Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Randeep Singh Ranu</td>
+                        <td>rfranu7@gmail.com</td>
+                        <td>Birthday</td>
+                        <td>Active</td>
+                        <td>
+                            <button class="btn btn-dark" data-izimodal-open="#editModal"
+                                data-izimodal-transitionin="fadeInDown">EDIT</button>
+                            <button class="btn btn-success" data-izimodal-open="#addEngagementModal"
+                                data-izimodal-transitionin="fadeInDown">ADD PROGRAM</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="2">
+              <table>
+                <tr>
+                  <td class="title">
+                    <img
+                      src="http://nextstepwebs.com/images/logo.png"
+                      style="width: 100%; max-width: 300px"
+                    />
+                  </td>
+                  <td>
+                    Invoice #: 123<br />
+                    Created: January 1, 2015<br />
+                    Due: February 1, 2015
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="information">
+            <td colspan="2">
+              <table>
+                <tr>
+                  <td>
+                    Next Step Webs, Inc.<br />
+                    12345 Sunny Road<br />
+                    Sunnyville, TX 12345
+                  </td>
+                  <td>
+                    Acme Corp.<br />
+                    John Doe<br />
+                    john@example.com
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="heading">
+            <td>Payment Method</td>
+            <td>Check #</td>
+          </tr>
+          <tr class="details">
+            <td>Check</td>
+            <td>1000</td>
+          </tr>
+          <tr class="heading">
+            <td>Item</td>
+            <td>Price</td>
+          </tr>
+          <tr class="item">
+            <td>Website design</td>
+            <td>300</td>
+          </tr>
+          <tr class="item">
+            <td>Hosting (3 months)</td>
+            <td>75</td>
+          </tr>
+          <tr class="item last">
+            <td>Domain name (1 year)</td>
+            <td>10</td>
+          </tr>
+          <tr class="total">
+            <td></td>
+            <td>Total: $385.00</td>
+          </tr>
+        </table>
+      </div> -->
+
+    </div>
+
+    <!-- MODALS -->
+    <div id="addModal" aria-hidden="false" aria-labelledby="modal-custom" role="dialog" class="iziModal modals">
+
+        <div class="iziModal-content">
+            <form id="enroll_customer_form" method="POST">
+                <h1>ENROLL CUSTOMER</h1>
+                <div id="enroll-message"></div>
+                <div class="group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" name="first_name">
+                </div>
+
+                <div class="group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" name="last_name">
+                </div>
+
+                <div class="group">
+                    <label for="email_address">Email Address</label>
+                    <input type="email" id="email_address" name="email_address">
+                </div>
+                <button id="enroll_customer" class="btn">SUBMIT</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div id="editModal" aria-hidden="false" aria-labelledby="modal-custom" role="dialog" class="iziModal modals">
+
+        <div class="iziModal-content">
+            <form id="update_customer_form" method="POST">
+                <h1>UPDATE CUSTOMER INFORMATION</h1>
+                <div id="update_customer_message"></div>
+                <div class="group">
+                    <label for="email_address">Email Address</label>
+                    <input type="email" id="email_address" name="email_address">
+                </div>
+
+                <div class="group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" name="first_name">
+                </div>
+
+                <div class="group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" name="last_name">
+                </div>
+
+                <div class="group">
+                    <label for="birthday">Birthday</label>
+                    <input type="date" id="birthday" name="birthday">
+                </div>
+
+                <div class="group">
+                    <label for="account_status">Account Status</label>
+                    <select name="account_status" id="account_status">
+                        <option value="">Select Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="Deactivated">Deactivated</option>
+                    </select>
+                </div>
+
+                <div class="group">
+                    <label for="id">Id</label>
+                    <input type="text" id="id" name="id">
+                </div>
+                <button id="update_customer" class="btn">SUBMIT</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div id="addEngagementModal" aria-hidden="false" aria-labelledby="modal-custom" role="dialog"
+        class="iziModal modals">
+
+        <div class="iziModal-content">
+            <form id="add_engagement_form" method="POST">
+                <h1>ADD ENGAGEMENT</h1>
+                <div id="add_engagement_message"></div>
+
+                <div class="group">
+                    <label for="customer_id">Customer</label>
+                    <select name="customer_id" class="customer_id_select">
+                        <option value="">Select Customer</option>
+                    </select>
+                </div>
+
+                <div class="group">
+                    <label for="engagement_id">Engagements</label>
+                    <select name="engagement_id" class="engagement_id_select">
+                        <option value="">Select Engagement</option>
+                    </select>
+                </div>
+
+                <button id="add_engagement" class="btn btn-primary">SUBMIT</button>
+            </form>
+        </div>
+
+    </div>
+
+
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/popper.min.js"></script>
+    <script src="scripts/iziModal.min.js"></script>
+
+    <script>
+        $("#addModal").iziModal({
+            overlayClose: true,
+            width: 600,
+            autoOpen: false,
+            overlayColor: 'rgba(0, 0, 0, 0.6)',
+        });
+
+        $("#editModal").iziModal({
+            overlayClose: true,
+            width: 600,
+            autoOpen: false,
+            overlayColor: 'rgba(0, 0, 0, 0.6)',
+        });
+
+        $("#addEngagementModal").iziModal({
+            overlayClose: true,
+            width: 600,
+            autoOpen: false,
+            overlayColor: 'rgba(0, 0, 0, 0.6)',
+        });
+    </script>
+
+</body>
+
+</html>

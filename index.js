@@ -42,6 +42,10 @@ const plans = new PaymentPlan();
 
 // START API ENDPOINTS HERE ------>
 
+/*************************************************
+* FRONTEND ENDPOINTS
+*************************************************/
+
 app.get('/', (req, res) => { 
   
   if (req.session.loggedin) {
@@ -54,6 +58,26 @@ app.get('/', (req, res) => {
 
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.html')));
 
+app.get('/coachees', (req, res) => {
+  customer.listCustomers((response) => {
+    console.log(response);
+
+    res.render('pages/coachee', {customers: response});
+  });
+  
+});
+
+app.get('/programs', (req, res) => {
+  res.render('pages/programs');
+});
+
+app.get('/invoices', (req, res) => {
+  res.render('pages/invoices');
+});
+
+app.get('/payment-plans', (req, res) => {
+  res.render('pages/plans');
+});
 
 app.get('/dash', (req, res) => res.sendFile(path.join(__dirname,'public/dashboard.html')));
 
@@ -312,6 +336,19 @@ app.post('/auth',
 
 });
 
+// LOGOUT
+app.get('/logout', verifyLogin, async (req, res) => {
+
+  if(req.session.user){
+      req.session.destroy();
+      res.redirect('/login');
+  }
+  else{
+    res.redirect('/');
+  }
+
+});
+
 /*************************************************
 * ENGAGEMENTS API 
 *************************************************/
@@ -415,7 +452,6 @@ function verifyLogin(request, response, next) {
 	if (request.session.user) {
 		next();
 	} else {
-		var result = {success:false, message: "Access Denied"};
-		response.status(401).json(result);
+		response.redirect('/');
 	}
 }
