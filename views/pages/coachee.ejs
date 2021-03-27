@@ -198,7 +198,7 @@
         function getCustomerData(id, callback){
             $.ajax({url: `${BASE_URL}/get-customer?id=${id}`, 
                 success: function(result){
-                const res = JSON.parse(result);
+                const res = result;
                 console.log(res);
                 
                 return res;
