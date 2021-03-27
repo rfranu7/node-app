@@ -44,13 +44,12 @@ const plans = new PaymentPlan();
 
 app.get('/', (req, res) => { 
   
-  if (req.session.loggedin) {
-		res.send('Welcome back, ' + req.session.user + '!');
-	} else {
-    // res.redirect('/login');
-    res.sendFile(path.join(__dirname,'public/home.html'));
-	}
-	res.end();
+  // if (req.session.loggedin) {
+	// 	res.send('Welcome back, ' + req.session.user + '!');
+	// } else {
+  //   res.redirect('/login');
+	// }
+	// res.end();
 
   res.sendFile(path.join(__dirname,'public/home.html')) });
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.html')));
