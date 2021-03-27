@@ -304,6 +304,8 @@ app.get('/list-customers', verifyLogin, async (req, res) => {
 app.get('/get-customer?:id', verifyLogin, async (req, res) => {
   const data = req.params;
 
+  console.log(data);
+
   if(typeof(data.id) === 'int') {
     customer.findCustomerById(data.id, (response) => {
       console.log(response[0]);
