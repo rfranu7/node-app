@@ -55,6 +55,9 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.html')));
 
 
+app.get('/dash', (req, res) => res.sendFile(path.join(__dirname,'public/dashboard.html')));
+
+
 /*************************************************
 * CUSTOMERS API 
 *************************************************/

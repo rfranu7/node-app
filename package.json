@@ -20,6 +20,7 @@
     "express": "^4.15.2",
     "express-session": "^1.17.1",
     "express-validator": "^6.10.0",
+    "izimodal": "^1.5.1",
     "node-fetch": "^2.6.1",
     "pg": "^8.5.1"
   },

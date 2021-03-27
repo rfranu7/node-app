@@ -1,188 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <%- include('../partials/head'); %>
-</head>
-<body class="container">
+  </head>
+  <body class="container">
+    <header><%- include('../partials/header'); %></header>
 
-<header>
-    <%- include('../partials/header'); %>
-</header>
+    <nav id="sidebar">
+      <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+          <i class="fa fa-bars"></i>
+          <span class="sr-only">Toggle Menu</span>
+        </button>
+      </div>
+      <div class="p-4 pt-5">
+        <h1><a href="index.html" class="logo">Splash</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li class="active">
+            <a
+              href="#homeSubmenu"
+              data-toggle="collapse"
+              aria-expanded="false"
+              class="dropdown-toggle"
+              >Home</a
+            >
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+              <li>
+                <a href="#">Home 1</a>
+              </li>
+              <li>
+                <a href="#">Home 2</a>
+              </li>
+              <li>
+                <a href="#">Home 3</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">About</a>
+          </li>
+          <li>
+            <a
+              href="#pageSubmenu"
+              data-toggle="collapse"
+              aria-expanded="false"
+              class="dropdown-toggle"
+              >Pages</a
+            >
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+              <li>
+                <a href="#">Page 1</a>
+              </li>
+              <li>
+                <a href="#">Page 2</a>
+              </li>
+              <li>
+                <a href="#">Page 3</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Portfolio</a>
+          </li>
+          <li>
+            <a href="#">Contact</a>
+          </li>
+        </ul>
+        <div class="mb-5">
+          <h3 class="h6">Subscribe for newsletter</h3>
+          <form action="#" class="colorlib-subscribe-form">
+            <div class="form-group d-flex">
+              <div class="icon"><span class="icon-paper-plane"></span></div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Email Address"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="footer">
+          <p>
+            Copyright ©
+            <script>
+              document.write(new Date().getFullYear());
+            </script>
+            2021 All rights reserved | This template is made with
+            <i class="icon-heart" aria-hidden="true"></i> by
+            <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+          </p>
+        </div>
+      </div>
+    </nav>
 
-<main>
-    <h1><%= user %></h1>
-
-    <div class="jumbotron">
-        <h1>This is great</h1>
-        <p>Welcome to templating using EJS</p>
+    <div id="content" class="p-4 p-md-5 pt-5">
+      <h2 class="mb-4">Sidebar #02</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </p>
     </div>
 
-    <h1>WEB API ENDPOINTS</h1>
-    
-    <div class="grid">
-        <button id="list-engagement" class="btn">Get Engagements</button>
-        <button id="list-plan" class="btn">Get Payment Plans</button>
-        <div id="engagement-display"></div>
-        <div id="plan-display"></div>
-    </div>
+    <footer><%- include('../partials/footer'); %></footer>
 
-    <div class="grid">
-        <form id="invoice_form" action="POST">
-            <div class="group">
-                <label for="start_date">Start Date</label>
-                <input type="date" id="start_date" name="start_date">
-            </div>
-            
-            <div class="group">
-                <label for="end_date">End Date</label>
-                <input type="date" id="end_date" name="end_date">
-            </div>
-
-            <div class="group">
-                <label for="status">Status</label>
-                <select name="status" id="status">
-                    <option value="">Select Status</option>
-                    <option value="Draft">Draft</option>
-                    <option value="Open">Open</option>
-                    <option value="Finalized">Finalized</option>
-                    <option value="Paid">Paid</option>
-                    <option value="Closed">Closed</option>
-                    <option value="Void">Void</option>
-                </select>
-            </div>
-
-            <div class="group">
-                <label for="customer_id">Customer</label>
-                <select name="customer_id" class="customer_id_select">
-                    <option value="">Select Customer</option>
-                </select>
-            </div>
-
-            <div class="group">
-                <label for="engagement_id">Engagements</label>
-                <select name="engagement_id" class="engagement_id_select">
-                    <option value="">Select Engagement</option>
-                </select>
-            </div>
-
-            <button id="list-invoice" class="btn">Get Invoices</button>
-        </form>
-        <div id="invoice-display"></div>
-    </div>
-
-    <div class="grid">
-        <form id="enroll_customer_form" method="POST">
-            <h1>ENROLL CUSTOMER</h1>
-            <div id="enroll-message"></div>
-            <div class="group">
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name">
-            </div>
-
-            <div class="group">
-                <label for="last_name">Last Name</label>
-                <input type="text" id="last_name" name="last_name">
-            </div>
-
-            <div class="group">
-                <label for="email_address">Email Address</label>
-                <input type="email" id="email_address" name="email_address">
-            </div>
-            <button id="enroll_customer" class="btn">SUBMIT</button>
-        </form>
-
-        <form id="update_password_form" method="POST">
-            <h1>SET CUSTOMER PASSWORD</h1>
-            <div id="update-password-message"></div>
-            <div class="group">
-                <label for="email_address">Email Address</label>
-                <input type="email" id="email_address" name="email_address">
-            </div>
-
-            <div class="group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password">
-            </div>
-
-            <div class="group">
-                <label for="password_confirmation">Confirm Password</label>
-                <input type="password" id="password_confirmation" name="password_confirmation">
-            </div>
-            <button id="update_password" class="btn">SUBMIT</button>
-        </form>
-    </div>
-
-    <div class="grid">
-        <form id="update_customer_form" method="POST">
-            <h1>SET CUSTOMER PASSWORD</h1>
-            <div id="update_customer_message"></div>
-            <div class="group">
-                <label for="email_address">Email Address</label>
-                <input type="email" id="email_address" name="email_address">
-            </div>
-
-            <div class="group">
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name">
-            </div>
-            
-            <div class="group">
-                <label for="last_name">Last Name</label>
-                <input type="text" id="last_name" name="last_name">
-            </div>
-            
-            <div class="group">
-                <label for="birthday">Birthday</label>
-                <input type="date" id="birthday" name="birthday">
-            </div>
-            
-            <div class="group">
-                <label for="account_status">Account Status</label>
-                <select name="account_status" id="account_status">
-                    <option value="">Select Status</option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                    <option value="Deactivated">Deactivated</option>
-                </select>
-            </div>
-            
-            <div class="group">
-                <label for="id">Id</label>
-                <input type="text" id="id" name="id">
-            </div>
-            <button id="update_customer" class="btn">SUBMIT</button>
-        </form>
-
-        <form id="add_engagement_form" method="POST">
-            <h1>ADD ENGAGEMENT</h1>
-            <div id="add_engagement_message"></div>
-            
-            <div class="group">
-                <label for="customer_id">Customer</label>
-                <select name="customer_id" class="customer_id_select">
-                    <option value="">Select Customer</option>
-                </select>
-            </div>
-
-            <div class="group">
-                <label for="engagement_id">Engagements</label>
-                <select name="engagement_id" class="engagement_id_select">
-                    <option value="">Select Engagement</option>
-                </select>
-            </div>
-
-            <button id="add_engagement" class="btn">SUBMIT</button>
-        </form>
-    </div>
-</main>
-
-<footer>
-    <%- include('../partials/footer'); %>
-</footer>
-  
-<script src="scripts/config.js"></script>
-<script src="scripts/load-data.js"></script>
-<script src="scripts/add-data.js"></script>
-
-</body>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/load-data.js"></script>
+    <script src="scripts/add-data.js"></script>
+  </body>
 </html>
