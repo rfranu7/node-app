@@ -65,11 +65,15 @@ app.get('/coachees', verifyLogin, (req, res) => {
 
     res.render('pages/coachee', {customers: response});
   });
-  
 });
 
 app.get('/programs', verifyLogin, (req, res) => {
-  res.render('pages/programs');
+  engagement.listEngagements((response) => {
+    console.log(response);
+
+    res.setHeader("Content-Type", "application/json");
+    res.render('pages/programs', {programs: response});
+  });
 });
 
 app.get('/invoices', verifyLogin, (req, res) => {

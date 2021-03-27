@@ -12,132 +12,44 @@
 
         <div class="cta-section">
             <button class="btn btn-primary" data-izimodal-open="#addModal" data-izimodal-transitionin="fadeInDown">ADD
-                NEW COACHEE</button>
+                NEW PROGRAM</button>
         </div>
 
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email Address</th>
-                        <th>Birthday</th>
-                        <th>Account Status</th>
+                        <th>Engagement Name</th>
+                        <th>Duration</th>
+                        <th>Total Amount</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <% for(var i=0; i<programs.length; i++){ %>
                     <tr>
-                        <td>Randeep Singh Ranu</td>
-                        <td>rfranu7@gmail.com</td>
-                        <td>Birthday</td>
-                        <td>Active</td>
+                        <td><%= programs[i].engagement_name %></td>
+                        <td><%= programs[i].duration %></td>
+                        <td><%= programs[i].total_fee %></td>
                         <td>
-                            <button class="btn btn-dark" data-izimodal-open="#editModal"
-                                data-izimodal-transitionin="fadeInDown">EDIT</button>
-                            <button class="btn btn-success" data-izimodal-open="#addEngagementModal"
-                                data-izimodal-transitionin="fadeInDown">ADD PROGRAM</button>
+                            <a href="/program/<%= programs[i].engagement_id %>" class="btn btn-dark">VIEW</a>
+                            <button class="btn btn-dark editBtn" data-izimodal-open="#editModal"
+                                data-izimodal-transitionin="fadeInDown" data-id="<%= programs[i].engagement_id %>">EDIT</button>
+                            <button class="btn btn-success addProgram" data-izimodal-open="#addPaymentModal"
+                                data-izimodal-transitionin="fadeInDown" data-id="<%= programs[i].engagement_id %>">ADD PROGRAM</button>
                         </td>
                     </tr>
+                        <% } %>
                 </tbody>
             </table>
         </div>
-
-        <!-- <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
-          <tr class="top">
-            <td colspan="2">
-              <table>
-                <tr>
-                  <td class="title">
-                    <img
-                      src="http://nextstepwebs.com/images/logo.png"
-                      style="width: 100%; max-width: 300px"
-                    />
-                  </td>
-                  <td>
-                    Invoice #: 123<br />
-                    Created: January 1, 2015<br />
-                    Due: February 1, 2015
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr class="information">
-            <td colspan="2">
-              <table>
-                <tr>
-                  <td>
-                    Next Step Webs, Inc.<br />
-                    12345 Sunny Road<br />
-                    Sunnyville, TX 12345
-                  </td>
-                  <td>
-                    Acme Corp.<br />
-                    John Doe<br />
-                    john@example.com
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr class="heading">
-            <td>Payment Method</td>
-            <td>Check #</td>
-          </tr>
-          <tr class="details">
-            <td>Check</td>
-            <td>1000</td>
-          </tr>
-          <tr class="heading">
-            <td>Item</td>
-            <td>Price</td>
-          </tr>
-          <tr class="item">
-            <td>Website design</td>
-            <td>300</td>
-          </tr>
-          <tr class="item">
-            <td>Hosting (3 months)</td>
-            <td>75</td>
-          </tr>
-          <tr class="item last">
-            <td>Domain name (1 year)</td>
-            <td>10</td>
-          </tr>
-          <tr class="total">
-            <td></td>
-            <td>Total: $385.00</td>
-          </tr>
-        </table>
-      </div> -->
-
     </div>
 
     <!-- MODALS -->
     <div id="addModal" aria-hidden="false" aria-labelledby="modal-custom" role="dialog" class="iziModal modals">
 
         <div class="iziModal-content">
-            <form id="enroll_customer_form" method="POST">
-                <h1>ENROLL CUSTOMER</h1>
-                <div id="enroll-message"></div>
-                <div class="group">
-                    <label for="first_name">First Name</label>
-                    <input type="text" id="first_name" name="first_name">
-                </div>
-
-                <div class="group">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" id="last_name" name="last_name">
-                </div>
-
-                <div class="group">
-                    <label for="email_address">Email Address</label>
-                    <input type="email" id="email_address" name="email_address">
-                </div>
-                <button id="enroll_customer" class="btn">SUBMIT</button>
-            </form>
+            
         </div>
 
     </div>
@@ -145,45 +57,7 @@
     <div id="editModal" aria-hidden="false" aria-labelledby="modal-custom" role="dialog" class="iziModal modals">
 
         <div class="iziModal-content">
-            <form id="update_customer_form" method="POST">
-                <h1>UPDATE CUSTOMER INFORMATION</h1>
-                <div id="update_customer_message"></div>
-                <div class="group">
-                    <label for="email_address">Email Address</label>
-                    <input type="email" id="email_address" name="email_address">
-                </div>
-
-                <div class="group">
-                    <label for="first_name">First Name</label>
-                    <input type="text" id="first_name" name="first_name">
-                </div>
-
-                <div class="group">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" id="last_name" name="last_name">
-                </div>
-
-                <div class="group">
-                    <label for="birthday">Birthday</label>
-                    <input type="date" id="birthday" name="birthday">
-                </div>
-
-                <div class="group">
-                    <label for="account_status">Account Status</label>
-                    <select name="account_status" id="account_status">
-                        <option value="">Select Status</option>
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
-                        <option value="Deactivated">Deactivated</option>
-                    </select>
-                </div>
-
-                <div class="group">
-                    <label for="id">Id</label>
-                    <input type="text" id="id" name="id">
-                </div>
-                <button id="update_customer" class="btn">SUBMIT</button>
-            </form>
+            
         </div>
 
     </div>
@@ -192,26 +66,7 @@
         class="iziModal modals">
 
         <div class="iziModal-content">
-            <form id="add_engagement_form" method="POST">
-                <h1>ADD ENGAGEMENT</h1>
-                <div id="add_engagement_message"></div>
-
-                <div class="group">
-                    <label for="customer_id">Customer</label>
-                    <select name="customer_id" class="customer_id_select">
-                        <option value="">Select Customer</option>
-                    </select>
-                </div>
-
-                <div class="group">
-                    <label for="engagement_id">Engagements</label>
-                    <select name="engagement_id" class="engagement_id_select">
-                        <option value="">Select Engagement</option>
-                    </select>
-                </div>
-
-                <button id="add_engagement" class="btn btn-primary">SUBMIT</button>
-            </form>
+            
         </div>
 
     </div>
@@ -222,6 +77,8 @@
     <script src="scripts/iziModal.min.js"></script>
 
     <script>
+        const BASE_URL = "https://afternoon-dawn-87591.herokuapp.com";
+        
         $("#addModal").iziModal({
             overlayClose: true,
             width: 600,
@@ -242,6 +99,205 @@
             autoOpen: false,
             overlayColor: 'rgba(0, 0, 0, 0.6)',
         });
+
+        // GET AND APPEND DATA
+        $(document).ready(()=> {
+            getEngagementList((data) => {
+                const engagement_id_add_engagement = document.getElementById('engagement_id_add_engagement');
+                engagement_id_add_engagement.innerHTML = '<option value="" selected disabled>Select Engagement</option>';
+
+                data.forEach(element => {
+                    console.log(element);
+                    engagement_id_add_engagement.innerHTML += `<option value="${element.engagement_id}">${element.engagement_name}`;
+                });
+            });
+        });
+
+        $(".editBtn").click((e) => {
+            e.preventDefault();
+            const id = e.target.dataset.id;
+
+            getCustomerData(id, (data) => {
+                const emailField = document.getElementById('email_address_edit');
+                const firstNameField = document.getElementById('first_name_edit');
+                const lastNameField = document.getElementById('last_name_edit');
+                const birthdayField = document.getElementById('birthday_edit');
+                const accountStatusField = document.getElementById('account_status_edit');
+                const hiddenIdField = document.getElementById('customer_id_edit');
+
+                emailField.value = data.customer.email_address;
+                firstNameField.value = data.customer.first_name;
+                lastNameField.value = data.customer.last_name;
+
+                if(data.customer.birthday) {
+                    const birthday = new Date(data.customer.birthday);
+                    const month = birthday.getMonth()+1;
+                    const year = birthday.getFullYear();
+                    const day = birthday.getDate();
+
+                    var monthString;
+                    var dateString;
+                    if(month <= 9) {
+                        monthString = '0'+month;
+                    } else {
+                        monthString = month;
+                    }
+
+                    if(day <= 9) {
+                        dateString = '0'+day;
+                    } else {
+                        dateString = day;
+                    }
+
+                    const format = `${year}-${monthString}-${dateString}`;
+                    birthdayField.value = format;
+                }
+
+                
+                for (var option of accountStatusField.options) {
+                    console.log(option);
+                    console.log(data.customer.account_status);
+
+                    if(option.value == data.customer.account_status) {
+                        console.log("selected");
+                        option.setAttribute("selected", "true");
+                    }
+                }
+
+
+                hiddenIdField.value = data.customer.customer_id;
+            });
+        });
+
+        $(".addProgram").click((e) => {
+            e.preventDefault();
+            const id = e.target.dataset.id;
+
+            getCustomerData(id, (data) => {
+                const customer_id_add_engagement = document.getElementById('customer_id_add_engagement');
+                customer_id_add_engagement.innerHTML = `<option value="${data.customer.customer_id}">${data.customer.first_name} ${data.customer.last_name}`;
+            });
+        });
+
+        // SEND DATA
+        $("#enroll_customer").click((e) => {
+            e.preventDefault();
+
+            const enroll_customer_form = document.getElementById('enroll_customer_form');
+            const enroll_message = document.getElementById('enroll_message');
+            const formData = new FormData(enroll_customer_form);
+
+            const data = JSON.stringify({
+                "first_name": formData.get("first_name"),
+                "last_name": formData.get("last_name"),
+                "email_address": formData.get("email_address"),
+            });
+
+            fetch(BASE_URL + "/enroll-customer", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data,
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                generateSuccessMessage(data, enroll_message);
+            }).catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
+        });
+
+        $("#update_customer").click((e) => {
+            e.preventDefault();
+
+            const update_customer_form = document.getElementById("update_customer_form");
+            const update_customer_message = document.getElementById('update_customer_message');
+            const formData = new FormData(update_customer_form);
+
+            const data = JSON.stringify({
+                "email_address": formData.get("email_address"),
+                "first_name": formData.get("first_name"),
+                "last_name": formData.get("last_name"),
+                "birthday": formData.get("birthday"),
+                "account_status": formData.get("account_status"),
+                "id": formData.get("id"),
+            });
+
+            fetch(BASE_URL + "/update-customer", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data,
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                generateSuccessMessage(data, update_customer_message);
+            }).catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
+        });
+
+        $("#add_engagement").click((e) => {
+            e.preventDefault();
+
+            const add_engagement_form = document.getElementById("add_engagement_form");
+            const add_engagement_message = document.getElementById("add_engagement_message");
+            const formData = new FormData(add_engagement_form);
+
+            const data = JSON.stringify({
+                "customer_id": formData.get("customer_id"),
+                "engagement_id": formData.get("engagement_id")
+            });
+
+            fetch(BASE_URL + "/add-customer-engagement", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data,
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                generateSuccessMessage(data, add_engagement_message);
+            }).catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
+        });
+
+        // HELPERS
+        function getCustomerData(id, callback){
+            $.ajax({url: `${BASE_URL}/get-customer?id=${id}`, 
+                success: function(result){
+                    const response = JSON.parse(JSON.stringify(result));
+                    console.log(response);
+                    callback(response);
+            }});
+        }
+
+        function getEngagementList(callback){
+            $.ajax({url: `${BASE_URL}/list-engagements`, 
+                success: function(result){
+                    const response = JSON.parse(JSON.stringify(result));
+                    console.log(response);
+                    callback(response);
+            }});
+        }
+
+        function generateSuccessMessage(data, parentElement) {
+            var status = '';
+            if (data.success) {
+                status = 'success';
+            } else {
+                status = 'error';
+            }
+
+            parentElement.innerHTML = "<p class='" + status + "'>" + data.message + "</p>";
+        }
     </script>
 
 </body>
