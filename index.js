@@ -47,7 +47,8 @@ app.get('/', (req, res) => {
   if (req.session.loggedin) {
 		res.send('Welcome back, ' + req.session.user + '!');
 	} else {
-		res.send('Please login to view this page!');
+    // res.redirect('/login');
+    res.sendFile(path.join(__dirname,'public/home.html'));
 	}
 	res.end();
 
