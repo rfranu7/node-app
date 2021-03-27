@@ -396,7 +396,7 @@ verifyLogin, async (req, res) => {
   });
 });
 
-app.post('/add-customer-engagement',
+app.post('/add-engagement-plan',
   body('engagement_id').isInt(),
   body('plan_id').isInt(),
   verifyLogin,
