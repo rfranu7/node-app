@@ -50,8 +50,8 @@ app.get('/', (req, res) => {
     res.redirect('/login');
 	}
 	res.end();
+});
 
-  res.sendFile(path.join(__dirname,'public/home.html')) });
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.html')));
 
 
