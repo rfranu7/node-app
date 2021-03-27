@@ -44,12 +44,12 @@ const plans = new PaymentPlan();
 
 app.get('/', (req, res) => { 
   
-  // if (req.session.loggedin) {
-	// 	res.send('Welcome back, ' + req.session.user + '!');
-	// } else {
-  //   res.redirect('/login');
-	// }
-	// res.end();
+  if (req.session.loggedin) {
+		res.render('pages/index', {user: req.session.user});
+	} else {
+    res.redirect('/login');
+	}
+	res.end();
 
   res.sendFile(path.join(__dirname,'public/home.html')) });
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.html')));
@@ -156,7 +156,7 @@ app.post('/set-customer-password',
   
         res.setHeader("Content-Type", "application/json");
         if(response.rowCount >= 1) {
-          return res.status(200).send({success: true, message: 'password successfully updated'});
+          res.redirect('/');
         } else {
           return res.status(500).send({success: false, message: 'an error occured while updating the password'});
         }
