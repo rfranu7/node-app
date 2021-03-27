@@ -191,15 +191,15 @@
                 lastNameField.value = data.customer.last_name;
                 birthdayField.value = data.customer.birthday;
                 
-                accountStatusField.options.forEach(element => {
-                    console.log(element);
+                for (var option of accountStatusField.options) {
+                    console.log(option);
                     console.log(data.customer.account_status);
 
-                    if(element.value == data.customer.account_status) {
+                    if(option.value == data.customer.account_status) {
                         console.log("selected");
-                        element.setAttribute("selected", "true");
+                        option.setAttribute("selected", "true");
                     }
-                });
+                }
 
 
                 hiddenIdField.value = data.customer.customer_id;
