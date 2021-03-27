@@ -182,7 +182,7 @@
 
                 data.forEach(element => {
                     console.log(element);
-                    parent.innerHTML += `<option value="${element.engagement_id}">${element.engagement_name}`;
+                    engagement_id_add_engagement.innerHTML += `<option value="${element.engagement_id}">${element.engagement_name}`;
                 });
             });
         });
@@ -249,11 +249,7 @@
 
             getCustomerData(id, (data) => {
                 const customer_id_add_engagement = document.getElementById('customer_id_add_engagement');
-                const option = document.createElement('option');
-                option.value = data.customer.customer_id;
-                option.textContent = `${data.customer.first_name} ${data.customer.last_name}`;
-                option.setAttribute("selected", "true");
-                customer_id_add_engagement.add(option);
+                customer_id_add_engagement.innerHTML = `<option value="${data.customer.engagement_id}">${data.customer.engagement_name}`;
             });
         });
 
