@@ -34,87 +34,16 @@
                         <td><%= customers[i].birthday %></td>
                         <td><%= customers[i].account_status %></td>
                         <td>
-                            <button class="btn btn-dark" data-izimodal-open="#editModal"
-                                data-izimodal-transitionin="fadeInDown">EDIT</button>
+                            <button class="btn btn-dark editBtn" data-izimodal-open="#editModal"
+                                data-izimodal-transitionin="fadeInDown" data-id="<%= customers[i].customer_id %>">EDIT</button>
                             <button class="btn btn-success" data-izimodal-open="#addEngagementModal"
-                                data-izimodal-transitionin="fadeInDown">ADD PROGRAM</button>
+                                data-izimodal-transitionin="fadeInDown" data-id="<%= customers[i].customer_id %>">ADD PROGRAM</button>
                         </td>
                     </tr>
                         <% } %>
                 </tbody>
             </table>
         </div>
-
-        <!-- <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
-          <tr class="top">
-            <td colspan="2">
-              <table>
-                <tr>
-                  <td class="title">
-                    <img
-                      src="http://nextstepwebs.com/images/logo.png"
-                      style="width: 100%; max-width: 300px"
-                    />
-                  </td>
-                  <td>
-                    Invoice #: 123<br />
-                    Created: January 1, 2015<br />
-                    Due: February 1, 2015
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr class="information">
-            <td colspan="2">
-              <table>
-                <tr>
-                  <td>
-                    Next Step Webs, Inc.<br />
-                    12345 Sunny Road<br />
-                    Sunnyville, TX 12345
-                  </td>
-                  <td>
-                    Acme Corp.<br />
-                    John Doe<br />
-                    john@example.com
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr class="heading">
-            <td>Payment Method</td>
-            <td>Check #</td>
-          </tr>
-          <tr class="details">
-            <td>Check</td>
-            <td>1000</td>
-          </tr>
-          <tr class="heading">
-            <td>Item</td>
-            <td>Price</td>
-          </tr>
-          <tr class="item">
-            <td>Website design</td>
-            <td>300</td>
-          </tr>
-          <tr class="item">
-            <td>Hosting (3 months)</td>
-            <td>75</td>
-          </tr>
-          <tr class="item last">
-            <td>Domain name (1 year)</td>
-            <td>10</td>
-          </tr>
-          <tr class="total">
-            <td></td>
-            <td>Total: $385.00</td>
-          </tr>
-        </table>
-      </div> -->
-
     </div>
 
     <!-- MODALS -->
@@ -152,27 +81,27 @@
                 <div id="update_customer_message"></div>
                 <div class="group">
                     <label for="email_address">Email Address</label>
-                    <input type="email" id="email_address" name="email_address">
+                    <input type="email" id="email_address_edit" name="email_address">
                 </div>
 
                 <div class="group">
                     <label for="first_name">First Name</label>
-                    <input type="text" id="first_name" name="first_name">
+                    <input type="text" id="first_name_edit" name="first_name">
                 </div>
 
                 <div class="group">
                     <label for="last_name">Last Name</label>
-                    <input type="text" id="last_name" name="last_name">
+                    <input type="text" id="last_name_edit" name="last_name">
                 </div>
 
                 <div class="group">
                     <label for="birthday">Birthday</label>
-                    <input type="date" id="birthday" name="birthday">
+                    <input type="date" id="birthday_edit" name="birthday">
                 </div>
 
                 <div class="group">
                     <label for="account_status">Account Status</label>
-                    <select name="account_status" id="account_status">
+                    <select name="account_status_edit" id="account_status">
                         <option value="">Select Status</option>
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
@@ -180,10 +109,8 @@
                     </select>
                 </div>
 
-                <div class="group">
-                    <label for="id">Id</label>
-                    <input type="text" id="id" name="id">
-                </div>
+                <input type="hidden" id="customer_id_edit" name="id">
+
                 <button id="update_customer" class="btn">SUBMIT</button>
             </form>
         </div>
@@ -224,6 +151,8 @@
     <script src="scripts/iziModal.min.js"></script>
 
     <script>
+        const BASE_URL = "https://afternoon-dawn-87591.herokuapp.com/";
+        
         $("#addModal").iziModal({
             overlayClose: true,
             width: 600,
@@ -244,6 +173,37 @@
             autoOpen: false,
             overlayColor: 'rgba(0, 0, 0, 0.6)',
         });
+
+        $(".editBtn").click((e) => {
+            e.preventDefault();
+            const id = e.target.dataset.id;
+
+            getCustomerData(id, (data) => {
+                const emailField = document.getElementById('email_address_edit');
+                const firstNameField = document.getElementById('first_name_edit');
+                const lastNameField = document.getElementById('last_name_edit');
+                const birthdayField = document.getElementById('birthday_edit');
+                const accountStatusField = document.getElementById('account_status_edit');
+                const hiddenIdField = document.getElementById('customer_id_edit');
+
+                emailField.value = data.customer.email_address;
+                firstNameField.value = data.customer.first_name;
+                lastNameField.value = data.customer.last_name;
+                birthdayField.value = data.customer.birthday;
+                accountStatusField.value = data.customer.account_status;
+                hiddenIdField.value = data.customer.customer_id;
+            });
+        });
+
+        function getCustomerData(id, callback){
+            $.ajax({url: `${BASE_URL}/get-customer?id=${id}`, 
+                success: function(result){
+                const res = JSON.parse(result);
+                console.log(res);
+                
+                return res;
+            }});
+        }
     </script>
 
 </body>

@@ -13,6 +13,7 @@ import Customer from './modules/customers.js';
 import Engagement from './modules/engagements.js';
 import PaymentPlan from './modules/payment-plans.js';
 import Invoice from './modules/invoice.js';
+import { type } from 'os';
 
 dotenv.config();
 const saltRounds = 10;
@@ -299,6 +300,21 @@ app.get('/list-customers', verifyLogin, async (req, res) => {
     res.send(response)
   });
 });
+
+app.get('/get-customer?:id', verifyLogin, async (req, res) => {
+  const data = req.params;
+
+  if(typeof(data.id) === 'int') {
+    customer.findCustomerById(data.id, (response) => {
+      console.log(response[0]);
+
+      res.setHeader("Content-Type", "application/json");
+      return res.status(200).send({success: true, customer: response[0]});
+    });
+  } else {
+    return res.status(500).send({success: false, message: 'Invalid id provided'});
+  }
+})
 
 // LOGIN
 app.post('/auth',
