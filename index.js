@@ -598,7 +598,7 @@ app.get('/get-plan', verifyLogin, async (req, res) => {
     console.log(response[0]);
 
     res.setHeader("Content-Type", "application/json");
-    return res.status(200).send({success: true, engagement: response[0]});
+    return res.status(200).send({success: true, plan: response[0]});
   });
 })
 
