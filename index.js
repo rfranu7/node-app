@@ -45,11 +45,11 @@ const plans = new PaymentPlan();
 app.get('/', (req, res) => { 
   
   if (req.session.loggedin) {
-		response.send('Welcome back, ' + req.session.user + '!');
+		res.send('Welcome back, ' + req.session.user + '!');
 	} else {
-		response.send('Please login to view this page!');
+		res.send('Please login to view this page!');
 	}
-	response.end();
+	res.end();
 
   res.sendFile(path.join(__dirname,'public/home.html')) });
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname,'public/login.html')));
