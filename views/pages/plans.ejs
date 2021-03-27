@@ -183,7 +183,7 @@
 
         // HELPERS
         function getPlanData(id, callback){
-            $.ajax({url: `${BASE_URL}/get-engagement?id=${id}`, 
+            $.ajax({url: `${BASE_URL}/get-plan?id=${id}`, 
                 success: function(result){
                     const response = JSON.parse(JSON.stringify(result));
                     console.log(response);
