@@ -76,11 +76,19 @@ app.get('/programs', verifyLogin, (req, res) => {
 });
 
 app.get('/invoices', verifyLogin, (req, res) => {
-  res.render('pages/invoices');
+  invoice.listInvoices((response) => {
+    console.log(response);
+
+    res.render('pages/invoices', {invoices: response});
+  });
 });
 
 app.get('/payment-plans', verifyLogin, (req, res) => {
-  res.render('pages/plans');
+  plans.listPlans((response) => {
+    console.log(response);
+
+    res.render('pages/plans', {plans: response});
+  });
 });
 
 app.get('/dash', (req, res) => res.sendFile(path.join(__dirname,'public/dashboard.html')));
