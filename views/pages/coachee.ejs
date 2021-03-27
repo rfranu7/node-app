@@ -298,6 +298,15 @@
                     callback(response);
             }});
         }
+
+        function getEngagementList(callback){
+            $.ajax({url: `${BASE_URL}/list-engagements`, 
+                success: function(result){
+                    const response = JSON.parse(JSON.stringify(result));
+                    console.log(response);
+                    callback(response);
+            }});
+        }
     </script>
 
 </body>
