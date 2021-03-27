@@ -1,6 +1,5 @@
 // IMPORT MODULES
 import dotenv from 'dotenv';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import * as path from 'path';
@@ -13,7 +12,6 @@ import Customer from './modules/customers.js';
 import Engagement from './modules/engagements.js';
 import PaymentPlan from './modules/payment-plans.js';
 import Invoice from './modules/invoice.js';
-import { type } from 'os';
 
 dotenv.config();
 const saltRounds = 10;
