@@ -492,35 +492,49 @@
                     <td>Item</td>
                     <td>Price</td>
                 </tr>
+
+                <% for(var i=0; i<items.length; i++) {%>
                 <tr class="item">
-                    <td><%= invoice.engagement_name %></td>
-                    <td><%= formatter.format(invoices[i].sub_total, {
+                    <td><%= items.item_description %></td>
+                    <td><%= formatter.format(items[i].item_amount, {
                         symbol: 'PHP',
                         decimal: '.',
                         thousand: ',',
-                        precision: 1,
+                        precision: 2,
+                        format: '%v %s'
+                      });
+                      %></td>
+                </tr>
+
+                <tr class="total">
+                    <td></td>
+                    <td>Subtotal: <%= formatter.format(invoice.sub_total, {
+                        symbol: 'PHP',
+                        decimal: '.',
+                        thousand: ',',
+                        precision: 2,
                         format: '%v %s'
                       });
                       %></td>
                 </tr>
                 <tr class="total">
                     <td></td>
-                    <td>Adjustments: <%= formatter.format(invoices[i].price_adjustments, {
+                    <td>Adjustments: <%= formatter.format(invoice.price_adjustments, {
                         symbol: 'PHP',
                         decimal: '.',
                         thousand: ',',
-                        precision: 1,
+                        precision: 2,
                         format: '%v %s'
                       });
                       %></td>
                 </tr>
                 <tr class="total">
                     <td></td>
-                    <td>Total: <%= formatter.format(invoices[i].total_amount, {
+                    <td>Total: <%= formatter.format(invoice.total_amount, {
                         symbol: 'PHP',
                         decimal: '.',
                         thousand: ',',
-                        precision: 1,
+                        precision: 2,
                         format: '%v %s'
                       });
                       %></td>
