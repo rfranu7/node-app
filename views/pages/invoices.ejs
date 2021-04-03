@@ -240,7 +240,7 @@
                 }
 
                 if(data.invoice.due_date) {
-                    const due_date = new Date(data.customer.due_date);
+                    const due_date = new Date(data.invoice.due_date);
                     const month = due_date.getMonth()+1;
                     const year = due_date.getFullYear();
                     const day = due_date.getDate();
@@ -260,7 +260,7 @@
                     }
 
                     const format = `${year}-${monthString}-${dateString}`;
-                    birthdayField.value = format;
+                    due_date_edit.value = format;
                 }
 
                 notes_edit.value = data.invoice.notes;

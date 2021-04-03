@@ -791,7 +791,7 @@ app.post('/update-invoice-status',
     return res.status(400).json({ errors: errors.array() });
   }
 
-  invoice.updateInvoiceStatus(updateData.id, data.invoice_status, (response) => {
+  invoice.updateInvoiceStatus(data.id, data.invoice_status, (response) => {
     console.log(response);
 
     res.setHeader("Content-Type", "application/json");
