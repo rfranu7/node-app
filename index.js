@@ -92,7 +92,7 @@ app.get('/invoices', verifyLogin, (req, res) => {
   });
 });
 
-app.get('/invoices/:id', verifyLogin, (req, res) => {
+app.get('/invoice/:id', verifyLogin, (req, res) => {
   const data = req.params;
   invoice.getInvoice(data.id, (response) => {
     console.log(response[0]);
@@ -654,7 +654,7 @@ app.post('/add-invoice',
 
     res.setHeader("Content-Type", "application/json");
     if(response.rowCount >= 1) {
-      return res.status(200).send({success: true, message: 'Invoice successfully created', invoice_id: response.rows[0].invoice_id, invoice_number: response.rows[0].invoice_number});
+      return res.status(200).send({success: true, message: 'Invoice successfully created', invoice_id: response.rows[0].invoice_id });
     } else {
       return res.status(500).send({success: false, message: 'an error occured while creating the invoice'});
     }
