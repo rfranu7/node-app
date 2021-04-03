@@ -35,7 +35,7 @@ export default class Engagement {
     }
 
     async getEnrolledStudents(engagement_id, callback) {
-        var sql = `SELECT customer_id, engagement_id, first_name, last_name, birthday, account_status, engagement_name FROM customer_engagement ce JOIN customers c ON c.customer_id = ce.customer_id JOIN engagements e ON e.engagement_id = ce.engagement_id WHERE ce.engagement_id = ${engagement_id}`;
+        var sql = `SELECT ce.customer_id, ce.engagement_id, first_name, last_name, birthday, account_status, engagement_name FROM customer_engagement ce JOIN customers c ON c.customer_id = ce.customer_id JOIN engagements e ON e.engagement_id = ce.engagement_id WHERE ce.engagement_id = ${engagement_id}`;
         dbRead(sql, callback)
     }
 }
