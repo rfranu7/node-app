@@ -459,7 +459,9 @@
                         <table>
                             <tr>
                                 <td class="title">
-                                    <img src="../images/logo.png" style="width: 100%; max-width: 100px" />
+                                    <div class="imageContainer">
+                                        <img src="../images/logo.png" style="width: 100%; max-width: 100px" />
+                                    </div>
                                 </td>
                                 <td>
                                     Invoice #: <%= invoice.invoice_number %><br />
@@ -510,6 +512,11 @@
                     </tr>
                     <% }
                 } %>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
 
                 <tr class="total">
                     <td></td>

@@ -351,6 +351,7 @@ select:focus {
   line-height: 24px;
   font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
   color: #555;
+  background: white;
 }
 
 .invoice-box table {
@@ -376,6 +377,13 @@ select:focus {
   font-size: 45px;
   line-height: 45px;
   color: #333;
+  width: 150px;
+}
+
+.invoice-box table tr.top table td.title .imageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .invoice-box table tr.information table td {
