@@ -30,7 +30,13 @@
                     <tr>
                         <td><%= programs[i].engagement_name %></td>
                         <td><%= programs[i].duration %></td>
-                        <td><%= programs[i].total_fee %></td>
+                        <td><%= formatter.format(programs[i].total_fee, {
+                            symbol: 'PHP',
+                            decimal: '.',
+                            thousand: ',',
+                            precision: 1,
+                            format: '%v %s'
+                          }); %></td>
                         <td>
                             <a href="/program/<%= programs[i].engagement_id %>" class="btn btn-dark">VIEW</a>
                             <button class="btn btn-dark editBtn" data-izimodal-open="#editModal"

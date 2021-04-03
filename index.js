@@ -7,6 +7,7 @@ import { body, validationResult } from 'express-validator';
 import session from 'express-session';
 import bcrypt from 'bcrypt';
 import moment from 'moment';
+import currencyFormatter from 'currency-formatter';
 
 // IMPORT CUSTOM MODULES
 import Customer from './modules/customers.js';
@@ -72,7 +73,7 @@ app.get('/programs', verifyLogin, (req, res) => {
   engagement.listEngagements((response) => {
     console.log(response);
 
-    res.render('pages/programs', {programs: response});
+    res.render('pages/programs', {programs: response, formatter: currencyFormatter});
   });
 });
 
@@ -89,7 +90,7 @@ app.get('/invoices', verifyLogin, (req, res) => {
   invoice.listInvoices((response) => {
     console.log(response);
 
-    res.render('pages/invoices', {invoices: response, moment: moment});
+    res.render('pages/invoices', {invoices: response, moment: moment, formatter: currencyFormatter});
   });
 });
 
@@ -100,7 +101,7 @@ app.get('/invoice/:id', verifyLogin, (req, res) => {
     invoice.getInvoiceItems(data.id, invoiceData, (response) => {
       console.log(response[0]);
   
-      res.render('pages/invoice', {invoice: invoiceData, items: response[0], moment: moment});
+      res.render('pages/invoice', {invoice: invoiceData, items: response[0], moment: moment, formatter: currencyFormatter});
     })
   });
 });
