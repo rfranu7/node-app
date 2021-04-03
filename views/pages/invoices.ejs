@@ -72,6 +72,8 @@
                         <td><%= invoices[i].notes %></td>
                         <td>
                             <a href="/invoice/<%= invoices[i].invoice_id %>" class="btn btn-dark">VIEW</a>
+                            <button class="btn btn-dark editBtn" data-izimodal-open="#editModal"
+                                data-izimodal-transitionin="fadeInDown" data-id="<%= invoices[i].invoice_id %>">EDIT</button>
                         </td>
                     </tr>
                     <% } %>
@@ -330,15 +332,15 @@
             });
         });
 
-        $(".invoice_status_input").click((e) => {
+        $(".invoice_status_input").change((e) => {
             e.preventDefault();
 
-            console.log(this.value);
-            console.log(this.dataset.id);
+            console.log(e.target.value);
+            console.log(e.target.dataset.id);
 
             const data = JSON.stringify({
-                "invoice_status": this.value,
-                "id": this.dataset.id,
+                "invoice_status": e.target.value,
+                "id": e.target.dataset.id,
             });
 
             fetch(BASE_URL + "/update-invoice-status", {
