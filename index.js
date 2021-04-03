@@ -669,7 +669,7 @@ app.post('/add-invoice',
 app.post('/add-invoice-item',
   body('invoice_id').isInt(),
   body('item_description').not().isEmpty().trim().escape(),
-  body('item_amount').isDate(),
+  body('item_amount').isNumeric(),
   verifyLogin,
   async (req, res) => {
 
