@@ -95,9 +95,12 @@ app.get('/invoices', verifyLogin, (req, res) => {
 app.get('/invoice/:id', verifyLogin, (req, res) => {
   const data = req.params;
   invoice.getInvoice(data.id, (response) => {
-    console.log(response[0]);
-
-    res.render('pages/invoice', {invoice: response[0]});
+    const invoiceData = response[0];
+    invoice.getInvoiceItems(data.id, invoiceData, (response) => {
+      console.log(response[0]);
+  
+      res.render('pages/invoice', {invoice: invoiceData, items: response[0]});
+    })
   });
 });
 

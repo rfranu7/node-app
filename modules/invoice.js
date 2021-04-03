@@ -104,7 +104,13 @@ export default class Invoice {
     }
 
     async getInvoice(invoice_id, callback) {
-        var sql = `SELECT * FROM ${tableName} i JOIN invoice_items it ON i.invoice_id = it.invoice_id WHERE i.invoice_id = ${invoice_id}`;
+        var sql = `SELECT * FROM ${tableName} WHERE invoice_id = ${invoice_id}`;
+        console.log(sql);
+        dbRead(sql, callback);
+    }
+
+    async getInvoiceItems(invoice_id, invoice, callback) {
+        var sql = `SELECT * FROM invoice_items WHERE invoice_id = ${invoice_id}`;
         console.log(sql);
         dbRead(sql, callback);
     }
