@@ -99,9 +99,9 @@ app.get('/invoice/:id', verifyLogin, (req, res) => {
   invoice.getInvoice(data.id, (response) => {
     const invoiceData = response[0];
     invoice.getInvoiceItems(data.id, invoiceData, (response) => {
-      console.log(response[0]);
+      console.log(response);
   
-      res.render('pages/invoice', {invoice: invoiceData, items: response[0], moment: moment, formatter: currencyFormatter});
+      res.render('pages/invoice', {invoice: invoiceData, items: response, moment: moment, formatter: currencyFormatter});
     })
   });
 });

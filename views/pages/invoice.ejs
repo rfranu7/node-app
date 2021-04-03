@@ -495,10 +495,10 @@
 
 
                 <% 
-                    if(items.length >= 1) {
+                    if(items 1) {
                     for(var i=0; i<items.length; i++) {%>
                     <tr class="item">
-                        <td><%= items.item_description %></td>
+                        <td><%= items[i].item_description %></td>
                         <td><%= formatter.format(items[i].item_amount, {
                             symbol: 'PHP',
                             decimal: '.',

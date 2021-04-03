@@ -32,7 +32,7 @@
                         <td><%= programs[i].duration %></td>
                         <td><%= formatter.format(programs[i].total_fee, {
                             symbol: 'PHP',
-                            decimal: '**',
+                            decimal: ',',
                             thousand: ',',
                             precision: 2,
                             format: '%v %s'

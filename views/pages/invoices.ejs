@@ -35,7 +35,7 @@
                     <% for(var i=0; i<invoices.length; i++){ %>
                     <tr>
                         <td><%= invoices[i].invoice_number %></td>
-                        <td><%= invoice.first_name %> <%= invoice.last_name %></td>
+                        <td><%= invoices[i].first_name %> <%= invoices[i].last_name %></td>
                         <td><%= invoices[i].engagement_name %></td>
                         <td><%= moment(invoices[i].due_date).format('ll') %></td>
                         <td><%= formatter.format(invoices[i].sub_total, {
