@@ -77,9 +77,9 @@ export default class Invoice {
                     } else if(key[0] == "status") {
                         sql += ` invoice_status = '${value}'`;
                     } else if(key[0] == "customer_id") {
-                        sql += ` customer_id = ${value}`;
+                        sql += ` i.customer_id = ${value}`;
                     } else if(key[0] == "engagement_id") {
-                        sql += ` engagement_id = ${value}`;
+                        sql += ` i.engagement_id = ${value}`;
                     }
                 } else {
                     if(key[0] == "start_date") {
@@ -89,9 +89,9 @@ export default class Invoice {
                     } else if(key[0] == "status") {
                         sql += ` invoice_status = '${value}'`;
                     } else if(key[0] == "customer_id") {
-                        sql += ` customer_id = ${value}`;
+                        sql += ` i.customer_id = ${value}`;
                     } else if(key[0] == "engagement_id") {
-                        sql += ` engagement_id = ${value}`;
+                        sql += ` i.engagement_id = ${value}`;
                     }
                     sql +=` AND`
                 }
@@ -104,7 +104,7 @@ export default class Invoice {
     }
 
     async getInvoice(invoice_id, callback) {
-        var sql = `SELECT * FROM ${tableName} JOIN customers c ON c.customer_id = i.customer_id JOIN engagements e ON e.engagement_id = i.engagement_id WHERE invoice_id = ${invoice_id}`;
+        var sql = `SELECT * FROM ${tableName} i JOIN customers c ON c.customer_id = i.customer_id JOIN engagements e ON e.engagement_id = i.engagement_id WHERE i.invoice_id = ${invoice_id}`;
         console.log(sql);
         dbRead(sql, callback);
     }
