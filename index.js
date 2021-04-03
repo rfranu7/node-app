@@ -668,7 +668,7 @@ app.post('/add-invoice',
 
 app.post('/add-invoice-item',
   body('invoice_id').isInt(),
-  body('item_description').isInt(),
+  body('item_description').not().isEmpty().trim().escape(),
   body('item_amount').isDate(),
   verifyLogin,
   async (req, res) => {
@@ -683,10 +683,21 @@ app.post('/add-invoice-item',
   invoice.addInvoiceItems(data.invoice_id, data.item_description, data.item_amount, (response) => {
     console.log(response);
 
-    res.setHeader("Content-Type", "application/json");
     if(response.rowCount >= 1) {
-      return res.status(200).send({success: true, message: 'Invoice item successfully added'});
+
+      invoice.updateInvoiceAmount(data.invoice_id, data.item_amount, (response) => {
+        console.log(response);
+
+        res.setHeader("Content-Type", "application/json");
+        if(response.rowCount >= 1) {
+          return res.status(200).send({success: true, message: 'Invoice item successfully added'});
+        } else {
+          return res.status(500).send({success: false, message: 'an error occured while creating the invoice item'});
+        }
+      });
+
     } else {
+      res.setHeader("Content-Type", "application/json");
       return res.status(500).send({success: false, message: 'an error occured while creating the invoice item'});
     }
   });

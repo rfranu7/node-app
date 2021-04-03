@@ -23,6 +23,12 @@ export default class Invoice {
         dbWrite(sql, callback);
     }
 
+    async updateInvoiceAmount(invoice_id, item_amount, callback) {
+        var sql = `UPDATE ${tableName} SET sub_total = ${item_amount} + sub_total, total_amount = ${item_amount} + sub_total - price_adjustments WHERE invoice_id = ${invoice_id}`;
+        console.log(sql);
+        dbWrite(sql, callback);
+    }
+
     async updateInvoiceStatus(invoice_id, invoice_status, callback) {
         var sql = `UPDATE ${tableName} SET invoice_status = ${invoice_status} WHERE invoice_id = ${invoice_id}`;
         console.log(sql);

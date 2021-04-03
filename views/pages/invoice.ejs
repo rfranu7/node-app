@@ -456,10 +456,10 @@
             <table cellpadding="0" cellspacing="0">
                 <tr class="top">
                     <td colspan="2">
-                        <table>
+                        <table class="inner-table">
                             <tr>
                                 <td class="title">
-                                    <div class="imageContainer">
+                                    <div class="image-container">
                                         <img src="../images/logo.png" style="width: 100%; max-width: 100px" />
                                     </div>
                                 </td>
@@ -474,7 +474,7 @@
                 </tr>
                 <tr class="information">
                     <td colspan="2">
-                        <table>
+                        <table class="inner-table">
                             <tr>
                                 <td>
                                     Harry R Singh<br />
@@ -513,7 +513,7 @@
                     <% }
                 } %>
 
-                <tr>
+                <tr class="empty">
                     <td></td>
                     <td></td>
                 </tr>
@@ -552,6 +552,31 @@
                       %></td>
                 </tr>
             </table>
+            <button class="btn btn-primary" data-izimodal-open="#addModal" data-izimodal-transitionin="fadeInDown">ADD INVOICE ITEM</button>
+        </div>
+
+    </div>
+
+    <!-- MODALS -->
+    <div id="addModal" aria-hidden="false" aria-labelledby="modal-custom" role="dialog" class="iziModal modals">
+
+        <div class="iziModal-content">
+            <form id="add_invoice_item_form" method="POST">
+                <h1>ADD INVOICE ITEM</h1>
+                <div class="group">
+                  <label for="item_description">Item Description</label>
+                  <input type="text" name="item_description" id="item_description">
+                </div>
+
+                <div class="group">
+                  <label for="item_amount">Amount</label>
+                  <input type="number" name="item_amount" id="item_amount">
+                </div>
+                
+                <input type="hidden" name="invoice_id" id="invoice_id" value="<%= invoice.invoice_id %>">
+
+                <button id="add_invoice_item" class="btn">SUBMIT</button>
+            </form>
         </div>
 
     </div>
@@ -559,6 +584,48 @@
     <script src="../scripts/jquery.min.js"></script>
     <script src="../scripts/popper.min.js"></script>
     <script src="../scripts/iziModal.min.js"></script>
+
+    <script>
+        const BASE_URL = "https://afternoon-dawn-87591.herokuapp.com";
+        
+        $("#addModal").iziModal({
+            overlayClose: true,
+            width: 600,
+            autoOpen: false,
+            overlayColor: 'rgba(0, 0, 0, 0.6)',
+        });
+
+        // SEND DATA
+        $("#add_invoice").click((e) => {
+            e.preventDefault();
+
+            const add_invoice_item_form = document.getElementById('add_invoice_item_form');
+            const formData = new FormData(add_invoice_item_form);
+
+            const data = JSON.stringify({
+                "item_description": formData.get("item_description"),
+                "item_amount": formData.get("item_amount"),
+                "invoice_id": formData.get("invoice_id"),
+            });
+
+            fetch(BASE_URL + "/add-invoice-item", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data,
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                if(data.success && data.invoice_id) {
+                  location.reload();
+                }
+            }).catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
+        }); 
+    </script>
 
 </body>
 

@@ -11,8 +11,7 @@
         <h1>Invoices</h1>
 
         <div class="cta-section">
-            <button class="btn btn-primary" data-izimodal-open="#addModal" data-izimodal-transitionin="fadeInDown">CREATE
-                NEW INVOICE</button>
+            <button class="btn btn-primary" data-izimodal-open="#addModal" data-izimodal-transitionin="fadeInDown">CREATE NEW INVOICE</button>
         </div>
 
         <div class="table-container">
@@ -65,18 +64,17 @@
                               var options = [ "", "Draft", "Open", "Finalized", "Paid", "Closed", "Void" ];
                               for ( var j = 0; j < options.length; j++ )
                               {
-                                  var selected = ( invoices[i].invoice_status == options[j] ) ? "selected" : "";
-                                  %><option value="<%=options[j] %>" <%=selected %>><%=options[j] %></option><%
-                              }
-                            %>
+                                  var selected = ( invoices[i].invoice_status == options[j] ) ? "selected" : ""; %>
+                                  <option value="<%=options[j] %>" <%=selected %>><%=options[j] %></option>
+                            <% } %>
                           </select>
                         </td>
                         <td><%= invoices[i].notes %></td>
                         <td>
-                            <a href="/invoices/<%= invoices[i].invoice_id %>" class="btn btn-dark">VIEW</a>
+                            <a href="/invoice/<%= invoices[i].invoice_id %>" class="btn btn-dark">VIEW</a>
                         </td>
                     </tr>
-                        <% } %>
+                    <% } %>
                 </tbody>
             </table>
         </div>

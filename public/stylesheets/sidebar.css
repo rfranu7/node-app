@@ -380,10 +380,18 @@ select:focus {
   width: 150px;
 }
 
-.invoice-box table tr.top table td.title .imageContainer {
+.invoice-box table tr.top table td.title .image-container {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.invoice-box table .inner-table {
+  border: none;
+}
+
+.invoice-box table .inner-table td {
+  border: none;
 }
 
 .invoice-box table tr.information table td {
@@ -394,6 +402,7 @@ select:focus {
   background: #eee;
   border-bottom: 1px solid #ddd;
   font-weight: bold;
+  text-align: center;
 }
 
 .invoice-box table tr.details td {
@@ -411,6 +420,14 @@ select:focus {
 .invoice-box table tr.total td:nth-child(2) {
   border-top: 2px solid #eee;
   font-weight: bold;
+}
+
+.empty {
+  height: 30px;
+}
+
+.empty td {
+  border: none;
 }
 
 @media only screen and (max-width: 600px) {
