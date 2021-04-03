@@ -707,10 +707,7 @@ app.post('/update-invoice',
   body('customer_id').optional(),
   body('engagement_id').optional(),
   body('due_date').optional(),
-  body('sub_total').optional(),
   body('price_adjustments').optional(),
-  body('total_amount').optional(),
-  body('invoice_status').escape().optional(),
   body('notes').escape().optional(),
   body('id').isInt(),
   verifyLogin,
@@ -751,28 +748,10 @@ app.post('/update-invoice',
       updateData.due_date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
     }
 
-    if(data.sub_total) {
-      updateData.sub_total = data.sub_total;
-    } else {
-      updateData.sub_total = invoiceData.sub_total;
-    }
-
     if(data.price_adjustments) {
       updateData.price_adjustments = data.price_adjustments;
     } else {
       updateData.price_adjustments = invoiceData.price_adjustments;
-    }
-
-    if(data.total_amount) {
-      updateData.total_amount = data.total_amount;
-    } else {
-      updateData.total_amount = invoiceData.total_amount;
-    }
-
-    if(data.invoice_status) {
-      updateData.invoice_status = data.invoice_status;
-    } else {
-      updateData.invoice_status = invoiceData.invoice_status;
     }
 
     if(data.notes) {
@@ -784,7 +763,7 @@ app.post('/update-invoice',
     console.log("udpated data");
     console.log(updateData);
 
-    invoice.updateInvoice(updateData.id, updateData.customer_id, updateData.engagement_id, updateData.due_date, updateData.sub_total, updateData.price_adjustments, updateData.total_amount, updateData.invoice_status, updateData.notes, (response) => {
+    invoice.updateInvoice(updateData.id, updateData.customer_id, updateData.engagement_id, updateData.due_date, updateData.price_adjustments, updateData.notes, (response) => {
       console.log(response);
 
       res.setHeader("Content-Type", "application/json");
@@ -798,7 +777,7 @@ app.post('/update-invoice',
 });
 
 app.post('/update-invoice-status',
-  body('invoice_status').escape().optional(),
+  body('invoice_status').escape(),
   body('id').isInt(),
   verifyLogin,
   async (req, res) => {

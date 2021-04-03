@@ -17,8 +17,8 @@ export default class Invoice {
     }
 
     // UPDATE
-    async updateInvoice(invoice_id, customer_id, engagement_id, due_date, sub_total, price_adjustments, total_amount, invoice_status, notes, callback) {
-        var sql = `UPDATE ${tableName} SET customer_id = ${customer_id}, engagement_id = ${engagement_id}, due_date = ${due_date}, sub_total = ${sub_total}, price_adjustments = ${price_adjustments}, total_amount = ${total_amount}, invoice_status = ${invoice_status}, notes = ${notes} WHERE invoice_id = ${invoice_id}`;
+    async updateInvoice(invoice_id, customer_id, engagement_id, due_date, price_adjustments, notes, callback) {
+        var sql = `UPDATE ${tableName} SET customer_id = ${customer_id}, engagement_id = ${engagement_id}, due_date = ${due_date}, price_adjustments = ${price_adjustments}, total_amount = total_amount - ${price_adjustments}, notes = ${notes} WHERE invoice_id = ${invoice_id}`;
         console.log(sql);
         dbWrite(sql, callback);
     }
