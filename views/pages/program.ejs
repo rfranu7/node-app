@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <%- include('../partials/head2'); %>
+</head>
+
+<body>
+    <header><%- include('../partials/header2'); %></header>
+
+    <div class="main-content">
+        <h1><%= students[0].engagement_name %></h1>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Birthday</th>
+                        <th>Account Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i<students.length; i++){ %>
+                    <tr>
+                        <td><%= students[i].first_name %> <%= students[i].last_name %></td>
+                        <td><%= students[i].birthday %></td>
+                        <td><%= students[i].account_status %></td>
+                    </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/popper.min.js"></script>
+
+</body>
+
+</html>

@@ -79,10 +79,10 @@ app.get('/programs', verifyLogin, (req, res) => {
 
 app.get('/program/:id', verifyLogin, (req, res) => {
   const data = req.params;
-  engagement.getEngagement(data.id, (response) => {
+  engagement.getEnrolledStudents(data.id, (response) => {
     console.log(response[0]);
 
-    res.render('pages/program', {program: response[0]});
+    res.render('pages/program', {students: response[0]});
   });
 });
 
@@ -530,6 +530,17 @@ app.get('/get-engagement', verifyLogin, async (req, res) => {
 
     res.setHeader("Content-Type", "application/json");
     return res.status(200).send({success: true, engagement: response[0]});
+  });
+})
+
+app.get('/get-enrolled-students', verifyLogin, async (req, res) => {
+  const data = req.query;
+
+  engagement.getEnrolledStudents(data.id, (response) => {
+    console.log(response[0]);
+
+    res.setHeader("Content-Type", "application/json");
+    return res.status(200).send({success: true, students: response[0]});
   });
 })
 
