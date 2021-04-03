@@ -31,7 +31,7 @@ export default class Invoice {
 
     // GET
     async listInvoices(callback, start_date = null, end_date = null, status = null, customer_id = null, engagement_id = null) {
-        var sql = `SELECT * FROM ${tableName}`;
+        var sql = `SELECT * FROM ${tableName} i JOIN customers c ON c.customer_id = i.customer_id JOIN engagements e ON e.engagement_id = i.engagement_id`;
         
         var filteredFields = [];
         
@@ -104,7 +104,7 @@ export default class Invoice {
     }
 
     async getInvoice(invoice_id, callback) {
-        var sql = `SELECT * FROM ${tableName} WHERE invoice_id = ${invoice_id}`;
+        var sql = `SELECT * FROM ${tableName} JOIN customers c ON c.customer_id = i.customer_id JOIN engagements e ON e.engagement_id = i.engagement_id WHERE invoice_id = ${invoice_id}`;
         console.log(sql);
         dbRead(sql, callback);
     }

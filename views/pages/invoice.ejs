@@ -1,7 +1,7 @@
 <html lang="en">
 
 <head>
-    <%- include('../partials/head'); %>
+    <%- include('../partials/head2'); %>
 
     <style>
         @import url(https://fonts.googleapis.com/css?family=Roboto:300);
@@ -459,13 +459,12 @@
                         <table>
                             <tr>
                                 <td class="title">
-                                    <img src="http://nextstepwebs.com/images/logo.png"
-                                        style="width: 100%; max-width: 300px" />
+                                    <img src="images/logo.png" style="width: 100%; max-width: 300px" />
                                 </td>
                                 <td>
                                     Invoice #: <%= invoice.invoice_number %><br />
-                                    Created: <%= invoice.bill_date %><br />
-                                    Due: <%= invoice.due_date %>
+                                    Created: <%= moment(invoice.bill_date).format('ll') %><br />
+                                    Due: <%= moment(invoice.due_date).format('ll') %>
                                 </td>
                             </tr>
                         </table>
@@ -521,9 +520,9 @@
 
     </div>
 
-    <script src="scripts/jquery.min.js"></script>
-    <script src="scripts/popper.min.js"></script>
-    <script src="scripts/iziModal.min.js"></script>
+    <script src="../scripts/jquery.min.js"></script>
+    <script src="../scripts/popper.min.js"></script>
+    <script src="../scripts/iziModal.min.js"></script>
 
 </body>
 

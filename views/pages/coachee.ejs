@@ -31,7 +31,7 @@
                     <tr>
                         <td><%= customers[i].first_name +' '+customers[i].last_name %></td>
                         <td><%= customers[i].email_address %></td>
-                        <td><%= customers[i].birthday %></td>
+                        <td><%= moment(customers[i].birthday).format('ll') %></td>
                         <td><%= customers[i].account_status %></td>
                         <td>
                             <button class="btn btn-dark editBtn" data-izimodal-open="#editModal"

@@ -6,6 +6,7 @@ import * as path from 'path';
 import { body, validationResult } from 'express-validator';
 import session from 'express-session';
 import bcrypt from 'bcrypt';
+import moment from 'moment';
 
 // IMPORT CUSTOM MODULES
 import Customer from './modules/customers.js';
@@ -63,7 +64,7 @@ app.get('/coachees', verifyLogin, (req, res) => {
   customer.listCustomers((response) => {
     console.log(response);
 
-    res.render('pages/coachee', {customers: response});
+    res.render('pages/coachee', {customers: response, moment: moment});
   });
 });
 
@@ -88,7 +89,7 @@ app.get('/invoices', verifyLogin, (req, res) => {
   invoice.listInvoices((response) => {
     console.log(response);
 
-    res.render('pages/invoices', {invoices: response});
+    res.render('pages/invoices', {invoices: response, moment: moment});
   });
 });
 
@@ -99,7 +100,7 @@ app.get('/invoice/:id', verifyLogin, (req, res) => {
     invoice.getInvoiceItems(data.id, invoiceData, (response) => {
       console.log(response[0]);
   
-      res.render('pages/invoice', {invoice: invoiceData, items: response[0]});
+      res.render('pages/invoice', {invoice: invoiceData, items: response[0], moment: moment});
     })
   });
 });

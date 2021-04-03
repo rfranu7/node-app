@@ -37,7 +37,7 @@
                         <td><%= invoices[i].invoice_number %></td>
                         <td><%= `${invoices.first_name} ${invoices.last_name}` %></td>
                         <td><%= invoices[i].engagement_name %></td>
-                        <td><%= invoices[i].due_date %></td>
+                        <td><%= moment(invoices[i].due_date).format('ll') %></td>
                         <td><%= invoices[i].sub_total %></td>
                         <td><%= invoices[i].price_adjustments %></td>
                         <td><%= invoices[i].total_amount %></td>
@@ -47,8 +47,8 @@
                               var options = [ "", "Draft", "Open", "Finalized", "Paid", "Closed", "Void" ];
                               for ( var j = 0; j < options.length; j++ )
                               {
-                                  var selected = ( invoices[i].invoice_status == j ) ? "selected" : "";
-                                  %><option value="<%=options[ j ] %>" <%=selected %>><%=j %></option><%
+                                  var selected = ( invoices[i].invoice_status == options[j] ) ? "selected" : "";
+                                  %><option value="<%=options[j] %>" <%=selected %>><%=options[j] %></option><%
                               }
                             %>
                           </select>
