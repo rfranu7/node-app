@@ -1,6 +1,5 @@
 // IMPORT MODULES
 import dotenv from 'dotenv';
-import cors from 'cors';
 import express from 'express';
 import * as path from 'path';
 import { body, validationResult } from 'express-validator';
@@ -33,7 +32,6 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
-app.use(cors());
 
 // INITIALIZE CLASSES
 const customer = new Customer();
