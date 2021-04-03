@@ -596,7 +596,7 @@
         });
 
         // SEND DATA
-        $("#add_invoice").click((e) => {
+        $("#add_invoice_item").click((e) => {
             e.preventDefault();
 
             const add_invoice_item_form = document.getElementById('add_invoice_item_form');
@@ -618,7 +618,7 @@
                 return response.json();
             }).then(function (data) {
                 console.log(data);
-                if(data.success && data.invoice_id) {
+                if(data.success) {
                   location.reload();
                 }
             }).catch(function (err) {
