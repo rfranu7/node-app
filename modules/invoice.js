@@ -5,7 +5,7 @@ export default class Invoice {
 
     // INSERT
     async addInvoice(invoice_number, customer_id, engagement_id, due_date, notes, callback) {
-        var sql = `INSERT INTO ${tableName} (invoice_number, customer_id, engagement_id, due_date, notes) VALUES ('${invoice_number}', '${customer_id}', '${engagement_id}', '${due_date}', '${notes}') RETURNING id`;
+        var sql = `INSERT INTO ${tableName} (invoice_number, customer_id, engagement_id, due_date, notes) VALUES ('${invoice_number}', '${customer_id}', '${engagement_id}', '${due_date}', '${notes}') RETURNING invoice_id`;
         console.log(sql);
         dbWrite(sql, callback);
     }
