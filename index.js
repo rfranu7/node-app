@@ -80,7 +80,7 @@ app.get('/program/:id', verifyLogin, (req, res) => {
   engagement.getEnrolledStudents(data.id, (response) => {
     console.log(response);
 
-    res.render('pages/program', {students: response});
+    res.render('pages/program', {students: response, moment: moment});
   });
 });
 
