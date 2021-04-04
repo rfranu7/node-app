@@ -112,9 +112,6 @@ app.get('/payment-plans', verifyLogin, (req, res) => {
   });
 });
 
-app.get('/dash', (req, res) => res.sendFile(path.join(__dirname,'public/dashboard.html')));
-app.get('/test', (req, res) => res.sendFile(path.join(__dirname,'public/home.html')));
-
 
 /*************************************************
 * CUSTOMERS API 
